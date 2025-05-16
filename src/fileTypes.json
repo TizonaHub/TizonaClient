@@ -1,0 +1,10 @@
+{
+    "directory": {
+        "icon": "../src/assets/icons/folder-solid.svg",
+        "color": "#7d7d7d"
+    },
+    "file": {
+        "icon": "../src/assets/icons/file-regular.svg",
+        "color": "#ffa200"
+    }
+}
