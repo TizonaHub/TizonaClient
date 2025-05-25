@@ -84,6 +84,7 @@ export default function ManageUsers() {
         ).then((response)=>{
             getUsers()
             if(response.ok)return showToast(langUsers.toasts[0],'success')
+            else if(response.status==500) showToast(lang['serverResponses'],'error')
             showToast(langUsers.toasts[1],'error')
         })
     }
@@ -112,6 +113,7 @@ export default function ManageUsers() {
                 const json = await response.json()
                 setUsers(json)
             }
+            else if (response.status==500) showToast(lang['serverResponses'],'error')
         })
         setSelectedUser(null)
         if (detailsViewRef.current) detailsViewRef.current.classList.remove('open')

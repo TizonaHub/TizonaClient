@@ -161,6 +161,7 @@ export default function UpdateUserForm({ userData, updateSelf, frMethods }) {
                         }
                     })
                 }
+                else if(response.status==500) showToast(lang['serverResponses'],'error')
                 else showToast(lang.toast[13], 'error')
             })
         }

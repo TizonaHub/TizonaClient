@@ -118,6 +118,7 @@ export default function LoginForm() {
                         }
                         return
                     }
+                    else if (response.status==500) showToast(lang['serverResponses'],'error')
                     let code = await response.json()
                     showToast(lang.toast[lang.toast.length - 1], 'error')
                 })
