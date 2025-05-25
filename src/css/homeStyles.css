@@ -69,17 +69,18 @@
   }
 
   .tabSelector {
-    .buttons{
+    .buttons {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+
     button:last-child {
       color: red;
     }
 
     button img {
-      width:  45px;
+      width: 45px;
       height: 45px;
     }
   }
@@ -146,6 +147,7 @@
 }
 
 .homeMain .editPanel {
+  will-change: auto;
   padding: 15px;
   justify-content: unset;
   overflow: hidden;
@@ -153,9 +155,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  &:hover{
+
+  &:hover {
     overflow: auto;
   }
+
   label {
     user-select: none;
     cursor: pointer;
@@ -234,34 +238,42 @@
   }
 
 }
-.settingsMain .depDetailsContainer{
-  h2{
+
+.settingsMain .depDetailsContainer {
+  h2 {
     font-size: 27px;
     margin-top: 15px;
   }
-  h3{
+
+  h3 {
     font-size: 20px !important;
   }
-  .repository{
+
+  .repository {
     margin-bottom: 40px;
   }
 }
-.licenseComponent{
+
+.licenseComponent {
   padding: 15px;
   box-sizing: border-box;
-  margin:20px 0;
+  margin: 20px 0;
   gap: 10px;
-  span{
+
+  span {
     width: 100%;
     text-align: left;
   }
-  span:first-of-type{
+
+  span:first-of-type {
     font-size: 18px;
   }
-  span:last-of-type{
-    font-size:14px;
+
+  span:last-of-type {
+    font-size: 14px;
   }
 }
+
 .controlPanel {
   border-radius: 20px;
   background-color: var(--darkColor);
@@ -454,6 +466,7 @@
       }
 
       .editPanel {
+        will-change: auto;
         scrollbar-color: gray transparent;
         width: 80%;
         padding: 0px 35px 30px;
