@@ -230,7 +230,7 @@
       width: 100%;
       height: 100%;
       position: absolute;
-      background-image: url(../src/assets/icons/editWhite.svg);
+      background-image: url(/src/assets/icons/editWhite.svg);
       background-repeat: no-repeat;
       background-position: center;
       background-size: 50%;
