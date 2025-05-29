@@ -10,8 +10,6 @@ It provides a clean and modern interface to interact with your TizonaHub server 
 - Clean, intuitive, and responsive user interface.
 - Works on any modern browser and any device connected to your network.
 
----
-
 ## ⚒️ Getting Started (Development)
 
 ### 1. Clone the repository
@@ -34,12 +32,9 @@ npm run dev
 
 - Make sure you have a TizonaServer instance running and accessible. By default, the client will try to connect to your local TizonaHub server.
 
----
-
 ## 📫 Feedback & Issues
 
 If you encounter any problems or have suggestions for improvements, feel free to open an [issue](https://github.com/TizonaHub/TizonaClient/issues) on GitHub.
 
----
 
 
