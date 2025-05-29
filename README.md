@@ -10,7 +10,7 @@ It provides a clean and modern interface to interact with your TizonaHub server 
 - Clean, intuitive, and responsive user interface.
 - Works on any modern browser and any device connected to your network.
 
-## ⚒️ Getting Started (Development)
+## ⚒️ Start development
 
 ### 1. Clone the repository
 
