@@ -13,7 +13,6 @@ export function checkPersonal(path, data) {
   return false
 }
 export async function changeResourceLocation(source, newLocation, targetData, directories) {
-  console.log('source: ', source);
   source = preparePath(source, checkPersonal(source, directories))
   newLocation = preparePath(newLocation, checkPersonal(newLocation, directories))
   //Checks
@@ -38,14 +37,39 @@ export async function changeResourceLocation(source, newLocation, targetData, di
     return result
   }
 }
+export function getDirectoryData(json, path) {
+  if (path) {
+    const split = path.split('/')
+    const index = split.length - 1
+    const currentResourcePath = split.slice(1, index)
+    let children = null
+    if (currentResourcePath.length == 0) return (json) // root
+    else if (currentResourcePath.length == 1) { //first level
+      children = json.filter((resource) => resource.name == currentResourcePath[0])[0].children
+      //if(!children) return false
+      return (children)
+    }
+    else {
+      currentResourcePath.forEach((res) => {
+        if (!children) { //first element on loop
+          children = json.filter((resource) => resource.name == currentResourcePath[0])[0].children
+        }
+        else {
+          children = children.filter((resource) => resource.name == res)[0].children
+        }
+      })
+      return (children)
 
+    }
+  }
+}
 //Removes 'root' or the first element from path, 
 export function preparePath(path, privateDir) {
   path = path.replace('root/', '')
   path = path.split('/')
   if (!privateDir) path.unshift('publicDirectories')
-    path.unshift('directories')
-    path.unshift('')
+  path.unshift('directories')
+  path.unshift('')
   return path.join('/')
 }
 export function shortenValue(data) {
@@ -76,7 +100,7 @@ export function getCookie(cookieName) {
 export function showToast(msg, type, styles) {
   if (!styles) styles = {
     backgroundColor: 'black', color: 'white', fontSize: '20px',
-    borderRadius: '100px'
+    borderRadius: '100px', gap: '10px'
   }
   switch (type) {
     case 'error':

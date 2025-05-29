@@ -70,8 +70,6 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
             if (!confirm(lang.alertMessages[0])) return resetSpanValue()
             let source = directoryTree + data.name
             source = preparePath(source, checkPersonal(source, directories))
-            console.log('source: ', source);
-
             formData.append('source', source)
             formData.append('newName', newName)
             fetch(prepareFetch('/api/resources/rename'), { //chageResourceName

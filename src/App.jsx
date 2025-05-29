@@ -141,7 +141,7 @@ function App() {
     sF.sortByType(directories)
     sF.sortPrivate(directories)
     useEffect(() => {
-      getDirectoryData()
+      setCurrentDirectoryData(functions.getDirectoryData(directories,directoryTree))
     },[directoryTree])
     useEffect(() => {
       const query=`?directory=/directories/publicDirectories&recursive=true&privateDir=true`
@@ -153,8 +153,8 @@ function App() {
           let json = await response.json()
           setDirectories(json)
           setClickedFile(false)
-          setCurrentDirectoryData(json)
-          getDirectoryData(json)
+          setCurrentDirectoryData(functions.getDirectoryData(json,directoryTree))
+          
         })
     }, [forceRender])
 
@@ -289,33 +289,6 @@ function App() {
         directoryTreeLocal = directoryTreeLocal.split('/').slice(0, -2).join('/') + '/'
         if (directoryTreeLocal == 'root') directoryTreeLocal = 'root/'
         setDirectoryTree(directoryTreeLocal)
-      }
-    }
-    function getDirectoryData(param) {
-      let data = param ? param : directories
-      if (directoryTree) {
-        const split = directoryTree.split('/')
-        const index = split.length - 1
-        const currentResourcePath = split.slice(1, index)
-        let children = null
-        if (currentResourcePath.length == 0) setCurrentDirectoryData(data) // root
-        else if (currentResourcePath.length == 1) { //first level
-          children = data.filter((resource) => resource.name == currentResourcePath[0])[0].children
-          //if(!children) return false
-          setCurrentDirectoryData(children)
-        }
-        else {
-          currentResourcePath.forEach((res) => {
-            if (!children) { //first element on loop
-              children = data.filter((resource) => resource.name == currentResourcePath[0])[0].children
-            }
-            else {
-              children = children.filter((resource) => resource.name == res)[0].children
-            }
-            setCurrentDirectoryData(children)
-          })
-
-        }
       }
     }
   }

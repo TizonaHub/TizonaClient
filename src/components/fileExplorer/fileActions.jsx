@@ -35,8 +35,11 @@ function FileActions({ directoryTree, clickedFile, frProps,
     )
     async function handleDownload() {
         if (!clickedFile) return
+        const directoryData=functions.getDirectoryData(directories,directoryTree)
         let source = directoryTree + clickedFile.id
         source = functions.prepareFetch(functions.preparePath(source, functions.checkPersonal(source, directories)))
+        const resource=directoryData.filter(item => new URL(item.uri, functions.getServerUri()).href == source);
+        if(resource && resource[0].type!='file')return functions.showToast('You can not download folders. This feature will be available in the future','error')
         const response = await fetch(source);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
