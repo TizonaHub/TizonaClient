@@ -23,8 +23,12 @@ cd TizonaClient
 ```bash
 npm install
 ```
-
-### 3. Start development server
+### 3. Generate Licenses
+This is necessary to visit License section in settings
+```bash
+python licenseGenerator.py
+```
+### 4. Start development server
 ```bash
 npm run dev
 ```
