@@ -1,0 +1,107 @@
+{
+    "de": {
+        "settings": {
+            "title": "Einstellungen",
+            "language": "Sprache",
+            "tabs": [
+                "Präferenzen",
+                "Thema",
+                "App-Informationen"
+            ],
+            "preferences": [],
+            "theme": [
+                "Farbschema",
+                "Hintergrund",
+                "Opazität verringern",
+                "Benutzerdefinierter Hintergrund"
+            ],
+            "information": [
+                "Speicher",
+                "Frei",
+                "Genutzt",
+                "Vom Server genutzt",
+                "Informationen",
+                "Client-Version: ",
+                "Server-Version: "
+            ]
+        },
+        "home": {
+            "title": "Startseite",
+            "tabs": [
+                "Dashboard",
+                "Bearbeiten",
+                "Abmelden"
+            ],
+            "cpanel": {
+                "tabs": {
+                    "users": {
+                        "title": "Benutzer",
+                        "toasts": [
+                            "Benutzer gelöscht",
+                            "Du kannst diesen Benutzer nicht löschen"
+                        ]
+                    },
+                    "history": {
+                        "title": "Verlauf"
+                    },
+                    "settings": {
+                        "title": "Einstellungen"
+                    }
+                }
+            }
+        },
+        "buttons": {
+            "create": "Erstellen",
+            "cancel": "Abbrechen"
+        },
+        "alertMessages": [
+            "Bist du sicher, dass du die Ressource umbenennen möchtest?",
+            "Die Ressource konnte nicht umbenannt werden",
+            "Der Ordner konnte nicht erstellt werden"
+        ],
+        "login": {
+            "toast": [
+                "Die Passwörter stimmen nicht überein",
+                "Das Passwort muss mehr als 8 Zeichen und weniger als 25 Zeichen haben",
+                "Der Name ist leer",
+                "Der Name ist zu lang",
+                "Das Passwort ist leer",
+                "Benutzer wird erstellt",
+                "Benutzer erstellt",
+                "Anmeldung läuft...",
+                "Ungültige Anmeldeinformationen",
+                "Benutzer wird aktualisiert...",
+                "Benutzer aktualisiert",
+                {
+                    "ER_DUP_ENTRY": "Dieser Benutzer existiert bereits"
+                },
+                "Der Benutzer konnte nicht erstellt werden",
+                "Benutzerdaten konnten nicht aktualisiert werden"
+            ]
+        },
+        "updateForm": [
+            "Schattenfilter",
+            "Name",
+            "Benutzername",
+            "Rolle",
+            "Benutzer",
+            "Administrator",
+            "Passwort",
+            "Passwort bestätigen"
+        ],
+        "serverResponses": [
+            "Verbindung zur Datenbank konnte nicht hergestellt werden",
+            "Du hast den Administrator-Benutzer erstellt",
+            "Ungültiges Token"
+        ],
+        "tabs": [
+            "Startseite",
+            "Dateien",
+            "Einstellungen"
+        ],
+        "misc": [
+            "Zurück",
+            "Schließen"
+        ]
+    }
+}

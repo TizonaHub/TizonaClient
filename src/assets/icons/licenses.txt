@@ -1,0 +1,21 @@
+--attribution required--
+brush https://icon-sets.iconify.design/mingcute/paint-brush-line/
+stopSign https://icon-sets.iconify.design/jam/stop-sign/
+expand - hide aside: https://icon-sets.iconify.design/tabler/layout-sidebar-right-expand-filled/  https://icon-sets.iconify.design/tabler/layout-sidebar-left-expand-filled/
+home https://icon-sets.iconify.design/ant-design/home-filled/
+cpanel https://icon-sets.iconify.design/iconoir/candlestick-chart/
+edit https://icon-sets.iconify.design/cuida/edit-outline/
+users https://icon-sets.iconify.design/heroicons/users-20-solid/
+lock: https://icon-sets.iconify.design/teenyicons/lock-circle-solid/
+userFolder: https://icon-sets.iconify.design/mdi/folder-user/
+wallpaper: https://icon-sets.iconify.design/material-symbols/wallpaper/
+video: https://icon-sets.iconify.design/mingcute/video-fill/
+download: https://icon-sets.iconify.design/material-symbols/download/
+
+--no attribution--
+crossIcon: https://icon-sets.iconify.design/maki/cross/
+
+
+fontAwesome: 
+arrowLeft -> abrir el svg
+angleleft -> abrir el svg

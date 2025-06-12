@@ -1,0 +1,107 @@
+{
+    "es": {
+        "settings": {
+            "title": "Ajustes",
+            "language": "Idioma",
+            "tabs": [
+                "Preferencias",
+                "Tema",
+                "Información de la aplicación"
+            ],
+            "preferences": [],
+            "theme": [
+                "Esquema de colores",
+                "Fondo",
+                "Reducir opacidad",
+                "Fondo de pantalla personalizado"
+            ],
+            "information": [
+                "Almacenamiento",
+                "Libre",
+                "Usado",
+                "Usado por el servidor",
+                "Información",
+                "Versión del cliente: ",
+                "versión del servidor: "
+            ]
+        },
+        "home": {
+            "title": "Inicio",
+            "tabs": [
+                "Panel de control",
+                "Editar",
+                "Cerrar sesión"
+            ],
+            "cpanel": {
+                "tabs": {
+                    "users": {
+                        "title": "Usuarios",
+                        "toasts": [
+                            "Usuario eliminado",
+                            "No puedes eliminar a este usuario"
+                        ]
+                    },
+                    "history": {
+                        "title": "Historial"
+                    },
+                    "settings": {
+                        "title": "Ajustes"
+                    }
+                }
+            }
+        },
+        "buttons": {
+            "create": "Crear",
+            "cancel": "Cancelar"
+        },
+        "alertMessages": [
+            "¿Seguro que quieres renombrar el recurso?",
+            "No se pudo cambiar el nombre del recurso",
+            "No se pudo crear la carpeta"
+        ],
+        "login": {
+            "toast": [
+                "Las contraseñas no coinciden",
+                "La contraseña debe tener más de 8 caracteres y menos de 25",
+                "El nombre está vacío",
+                "El nombre es demasiado largo",
+                "La contraseña está vacía",
+                "Creando usuario",
+                "Usuario creado",
+                "Iniciando sesión...",
+                "Credenciales incorrectas",
+                "Actualizando usuario...",
+                "Usuario actualizado",
+                {
+                    "ER_DUP_ENTRY": "Este usuario ya existe"
+                },
+                "No se pudo crear el usuario",
+                "No se han podido actualizar los datos del usuario"
+            ]
+        },
+        "updateForm": [
+            "Sombra",
+            "Nombre",
+            "Nombre de usuario",
+            "Rol",
+            "Usuario",
+            "Administrador",
+            "Contraseña",
+            "Confirmar contraseña"
+        ],
+        "serverResponses": [
+            "No se pudo conectar a la base de datos",
+            "Has creado al usuario administrador",
+            "Token inválido"
+        ],
+        "tabs": [
+            "Inicio",
+            "Archivos",
+            "Ajustes"
+        ],
+        "misc": [
+            "Volver",
+            "Cerrar"
+        ]
+    }
+}
