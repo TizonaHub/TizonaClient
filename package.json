@@ -15,8 +15,7 @@
   "self-hosted",
   "tizonahub",
   "react",
-]
-
+],
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
