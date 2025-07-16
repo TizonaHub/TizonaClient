@@ -1,0 +1,5 @@
+{
+    "images":["svg","jpg","jpeg","webp","png"],
+    "videos":["mp4","mov","mkv","webm","flv","avi","wmv","mpeg","mpg","m4v","flv"]
+
+}

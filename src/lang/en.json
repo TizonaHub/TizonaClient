@@ -1,0 +1,107 @@
+{
+    "en": {
+        "settings": {
+            "title": "Settings",
+            "language": "Language",
+            "tabs": [
+                "Preferences",
+                "Theme",
+                "App information"
+            ],
+            "preferences": [],
+            "theme": [
+                "Color scheme",
+                "Background",
+                "Reduce opacity",
+                "Custom wallpaper"
+            ],
+            "information": [
+                "Storage",
+                "Free",
+                "Used",
+                "Used by the server",
+                "Information",
+                "Client version: ",
+                "Server version:  "
+            ]
+        },
+        "home": {
+            "title": "Home",
+            "tabs": [
+                "Control panel",
+                "Edit",
+                "Log out"
+            ],
+            "cpanel": {
+                "tabs": {
+                    "users": {
+                        "title": "Users",
+                        "toasts": [
+                            "User deleted",
+                            "You can not delete this user"
+                        ]
+                    },
+                    "history": {
+                        "title": "History"
+                    },
+                    "settings": {
+                        "title": "Settings"
+                    }
+                }
+            }
+        },
+        "buttons": {
+            "create": "Create",
+            "cancel": "Cancel"
+        },
+        "alertMessages": [
+            "Rename resource?",
+            "Resource could not be renamed",
+            "could not create folder"
+        ],
+        "login": {
+            "toast": [
+                "Passwords do not match",
+                "Password length must be longer than 8 and lower than 25",
+                "Name must not be empty",
+                "Name length is too long",
+                "Password is empty",
+                "Creating user",
+                "User created",
+                "Loging in...",
+                "Invalid credentials",
+                "Updating user...",
+                "User updated",
+                {
+                    "ER_DUP_ENTRY": "This user already exists"
+                },
+                "Could not create user",
+                "could not update user data"
+            ]
+        },
+        "updateForm": [
+            "Shadow filter",
+            "Name",
+            "Username",
+            "Role",
+            "User",
+            "Admin",
+            "Password",
+            "Confirm password"
+        ],
+        "serverResponses": [
+            "could not connect to database",
+            "You created the admin profile",
+            "Invalid token"
+        ],
+        "tabs": [
+            "Home",
+            "Files",
+            "Settings"
+        ],
+        "misc": [
+            "Back",
+            "Close"
+        ]
+    }
+}

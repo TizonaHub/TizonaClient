@@ -1,0 +1,107 @@
+{
+    "fr": {
+        "settings": {
+            "title": "Paramètres",
+            "language": "Langue",
+            "tabs": [
+                "Préférences",
+                "Thème",
+                "Informations sur l'application"
+            ],
+            "preferences": [],
+            "theme": [
+                "Schéma de couleurs",
+                "Arrière-plan",
+                "Réduire l'opacité",
+                "Fond d'écran personnalisé"
+            ],
+            "information": [
+                "Stockage",
+                "Libre",
+                "Utilisé",
+                "Utilisé par le serveur",
+                "Informations",
+                "Version du client : ",
+                "Version du serveur : "
+            ]
+        },
+        "home": {
+            "title": "Accueil",
+            "tabs": [
+                "Tableau de bord",
+                "Modifier",
+                "Se déconnecter"
+            ],
+            "cpanel": {
+                "tabs": {
+                    "users": {
+                        "title": "Utilisateurs",
+                        "toasts": [
+                            "Utilisateur supprimé",
+                            "Vous ne pouvez pas supprimer cet utilisateur"
+                        ]
+                    },
+                    "history": {
+                        "title": "Historique"
+                    },
+                    "settings": {
+                        "title": "Paramètres"
+                    }
+                }
+            }
+        },
+        "buttons": {
+            "create": "Créer",
+            "cancel": "Annuler"
+        },
+        "alertMessages": [
+            "Êtes-vous sûr de vouloir renommer la ressource ?",
+            "Impossible de renommer la ressource",
+            "Impossible de créer le dossier"
+        ],
+        "login": {
+            "toast": [
+                "Les mots de passe ne correspondent pas",
+                "Le mot de passe doit contenir plus de 8 caractères et moins de 25",
+                "Le nom est vide",
+                "Le nom est trop long",
+                "Le mot de passe est vide",
+                "Création de l'utilisateur",
+                "Utilisateur créé",
+                "Connexion en cours...",
+                "Identifiants incorrects",
+                "Mise à jour de l'utilisateur...",
+                "Utilisateur mis à jour",
+                {
+                    "ER_DUP_ENTRY": "Cet utilisateur existe déjà"
+                },
+                "Impossible de créer l'utilisateur",
+                "Impossible de mettre à jour les données de l'utilisateur"
+            ]
+        },
+        "updateForm": [
+            "Filtre d'ombre",
+            "Nom",
+            "Nom d'utilisateur",
+            "Rôle",
+            "Utilisateur",
+            "Administrateur",
+            "Mot de passe",
+            "Confirmer le mot de passe"
+        ],
+        "serverResponses": [
+            "Impossible de se connecter à la base de données",
+            "Vous avez créé l'utilisateur administrateur",
+            "Token invalide"
+        ],
+        "tabs": [
+            "Accueil",
+            "Fichiers",
+            "Paramètres"
+        ],
+        "misc": [
+            "Retour",
+            "Fermer"
+        ]
+    }
+}
