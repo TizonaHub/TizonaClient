@@ -30,7 +30,7 @@ def main():
                 publisher=entryData['publisher']
             except:None
                 #print(f'publisher for {entry} was not found')
-            if entry=='tizonaclient@0.3.0':
+            if 'tizonaclient' in entry:
                 print(entryData)
                 license='MIT'
             licenseFiles.append('{'+f'"dependency": "{entry}","license": "{license}","licenseFile": "{licenseFile}","publisher": "{publisher}","url": "{url}","repository":"{repository}"'+"}")
