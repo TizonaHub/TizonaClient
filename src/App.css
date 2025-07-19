@@ -763,6 +763,7 @@ button:hover {
 
     .preferencesContainer {
       select {
+        color: white;
         border: solid gray 2px;
         border-radius: 5px;
         font-size: 18px;
