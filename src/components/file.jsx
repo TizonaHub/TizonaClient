@@ -110,7 +110,6 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
      */
     function handleFileClick(e) {
         let localDirectoryTree = data.dir ? data.dir : directoryTree
-        console.log(clickedFile);
         if (!renameFileModal) {
             let isNotEditable = e.target.contentEditable !== 'true';
             const isDirectory = data.type == 'directory'
