@@ -147,7 +147,7 @@
 }
 
 .homeMain .editPanel {
-  will-change: auto;
+  /*will-change: auto;*/
   padding: 15px;
   justify-content: unset;
   overflow: hidden;
@@ -466,7 +466,7 @@
       }
 
       .editPanel {
-        will-change: auto;
+        /*will-change: auto;*/
         scrollbar-color: gray transparent;
         width: 80%;
         padding: 0px 35px 30px;
