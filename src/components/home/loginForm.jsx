@@ -44,16 +44,21 @@ export default function LoginForm() {
                 toast.dismiss(promiseToast)
                 if (response.ok) {
                     let json = await response.json()
+
                     if (json && json.userToken) {
-                        localStorage.setItem('userData', JSON.stringify(json.userData))
-                        const cookie='userToken=' + JSON.stringify(json.userToken).slice(1, json.userToken.length + 1)+';path=/;max-age=5184000;'
-                        if (env.VITE_MODE == 'development') document.cookie = cookie
-                        app.FRApp.setFRApp(app.FRApp.FRApp + 1)
+                        LoadUserData(json)
                     }
                 }
                 else showToast(lang.toast[8], 'error')
             })
         }
+    }
+    function LoadUserData(json) {
+        localStorage.setItem('userData', JSON.stringify(json.userData))
+        const cookie = 'userToken=' + JSON.stringify(json.userToken).slice(1, json.userToken.length + 1) + ';path=/;max-age=5184000;'
+        if (env.VITE_MODE == 'development') document.cookie = cookie
+        app.FRApp.setFRApp(app.FRApp.FRApp + 1)
+
     }
     function Register() {
         let usernameRef = useRef(null)
@@ -107,18 +112,17 @@ export default function LoginForm() {
                         try {
                             json = await response.json();
                             if (json && json.userToken) {
-                                localStorage.setItem('userData', JSON.stringify(json.user))
-                                if (env.VITE_MODE == 'development') document.cookie = 'userToken=' + JSON.stringify(json.userToken).slice(1, json.userToken.length+1)
+                                LoadUserData(json)
                             }
-                            if (json && json.user.role == 100) {
-                                setAdminCreated(json.user)
+                            if (json && json.userData.role == 100) {
+                                setAdminCreated(json.userData)
                             }
                         } catch (error) {
                             console.error('error: ', error.msg);
                         }
                         return
                     }
-                    else if (response.status==500) showToast(lang['serverResponses'],'error')
+                    else if (response.status == 500) showToast(lang['serverResponses'], 'error')
                     let code = await response.json()
                     showToast(lang.toast[lang.toast.length - 1], 'error')
                 })
