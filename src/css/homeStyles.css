@@ -4,148 +4,160 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-
-  .mainPanelHome {
-    background-color: var(--darkColor);
-    min-width: 400px;
-    border-radius: 20px;
-    min-height: 500px;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    animation: var(--animationPreset1);
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: auto;
-    box-sizing: border-box;
-    scrollbar-color: gray transparent;
-
-    .row:nth-of-type(1) {
-      display: flex;
-      align-items: center;
-      height: 50px;
-      justify-content: center;
-      padding: 0;
-      margin: 0;
-
-    }
-
-    .avatarButton {
-      width: fit-content;
-      padding: 0;
-      margin: 10px 0 0;
-      border: none;
-
-      &:hover {
-        border: none;
-      }
-    }
-
-    .userAvatar {
-      width: 500px;
-      margin-bottom: 20px;
-    }
-
-    .userAvatar {
-      width: fit-content;
-    }
-
-    .goBackButton {
-      align-self: flex-start;
-      position: relative;
-      width: fit-content;
-    }
-
-    button {
-      width: 250px;
-      gap: 15px;
-      display: flex;
-      flex-direction: row;
-      font-size: 22px;
-      padding: 10px;
-    }
-  }
-
-  .tabSelector {
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    button:last-child {
-      color: red;
-    }
-
-    button img {
-      width: 45px;
-      height: 45px;
-    }
-  }
-
-
-  .loginForm,
-  .registerForm,
-  .adminCreatedComponent {
-    min-width: 300px;
-    min-height: 439px;
-    width: 30%;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--darkColor);
-    border-radius: 20px;
-    padding: 20px 20px;
-
-    h2 {
-      font-size: 40px;
-    }
-
-    h3 {
-      width: 73%;
-      font-size: 23px;
-      margin: 10px;
-    }
-
-    input[type='text'],
-    input[type='password'] {
-      padding: 10px 10px 10px 20px;
-      font-size: 15px;
-      border: none;
-      border-radius: 20px;
-      width: 70%;
-    }
-
-    input[type='submit'] {
-      margin-top: 30px;
-      background-color: var(--mainColor);
-      color: white;
-      border-radius: 20px;
-      cursor: pointer;
-      text-shadow: 0 0 10px black;
-      border: none;
-      width: 35%;
-      padding: 5px;
-      font-size: 25px;
-
-      &:active {
-        background-color: var(--gradientOne);
-        transform: scale(0.98);
-      }
-    }
-  }
-
-  .registerForm {
-    height: fit-content;
-    overflow: auto;
-    max-height: 100%;
-    padding-bottom: 40px;
-  }
 }
 
+/* .mainPanelHome */
+.homeMain .mainPanelHome {
+  background-color: var(--darkColor);
+  min-width: 400px;
+  border-radius: 20px;
+  min-height: 500px;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  animation: var(--animationPreset1);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;
+  scrollbar-color: gray transparent;
+}
+
+.homeMain .mainPanelHome .row:nth-of-type(1) {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.homeMain .mainPanelHome .avatarButton {
+  width: fit-content;
+  padding: 0;
+  margin: 10px 0 0;
+  border: none;
+}
+
+.homeMain .mainPanelHome .avatarButton:hover {
+  border: none;
+}
+
+.homeMain .mainPanelHome .userAvatar {
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+.homeMain .mainPanelHome .userAvatar {
+  width: fit-content;
+}
+
+.homeMain .mainPanelHome .goBackButton {
+  align-self: flex-start;
+  position: relative;
+  width: fit-content;
+}
+
+.homeMain .mainPanelHome button {
+  width: 250px;
+  gap: 15px;
+  display: flex;
+  flex-direction: row;
+  font-size: 22px;
+  padding: 10px;
+}
+
+/* .tabSelector */
+.homeMain .tabSelector .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.homeMain .tabSelector button:last-child {
+  color: red;
+}
+
+.homeMain .tabSelector button img {
+  width: 45px;
+  height: 45px;
+}
+
+/* forms */
+.homeMain .loginForm,
+.homeMain .registerForm,
+.homeMain .adminCreatedComponent {
+  min-width: 300px;
+  min-height: 439px;
+  width: 30%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--darkColor);
+  border-radius: 20px;
+  padding: 20px 20px;
+}
+
+.homeMain .loginForm h2,
+.homeMain .registerForm h2,
+.homeMain .adminCreatedComponent h2 {
+  font-size: 40px;
+}
+
+.homeMain .loginForm h3,
+.homeMain .registerForm h3,
+.homeMain .adminCreatedComponent h3 {
+  width: 73%;
+  font-size: 23px;
+  margin: 10px;
+}
+
+.homeMain .loginForm input[type='text'],
+.homeMain .loginForm input[type='password'],
+.homeMain .registerForm input[type='text'],
+.homeMain .registerForm input[type='password'],
+.homeMain .adminCreatedComponent input[type='text'],
+.homeMain .adminCreatedComponent input[type='password'] {
+  padding: 10px 10px 10px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 20px;
+  width: 70%;
+}
+
+.homeMain .loginForm input[type='submit'],
+.homeMain .registerForm input[type='submit'],
+.homeMain .adminCreatedComponent input[type='submit'] {
+  margin-top: 30px;
+  background-color: var(--mainColor);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  text-shadow: 0 0 10px black;
+  border: none;
+  width: 35%;
+  padding: 5px;
+  font-size: 25px;
+}
+
+.homeMain .loginForm input[type='submit']:active,
+.homeMain .registerForm input[type='submit']:active,
+.homeMain .adminCreatedComponent input[type='submit']:active {
+  background-color: var(--gradientOne);
+  transform: scale(0.98);
+}
+
+.homeMain .registerForm {
+  height: fit-content;
+  overflow: auto;
+  max-height: 100%;
+  padding-bottom: 40px;
+}
+
+/* .editPanel */
 .homeMain .editPanel {
   /*will-change: auto;*/
   padding: 15px;
@@ -155,125 +167,122 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &:hover {
-    overflow: auto;
-  }
-
-  label {
-    user-select: none;
-    cursor: pointer;
-    font-size: 20px;
-  }
-
-  input[type='color'] {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    appearance: none;
-    border: none;
-    height: 40px;
-    width: 40px;
-    margin: auto;
-    align-self: center;
-  }
-
-  input[type='submit'] {
-    margin-top: 40px;
-    width: 200px;
-    height: 50px;
-    font-size: 25px;
-    text-align: center;
-    background-color: transparent;
-    color: white;
-    border: solid var(--mainColor)4px;
-    border-radius: 30px;
-
-    &:hover {
-      cursor: pointer;
-      background-color: var(--thirdColor);
-    }
-  }
-
-  .row {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    width: 350px;
-
-    input[type='checkbox'] {
-      transform: scale(1.5);
-      cursor: pointer;
-    }
-
-    input:checked {
-      accent-color: var(--mainColor);
-    }
-  }
-
-  .avatarContainer {
-    border-radius: 100px;
-    overflow: hidden;
-    position: relative;
-
-    &:hover {
-      &:before {
-        opacity: 0.6;
-        z-index: 1;
-      }
-    }
-
-    &:before {
-      opacity: 0;
-      content: '';
-      background-color: gray;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-image: url(/src/assets/icons/editWhite.svg);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 50%;
-    }
-  }
-
 }
 
-.settingsMain .depDetailsContainer {
-  h2 {
-    font-size: 27px;
-    margin-top: 15px;
-  }
-
-  h3 {
-    font-size: 20px !important;
-  }
-
-  .repository {
-    margin-bottom: 40px;
-  }
+.homeMain .editPanel:hover {
+  overflow: auto;
 }
 
+.homeMain .editPanel label {
+  user-select: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.homeMain .editPanel input[type='color'] {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  appearance: none;
+  height: 40px;
+  width: 40px;
+  margin: auto;
+  align-self: center;
+}
+
+.homeMain .editPanel input[type='submit'] {
+  margin-top: 40px;
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  text-align: center;
+  background-color: transparent;
+  color: white;
+  border: solid var(--mainColor) 4px;
+  border-radius: 30px;
+}
+
+.homeMain .editPanel input[type='submit']:hover {
+  cursor: pointer;
+  background-color: var(--thirdColor);
+}
+
+.homeMain .editPanel .row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.homeMain .editPanel .row input[type='checkbox'] {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+.homeMain .editPanel .row input:checked {
+  accent-color: var(--mainColor);
+}
+
+.homeMain .editPanel .avatarContainer {
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.homeMain .editPanel .avatarContainer:hover::before {
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.homeMain .editPanel .avatarContainer::before {
+  opacity: 0;
+  content: '';
+  background-color: gray;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url(/src/assets/icons/editWhite.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+
+/* settingsMain depDetails */
+.settingsMain .depDetailsContainer h2 {
+  font-size: 27px;
+  margin-top: 15px;
+}
+
+.settingsMain .depDetailsContainer h3 {
+  font-size: 20px !important;
+}
+
+.settingsMain .depDetailsContainer .repository {
+  margin-bottom: 40px;
+}
+
+/* licenseComponent */
 .licenseComponent {
   padding: 15px;
   box-sizing: border-box;
   margin: 20px 0;
   gap: 10px;
-
-  span {
-    width: 100%;
-    text-align: left;
-  }
-
-  span:first-of-type {
-    font-size: 18px;
-  }
-
-  span:last-of-type {
-    font-size: 14px;
-  }
 }
 
+.licenseComponent span {
+  width: 100%;
+  text-align: left;
+}
+
+.licenseComponent span:first-of-type {
+  font-size: 18px;
+}
+
+.licenseComponent span:last-of-type {
+  font-size: 14px;
+}
+
+/* controlPanel */
 .controlPanel {
   border-radius: 20px;
   background-color: var(--darkColor);
@@ -286,309 +295,304 @@
   overflow: hidden;
   padding: 30px;
   box-sizing: border-box;
+}
 
-  .goBackButton {
-    position: relative;
-    top: 0;
-    align-self: flex-start;
-  }
+.controlPanel .goBackButton {
+  position: relative;
+  top: 0;
+  align-self: flex-start;
+}
 
-  .controlPanelDisplayer {
-    flex-direction: column;
-    margin-top: 25px;
-    width: 100%;
-    padding: 0 50px;
-    row-gap: 20px;
-    display: flex;
-    box-sizing: border-box;
-    flex: 1;
-    overflow: hidden;
+.controlPanel .controlPanelDisplayer {
+  flex-direction: column;
+  margin-top: 25px;
+  width: 100%;
+  padding: 0 50px;
+  row-gap: 20px;
+  display: flex;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: hidden;
+}
 
-    nav {
-      position: relative;
-      width: 100%;
-      overflow-x: auto;
-      justify-content: center;
-      gap: 50px;
-      height: fit-content;
-      display: flex;
-      font-weight: 400;
+.controlPanel .controlPanelDisplayer nav {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: center;
+  gap: 50px;
+  height: fit-content;
+  display: flex;
+  font-weight: 400;
+}
 
-      button {
-        position: relative;
-        font-size: 20px;
-        border: none;
-        border-bottom: solid transparent 3px;
-        border-radius: 0;
-        position: relative;
+.controlPanel .controlPanelDisplayer nav button {
+  position: relative;
+  font-size: 20px;
+  border: none;
+  border-bottom: solid transparent 3px;
+  border-radius: 0;
+  position: relative;
+}
 
-        &:hover {
-          border-color: var(--mainColor);
-        }
-      }
-    }
+.controlPanel .controlPanelDisplayer nav button:hover {
+  border-color: var(--mainColor);
+}
 
-    .icon {
-      width: 80px;
-      height: 80px;
-      filter: drop-shadow(0 0 3px rgb(95, 95, 95));
-    }
+.controlPanel .controlPanelDisplayer .icon {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 3px rgb(95, 95, 95));
+}
 
-    .cpanelTabContainer {
-      display: flex;
-      scrollbar-width: none;
-      position: relative;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      height: 1px;
-      flex-grow: 1;
-    }
+.controlPanel .controlPanelDisplayer .cpanelTabContainer {
+  display: flex;
+  scrollbar-width: none;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  height: 1px;
+  flex-grow: 1;
+}
 
+.controlPanel .controlPanelDisplayer .iconContainer {
+  background-color: var(--thirdColor);
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  border-bottom: solid 1px var(--mainColor);
+}
 
-    .iconContainer {
-      background-color: var(--thirdColor);
-      width: 100%;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      border-bottom: solid 1px var(--mainColor);
-    }
+.controlPanel .controlPanelDisplayer .detailsView.open {
+  max-width: 40%;
+  flex: 1;
+}
 
-    .detailsView.open {
-      max-width: 40%;
-      flex: 1;
-    }
+.controlPanel .controlPanelDisplayer .separator {
+  width: 0;
+  height: 100%;
+  border: solid white 1px;
+}
 
-    .separator {
-      width: 0;
-      height: 100%;
-      border: solid white 1px;
-    }
+.controlPanel .controlPanelDisplayer .detailsView {
+  border-radius: 0 20px 20px 0;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  border-radius: 0;
+}
 
-    .detailsView {
-      border-radius: 0 20px 20px 0;
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      overflow: hidden;
-      border-radius: 0;
+.controlPanel .controlPanelDisplayer .detailsView .actions {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
 
-      .actions {
-        display: flex;
-        width: 50%;
-        justify-content: space-between;
+.controlPanel .controlPanelDisplayer .detailsView .actions button {
+  transition: 0.2s;
+  padding: 5px;
+  border: solid 3px;
+}
 
-        button {
-          transition: 0.2s;
-          padding: 5px;
-          border: solid 3px;
+.controlPanel .controlPanelDisplayer .detailsView .actions button:hover {
+  background-color: rgba(128, 128, 128, 0.452);
+}
 
-          &:hover {
-            background-color: rgba(128, 128, 128, 0.452);
-          }
-        }
+.controlPanel .controlPanelDisplayer .detailsView .actions img,
+.controlPanel .controlPanelDisplayer .detailsView .actions .trashIcon {
+  width: 40px;
+  height: 40px;
+}
 
-        img,
-        .trashIcon {
-          width: 40px;
-          height: 40px;
-        }
+.controlPanel .controlPanelDisplayer .detailsView .actions button:last-of-type {
+  border-color: red;
+}
 
-        button:last-of-type {
-          border-color: red;
+.controlPanel .controlPanelDisplayer .detailsView .actions button:last-of-type:hover {
+  background-color: rgba(134, 1, 1, 0.452);
+}
 
-          &:hover {
-            background-color: rgba(134, 1, 1, 0.452);
-          }
-        }
-      }
+.controlPanel .controlPanelDisplayer .detailsView .main {
+  scrollbar-color: gray transparent;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  justify-content: flex-start;
+}
 
-      .main {
-        scrollbar-color: gray transparent;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        justify-content: flex-start;
+.controlPanel .controlPanelDisplayer .detailsView .main .goBackButton {
+  margin-bottom: 20px;
+}
 
-        .goBackButton {
-          margin-bottom: 20px;
+.controlPanel .controlPanelDisplayer .detailsView .main .goBackButton span {
+  font-size: 22px;
+}
 
-          span {
-            font-size: 22px;
-          }
+.controlPanel .controlPanelDisplayer .detailsView .main .goBackButton .backIcon {
+  width: 30px;
+  height: 30px;
+}
 
-          .backIcon {
-            width: 30px;
-            height: 30px;
-          }
-        }
+.controlPanel .controlPanelDisplayer .detailsView .main .editPanel .userAvatar {
+  height: inherit;
+}
 
-        .editPanel .userAvatar {
-          height: inherit;
+.controlPanel .controlPanelDisplayer .detailsView .main .editPanel .userAvatar::before {
+  background-image: url(../assets/icons/editWhite.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-          &::before {
-            background-image: url(../assets/icons/editWhite.svg);
-            background-repeat: no-repeat;
-            background-position: center;
-          }
-        }
-      }
+.controlPanel .controlPanelDisplayer .detailsView .userAvatar {
+  flex-direction: column;
+  height: fit-content;
+  gap: 5px;
+}
 
-      .userAvatar {
-        flex-direction: column;
-        height: fit-content;
-        gap: 5px;
+.controlPanel .controlPanelDisplayer .detailsView .userAvatar .names {
+  margin: 0;
+  width: 100%;
+  height: 70px;
+}
 
-        .names {
-          margin: 0;
-          width: 100%;
-          height: 70px;
-        }
+.controlPanel .controlPanelDisplayer .detailsView .userAvatar .avatarContainer {
+  width: 120px;
+  height: 120px;
+}
 
-        .avatarContainer {
-          width: 120px;
-          height: 120px;
-        }
+.controlPanel .controlPanelDisplayer .detailsView .userAvatar .userLetter {
+  font-size: 80px;
+  text-align: center;
+}
 
-        .userLetter {
-          font-size: 80px;
-          text-align: center;
-        }
-      }
+.controlPanel .controlPanelDisplayer .detailsView .editPanel {
+  /*will-change: auto;*/
+  scrollbar-color: gray transparent;
+  width: 80%;
+  padding: 0px 35px 30px;
+}
 
-      .editPanel {
-        /*will-change: auto;*/
-        scrollbar-color: gray transparent;
-        width: 80%;
-        padding: 0px 35px 30px;
+.controlPanel .controlPanelDisplayer .detailsView .editPanel .row {
+  width: 100%;
+  flex-direction: column;
+}
 
-        .row {
-          width: 100%;
-          flex-direction: column;
-        }
+.controlPanel .controlPanelDisplayer .detailsView .editPanel .avatarContainer {
+  width: 100px;
+  height: 100px;
+}
 
-        .avatarContainer {
-          width: 100px;
-          height: 100px;
-        }
+.controlPanel .controlPanelDisplayer .detailsView .editPanel .userLetter {
+  font-size: 60px;
+}
 
-        .userLetter {
-          font-size: 60px;
-        }
-      }
+.controlPanel .controlPanelDisplayer .detailsView.closed {
+  width: 0;
+}
 
+/* users */
+.controlPanel .controlPanelDisplayer div.usersMain {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  flex: 1;
+  max-width: 50%;
+  scrollbar-width: none;
+}
 
-    }
+.controlPanel .controlPanelDisplayer .usersDisplayer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+  gap: 15px;
+  box-sizing: border-box;
+  padding: 15px;
+  padding-top: 25px;
+  width: 100%;
+  overflow-y: auto;
+  /*background-color: var(--fixedDarkColor);*/
+}
 
-    .detailsView.closed {
-      width: 0;
-    }
+.controlPanel .controlPanelDisplayer .roleTag {
+  margin-top: 10px;
+  font-size: 17px;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 2px 15px;
+  white-space: nowrap;
+}
 
-    div.usersMain {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-radius: 20px;
-      overflow: hidden;
-      flex: 1;
-      max-width: 50%;
-      scrollbar-width: none;
-    }
+.controlPanel .controlPanelDisplayer .userAvatarWrapper {
+  user-select: none;
+  cursor: pointer;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  height: 100px;
+  gap: 15px;
+  align-items: center;
+  flex-direction: row;
+}
 
-    .usersDisplayer {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      scrollbar-width: none;
-      gap: 15px;
-      box-sizing: border-box;
-      padding: 15px;
-      padding-top: 25px;
-      width: 100%;
-      overflow-y: auto;
-      /*background-color: var(--fixedDarkColor);*/
-    }
+.controlPanel .controlPanelDisplayer .userAvatarWrapper .roleBall {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 100px;
+}
 
-    .roleTag {
-      margin-top: 10px;
-      font-size: 17px;
-      border-radius: 5px;
-      width: fit-content;
-      padding: 2px 15px;
-      white-space: nowrap;
-    }
+.controlPanel .controlPanelDisplayer .userAvatarWrapper .angleLeft {
+  transition: 0.15s;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transform: rotate(180deg);
+}
 
-    .userAvatarWrapper {
-      user-select: none;
-      cursor: pointer;
-      margin: auto;
-      width: 95%;
-      display: flex;
-      height: 100px;
-      gap: 15px;
-      align-items: center;
-      flex-direction: row;
+.controlPanel .controlPanelDisplayer .userAvatarWrapper .actions {
+  transition: 0.2s;
+  background-color: red;
+  height: 0;
+}
 
-      .roleBall {
-        width: 10px;
-        height: 10px;
-        background-color: red;
-        border-radius: 100px;
-      }
+.controlPanel .controlPanelDisplayer .userAvatar {
+  width: 85%;
+  flex-direction: row;
+  gap: 20px;
+}
 
-      .angleLeft {
-        transition: 0.15s;
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-        transform: rotate(180deg);
-        ;
-      }
+.controlPanel .controlPanelDisplayer .userAvatar .names {
+  padding: 0;
+  overflow: hidden;
+}
 
-      .actions {
-        transition: 0.2s;
-        background-color: red;
-        height: 0;
-      }
-    }
+.controlPanel .controlPanelDisplayer .userAvatar .names span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
 
-    .userAvatar {
-      width: 85%;
-      flex-direction: row;
-      gap: 20px;
+.controlPanel .controlPanelDisplayer .userAvatar .avatarContainer {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+}
 
-      .names {
-        padding: 0;
-        overflow: hidden;
-
-        span {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          flex: 1;
-        }
-      }
-
-      .avatarContainer {
-        min-width: 50px;
-        width: 50px;
-        height: 50px;
-
-        span {
-          font-size: 35px;
-        }
-      }
-    }
-
-
-  }
+.controlPanel .controlPanelDisplayer .userAvatar .avatarContainer span {
+  font-size: 35px;
 }

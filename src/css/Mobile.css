@@ -1,508 +1,446 @@
 @media screen and (max-width:1200px) {
-    .settingsMain {
-        .settingsContent {
-            .themeContainer:nth-child(2) {
-                >div {
-                    width: 100%;
-                }
-            }
-        }
-    }
+  .settingsMain .settingsContent .themeContainer:nth-child(2) > div {
+    width: 100%;
+  }
 }
 
-
 .storageChartWrapper {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 @media screen and (max-width:1100px) {
-    .storageChartWrapper {
-        margin-bottom: 20px;
-        flex-direction: column;
-    }
+  .storageChartWrapper {
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
 
-    .settingsMain {
-        padding: 30px;
+  .settingsMain {
+    padding: 30px;
+  }
 
-        .settingsNavigation {
-            width: 25%;
+  .settingsMain .settingsNavigation {
+    width: 25%;
+  }
 
-            div.tabSelector {
-                width: 100%;
-                font-size: 15px;
+  .settingsMain .settingsNavigation div.tabSelector {
+    width: 100%;
+    font-size: 15px;
+  }
 
-                div.svg {
-                    width: 30px;
-                    height: 30px;
-                }
-            }
-        }
+  .settingsMain .settingsNavigation div.tabSelector div.svg {
+    width: 30px;
+    height: 30px;
+  }
 
-        .settingsContent {
-            .wallpaperWrapper {
-                width: 150px;
-                height: 100px;
-            }
-        }
-    }
-
+  .settingsMain .settingsContent .wallpaperWrapper {
+    width: 150px;
+    height: 100px;
+  }
 }
 
 @media screen and (max-width:1000px) {
-    aside {
-        align-items: center;
-        padding-top: 20px;
-        width: 80px;
+  aside {
+    align-items: center;
+    padding-top: 20px;
+    width: 80px;
+  }
 
-        .containIcon {
-            display: none;
-        }
+  aside .containIcon {
+    display: none;
+  }
 
-        button {
-            width: 85%;
-            padding: 7px;
-        }
+  aside button {
+    width: 85%;
+    padding: 7px;
+  }
 
-        span {
-            display: none;
-        }
+  aside span {
+    display: none;
+  }
 
-    }
+  .pathNavMobile {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 
-    .pathNavMobile {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+  .pathNavMobile .directoryNav {
+    width: 90%;
+  }
 
-        .directoryNav {
-            width: 90%;
-        }
-    }
+  main.filesMain nav {
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
-    main.filesMain nav {
-        gap: 0;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+  main.filesMain nav .fileActions {
+    margin-left: 0;
+  }
 
-        .fileActions {
-            margin-left: 0;
-        }
+  main.filesMain nav .navWrapper {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+  }
 
-        .navWrapper {
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 30px;
+  main.filesMain nav .navWrapper .inputWrapper {
+    width: unset;
+    flex: 0.8;
+  }
 
-            .inputWrapper {
-                width: unset;
-                flex: 0.8;
-            }
-        }
+  main.filesMain nav > button:first-of-type {
+    display: none !important;
+  }
 
-        &>button:first-of-type {
-            display: none !important;
-        }
+  main.filesMain nav > .directoryNav {
+    display: none;
+  }
 
-        &>.directoryNav {
-            display: none;
-        }
+  main.filesMain nav span.fileActions {
+    height: 40px;
+  }
 
-        span.fileActions {
-            height: 40px;
-        }
-    }
+  .mainDiv {
+    padding: 0;
+  }
 
-    .mainDiv {
-        padding: 0;
-    }
+  main.filesMain {
+    padding: 30px;
+  }
 
-    main.filesMain {
-        padding: 30px;
-
-        .filesDisplayer {
-            box-sizing: border-box;
-            padding: 20px 40px;
-            width: 100%;
-        }
-    }
-
+  main.filesMain .filesDisplayer {
+    box-sizing: border-box;
+    padding: 20px 40px;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width:800px),
 screen and (max-height:600px) {
+  aside,
+  main,
+  div.controlPanel {
+    border-radius: 0;
+  }
 
-    aside,
-    main,
-    div.controlPanel {
-        border-radius: 0;
+  div.controlPanel .controlPanelDisplayer nav {
+    gap: 10%;
+  }
 
-        .controlPanelDisplayer {
-            nav {
-                gap: 10%;
-            }
+  div.controlPanel .controlPanelDisplayer div.usersMain {
+    max-width: unset;
+  }
 
-            div.usersMain {
-                max-width: unset;
-            }
-        }
+  div.controlPanel .cpanelTabContainer .detailsView.open {
+    max-width: unset;
+  }
 
-        .cpanelTabContainer {
-            .detailsView.open {
-                max-width: unset;
-            }
+  div.controlPanel .cpanelTabContainer .detailsView .actions {
+    width: 150px;
+  }
 
-            .detailsView .actions {
-                width: 150px;
-            }
-        }
-    }
+  main.filesMain nav .navWrapper .inputWrapper {
+    flex: 1;
+  }
 
-    main.filesMain nav {
-        .navWrapper {
-            .inputWrapper {
-                flex: 1;
-            }
-        }
-    }
+  .mainDiv {
+    background-color: var(--darkColor);
+  }
 
-    .mainDiv {
-        background-color: var(--darkColor);
+  .mainDiv .homeMain .loginForm,
+  .mainDiv .homeMain .registerForm {
+    background-color: transparent;
+  }
 
-        .homeMain {
+  .mainDiv .homeMain .controlPanel {
+    animation: var(--animationPreset2);
+    background-color: transparent;
+  }
 
-            .loginForm,
-            .registerForm {
-                background-color: transparent;
-            }
+  .mainDiv .homeMain .mainPanelHome {
+    overflow: unset;
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    animation: var(--animationPreset2);
+    background-color: transparent;
+  }
 
+  .mainDiv main {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
 
-            .controlPanel {
-                animation: var(--animationPreset2);
-                background-color: transparent;
-            }
+  main.filesMain .filesDisplayer {
+    padding: 0;
+    column-gap: 30px;
+    justify-content: center;
+  }
 
-            .mainPanelHome {
-                overflow: unset;
-                padding-top: 20px;
-                width: 100%;
-                height: 100%;
-                animation: var(--animationPreset2);
-                background-color: transparent;
-            }
-        }
+  .settingsMain .settingsNavigation {
+    width: fit-content;
+    padding: 10px;
+  }
 
-        main {
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-        }
-    }
+  .settingsMain .settingsNavigation div.tabSelector {
+    width: 100%;
+  }
 
-    main.filesMain {
+  .settingsMain .settingsNavigation span {
+    font-size: 15px;
+  }
 
-        .filesDisplayer {
-            padding: 0;
-            column-gap: 30px;
-            justify-content: center;
-        }
-    }
-
-    .settingsMain {
-        .settingsNavigation {
-            width: fit-content;
-            padding: 10px;
-
-            div.tabSelector {
-                width: 100%;
-            }
-
-            span {
-                font-size: 15px;
-            }
-        }
-    }
-
-    .storageChartWrapper {
-        flex-direction: column;
-    }
+  .storageChartWrapper {
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width:600px) {
+  #root {
+    flex-direction: column-reverse;
+  }
 
+  .fileButton {
+    width: 65px;
+  }
 
-    #root {
-        flex-direction: column-reverse;
-    }
+  .fileButton .fileColorDiv,
+  .fileButton img {
+    height: 50px;
+  }
 
-    .fileButton {
-        width: 65px;
+  .fileButton span {
+    font-size: 15px;
+  }
 
-        .fileColorDiv,
-        img {
-            height: 50px;
-        }
+  .settingsMain h2 {
+    font-size: 30px !important;
+  }
 
-        span {
-            font-size: 15px;
-        }
-    }
+  .settingsMain h3 {
+    font-size: 27px !important;
+  }
 
-    .settingsMain {
-        h2 {
-            font-size: 30px !important;
-        }
+  .settingsMain span {
+    font-size: 16px !important;
+  }
 
-        h3 {
-            font-size: 27px !important;
-        }
+  .settingsMain .settingsNavigation {
+    padding: 0;
+  }
 
-        span {
-            font-size: 16px !important;
-        }
+  .settingsMain .settingsNavigation span {
+    display: none;
+  }
 
-        .settingsNavigation {
-            padding: 0;
+  .settingsMain .settingsContent {
+    padding: 0 30px;
+  }
 
-            span {
-                display: none;
-            }
-        }
+  .settingsMain .settingsContent .themeSelector button {
+    width: 40px;
+    height: 40px;
+  }
 
-        .settingsContent {
-            padding: 0 30px;
+  main.filesMain {
+    padding-bottom: 0;
+  }
 
-            .themeSelector {
-                button {
-                    width: 40px;
-                    height: 40px;
-                }
-            }
-        }
-    }
+  main.filesMain nav button:not(.directoryNav button, .pathNavMobile button) {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+  }
 
-    main.filesMain {
-        padding-bottom: 0;
+  main.filesMain nav .navWrapper {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 0;
+  }
 
-        nav {
+  main.filesMain nav .navWrapper .inputWrapper {
+    flex: unset;
+    height: 30px;
+    width: unset;
+  }
 
-            button:not(.directoryNav button, .pathNavMobile button) {
-                width: 30px;
-                height: 30px;
-                padding: 0;
-            }
+  main.filesMain nav .navWrapper span.fileActions {
+    flex-wrap: wrap;
+    height: unset;
+  }
 
-            .navWrapper {
-                flex-direction: column;
-                gap: 20px;
-                margin-top: 0;
+  main.filesMain nav .navWrapper span.fileActions img {
+    min-height: unset !important;
+  }
 
-                .inputWrapper {
-                    flex: unset;
-                    height: 30px;
-                    width: unset;
-                }
+  main.filesMain nav .navWrapper span.fileActions img {
+    height: 100%;
+  }
 
-                span.fileActions {
-                    flex-wrap: wrap;
-                    height: unset;
+  main.filesMain nav .navWrapper span.fileActions .bin img {
+    height: 90%;
+  }
 
-                    img {
-                        min-height: unset !important;
-                    }
+  main.filesMain nav .pathNavMobile button:not(.directoryNav button) {
+    width: 37px;
+  }
 
-                    img {
-                        height: 100%;
-                    }
+  main.filesMain nav .pathNavMobile .directoryNav button {
+    padding: 10px;
+    font-size: 15px;
+  }
 
-                    .bin {
-                        img {
-                            height: 90%;
-                        }
-                    }
-                }
-            }
+  aside {
+    height: 80px;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 20px;
+  }
 
-            .pathNavMobile {
-                button:not(.directoryNav button) {
-                    width: 37px;
-                }
+  aside button {
+    width: 50px;
+  }
 
-                .directoryNav {
-                    button {
-                        padding: 10px;
-                        font-size: 15px;
-                    }
-                }
-            }
-        }
-    }
+  nav .directoryNav {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
 
-    aside {
-        height: 80px;
-        flex-direction: row;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        padding: 10px;
-        gap: 20px;
+  main.filesMain .displayerContainer {
+    display: flex;
+    overflow: auto;
+  }
 
-        button {
-            width: 50px;
-        }
-    }
+  main.filesMain .filesDisplayer {
+    column-gap: 30px;
+  }
 
-    nav {
-        .directoryNav {
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-    }
+  .mainDiv {
+    padding: 0;
+    height: 1%;
+    width: 100%;
+  }
 
-    main.filesMain {
-        .displayerContainer {
-            display: flex;
-            overflow: auto;
-        }
+  .mainDiv main {
+    height: 100%;
+  }
 
-        .filesDisplayer {
-            column-gap: 30px;
-        }
-    }
+  .settingsMain .settingsNavigation div.tabSelector {
+    width: fit-content;
+  }
 
-    .mainDiv {
-        padding: 0;
-        height: 1%;
-        width: 100%;
+  .homeMain {
+    overflow: auto;
+    scrollbar-width: none;
+    box-sizing: border-box;
+  }
 
-        main {
-            height: 100%;
-        }
-    }
+  .homeMain .editPanel .row {
+    width: 80%;
+  }
 
-    .settingsMain {
-        .settingsNavigation {
-            div.tabSelector {
-                width: fit-content;
-            }
-        }
-    }
+  .homeMain .editPanel .row:nth-of-type(1) {
+    width: fit-content;
+  }
 
-    .homeMain {
-        overflow: auto;
-        scrollbar-width: none;
-        box-sizing: border-box;
+  .homeMain .editPanel input:not([type='color']),
+  .homeMain .editPanel label {
+    width: 130px;
+    font-size: 15px;
+  }
 
-        .editPanel {
-            .row {
-                width: 80%;
-            }
+  .homeMain .editPanel > input:last-of-type {
+    font-size: 20px;
+  }
 
-            .row:nth-of-type(1) {
-                width: fit-content;
-            }
+  .homeMain .editPanel .goBackButton {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 
-            input:not([type='color']),
-            label {
-                width: 130px;
-                font-size: 15px;
-            }
+  .homeMain .controlPanel {
+    padding-bottom: 0;
+  }
 
-            >input:last-of-type {
-                font-size: 20px;
-            }
-
-            .goBackButton {
-                margin-top: 0;
-                margin-bottom: 15px;
-            }
-        }
-
-        .controlPanel {
-            padding-bottom: 0;
-
-            .controlPanelDisplayer {
-                padding: 0;
-            }
-        }
-    }
+  .homeMain .controlPanel .controlPanelDisplayer {
+    padding: 0;
+  }
 }
 
 @media screen and (max-width:400px) {
-
-    main.filesMain {
-        padding: 10px 20px 0;
-
-    }
+  main.filesMain {
+    padding: 10px 20px 0;
+  }
 }
 
-/*
-*
-*
-**/
 @media screen and (max-height:600px) {
-    .homeMain {
-        align-items: unset;
+  .homeMain {
+    align-items: unset;
+  }
 
-        .editPanel {
-            height: 100%;
-            overflow: auto;
-            padding: 20px 0;
-            width: 100%;
+  .homeMain .editPanel {
+    height: 100%;
+    overflow: auto;
+    padding: 20px 0;
+    width: 100%;
+  }
 
-            .avatarContainer {
-                display: none;
-            }
+  .homeMain .editPanel .avatarContainer {
+    display: none;
+  }
 
-            .row:nth-of-type(1) {
-                display: none;
-            }
+  .homeMain .editPanel .row:nth-of-type(1) {
+    display: none;
+  }
 
-            .row:nth-of-type(2) {
-                display: none;
-            }
+  .homeMain .editPanel .row:nth-of-type(2) {
+    display: none;
+  }
 
-            .tabSelector {
-                justify-content: center;
-                column-gap: 20px;
-                width: 70%;
-                flex-direction: row;
+  .homeMain .editPanel .tabSelector {
+    justify-content: center;
+    column-gap: 20px;
+    width: 70%;
+    flex-direction: row;
+  }
 
-                .userAvatar {
-                    margin-bottom: 0;
+  .homeMain .editPanel .tabSelector .userAvatar {
+    margin-bottom: 0;
+  }
 
-                    .avatarContainer {
-                        width: 100px;
-                        height: 100px;
-                    }
-                }
+  .homeMain .editPanel .tabSelector .userAvatar .avatarContainer {
+    width: 100px;
+    height: 100px;
+  }
 
-                button,
-                span {
-                    font-size: 16px;
+  .homeMain .editPanel .tabSelector button,
+  .homeMain .editPanel .tabSelector span {
+    font-size: 16px;
+  }
 
-                    img {
-                        width: 35px;
-                        height: 35px;
-                    }
-                }
-            }
-        }
+  .homeMain .editPanel .tabSelector button img,
+  .homeMain .editPanel .tabSelector span img {
+    width: 35px;
+    height: 35px;
+  }
 
-        .settingsMain {
-            h2 {
-                font-size: 30px !important;
-            }
+  .homeMain .settingsMain h2 {
+    font-size: 30px !important;
+  }
 
-            h3 {
-                font-size: 27px !important;
-            }
+  .homeMain .settingsMain h3 {
+    font-size: 27px !important;
+  }
 
-            span {
-                font-size: 16px !important;
-            }
-        }
-    }
+  .homeMain .settingsMain span {
+    font-size: 16px !important;
+  }
 }
