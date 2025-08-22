@@ -79,7 +79,7 @@
                 "Benutzerdaten konnten nicht aktualisiert werden"
             ],
             "loginForm": [
-                "Anmelden",
+                "Anmeldung",
                 "Benutzername",
                 "Passwort",
                 "Einloggen",
@@ -87,8 +87,9 @@
                 "registrieren",
                 "Registrieren",
                 "Vollständiger Name",
+                "Benutzername",
                 "Passwort wiederholen",
-                "Hast du schon ein Konto?",
+                "Hast du bereits ein Konto?",
                 "einloggen",
                 "Willkommen ",
                 "Du bist der erste Benutzer auf diesem Server, daher hast du Super-Admin-Rechte!"

@@ -79,19 +79,20 @@
                 "Impossibile aggiornare i dati dell'utente"
             ],
             "loginForm": [
-                "Accedi",
+                "Accesso",
                 "Nome utente",
                 "Password",
-                "Entra",
+                "Accedi",
                 "Non hai ancora un account?",
                 "registrati",
                 "Registrati",
                 "Nome completo",
+                "Nome utente",
                 "Ripeti la password",
                 "Hai già un account?",
                 "accedi",
                 "Benvenuto ",
-                "Sei il primo utente su questo server, quindi hai privilegi di super amministratore!"
+                "Sei il primo utente su questo server, quindi hai i privilegi di super amministratore!"
             ]
         },
         "updateForm": [

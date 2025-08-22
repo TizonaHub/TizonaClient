@@ -79,14 +79,15 @@
                 "Não foi possível atualizar os dados do usuário"
             ],
             "loginForm": [
-                "Entrar",
+                "Login",
                 "Nome de usuário",
                 "Senha",
-                "Iniciar sessão",
+                "Entrar",
                 "Ainda não tem uma conta?",
                 "registre-se",
                 "Registrar-se",
                 "Nome completo",
+                "Nome de usuário",
                 "Repetir senha",
                 "Já tem uma conta?",
                 "entrar",
