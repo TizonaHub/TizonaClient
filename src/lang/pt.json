@@ -77,6 +77,21 @@
                 },
                 "Não foi possível criar o usuário",
                 "Não foi possível atualizar os dados do usuário"
+            ],
+            "loginForm": [
+                "Entrar",
+                "Nome de usuário",
+                "Senha",
+                "Iniciar sessão",
+                "Ainda não tem uma conta?",
+                "registre-se",
+                "Registrar-se",
+                "Nome completo",
+                "Repetir senha",
+                "Já tem uma conta?",
+                "entrar",
+                "Bem-vindo ",
+                "Você é o primeiro usuário neste servidor, portanto tem privilégios de superadministrador!"
             ]
         },
         "updateForm": [

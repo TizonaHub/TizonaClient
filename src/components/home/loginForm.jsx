@@ -15,20 +15,21 @@ export default function LoginForm() {
     let lang = useContext(LangContext)
     let app = useContext(AppContext)
     lang = lang.login
+    console.log('lang: ', lang);
     //if (adminCreated && adminCreated.role >= 100) return <AdminCreatedComponent />
     return login ? <Login /> : <Register />
 
     function Login() {
         return (
             <form className="loginForm" onSubmit={loginUser}>
-                <h2>Login</h2>
-                <h3>Username</h3>
+                <h2>{lang.loginForm[0]}</h2>
+                <h3>{lang.loginForm[1]}</h3>
                 <input type="text" />
-                <h3>Password</h3>
+                <h3>{lang.loginForm[2]}</h3>
                 <input type="password" />
-                <input type="submit" value="Sign in" />
-                <span style={{ marginTop: '30px' }}>Don't have an account yet?
-                    <span style={style} onClick={toggleTab}>sign up</span></span>
+                <input type="submit" value={lang.loginForm[3]} />
+                <span style={{ marginTop: '30px' }}>{lang.loginForm[4]}
+                    <span style={style} onClick={toggleTab}>{lang.loginForm[5]}</span></span>
             </form>)
         function loginUser(e) {
             e.preventDefault()
@@ -64,20 +65,20 @@ export default function LoginForm() {
         let usernameRef = useRef(null)
         return (
             <form className="registerForm" onSubmit={registerUser}>
-                <h2>Sign up</h2>
-                <h3>Full name</h3>
+                <h2>{lang.loginForm[6]}</h2>
+                <h3>{lang.loginForm[7]}</h3>
                 <input type="text" onChange={setUsername} name="name" />
-                <h3>Username</h3>
+                <h3>{lang.loginForm[8]}</h3>
                 <input type="text" ref={usernameRef} name="username" onChange={(e) => {
                     e.currentTarget.value = e.currentTarget.value.replaceAll(' ', '_');
                 }} />
-                <h3>Password</h3>
+                <h3>{lang.loginForm[2]}</h3>
                 <input type="password" name="password" />
-                <h3>Repeat password</h3>
+                <h3>{lang.loginForm[9]}</h3>
                 <input type="password" name="repeatPassword" />
-                <input type="submit" value="Sign up" />
-                <span style={{ marginTop: '30px' }}>Already have an account?
-                    <span style={style} onClick={toggleTab}>log in</span></span>
+                <input type="submit" value={lang.loginForm[3]} />
+                <span style={{ marginTop: '30px' }}>{lang.loginForm[10]}
+                    <span style={style} onClick={toggleTab}>{lang.loginForm[11]}</span></span>
             </form>)
         function setUsername(e) {
             let value = e.currentTarget.value

@@ -77,6 +77,21 @@
                 },
                 "Der Benutzer konnte nicht erstellt werden",
                 "Benutzerdaten konnten nicht aktualisiert werden"
+            ],
+            "loginForm": [
+                "Anmelden",
+                "Benutzername",
+                "Passwort",
+                "Einloggen",
+                "Noch kein Konto?",
+                "registrieren",
+                "Registrieren",
+                "Vollständiger Name",
+                "Passwort wiederholen",
+                "Hast du schon ein Konto?",
+                "einloggen",
+                "Willkommen ",
+                "Du bist der erste Benutzer auf diesem Server, daher hast du Super-Admin-Rechte!"
             ]
         },
         "updateForm": [

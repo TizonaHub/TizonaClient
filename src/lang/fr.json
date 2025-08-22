@@ -77,6 +77,21 @@
                 },
                 "Impossible de créer l'utilisateur",
                 "Impossible de mettre à jour les données de l'utilisateur"
+            ],
+            "loginForm": [
+                "Connexion",
+                "Nom d'utilisateur",
+                "Mot de passe",
+                "Se connecter",
+                "Vous n'avez pas encore de compte ?",
+                "s'inscrire",
+                "Créer un compte",
+                "Nom complet",
+                "Répéter le mot de passe",
+                "Vous avez déjà un compte ?",
+                "se connecter",
+                "Bienvenue ",
+                "Vous êtes le premier utilisateur de ce serveur, vous avez donc des privilèges de super administrateur !"
             ]
         },
         "updateForm": [

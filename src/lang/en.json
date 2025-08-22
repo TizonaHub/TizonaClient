@@ -77,6 +77,22 @@
                 },
                 "Could not create user",
                 "could not update user data"
+            ],
+            "loginForm": [
+                "Login",
+                "Username",
+                "Password",
+                "Sign in",
+                "Don't have an account yet?",
+                "sign up",
+                "Sign up",
+                "Full name",
+                "Username",
+                "Repeat password",
+                "Already have an account?",
+                "log in",
+                "Welcome ",
+                "You are the first user on this server, so you have super admin privileges!"
             ]
         },
         "updateForm": [
