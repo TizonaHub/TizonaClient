@@ -81,6 +81,7 @@ function App() {
         document.documentElement.style.setProperty('--thirdColor', themes[theme].thirdColor)
         document.documentElement.style.setProperty('--gradientOne', themes[theme].gradientColors[0])
         document.documentElement.style.setProperty('--gradientTwo', themes[theme].gradientColors[1])
+        document.documentElement.style.setProperty('--filesSelector', themes[theme].filesSelector)
       }
     }
     async function applyLang() {
@@ -138,6 +139,8 @@ function App() {
     const dragOverFiles = useRef(null)
     const draggingElement = useRef(false) // Represents an html/react element inside file displayer. Used to know if you are dragging an element or a file from your pc
     const mediaPlayerRef = useRef(false)
+    const filesSelector = useRef(null) // squared div used to select several files and directories
+    const filesSelectorPosition = useRef(false) // The position of mouse when selecting several files and directories
 
     sF.sortByType(directories)
     sF.sortPrivate(directories)
@@ -174,7 +177,11 @@ function App() {
         <div className='mainDiv'>
           {showCreateFolder ? <CreateFolderModal setShowCreateFolder={setShowCreateFolder}
             directoryTree={directoryTree} personalDirectory={personalDirectory} /> : null}
-          <main className='filesMain'>
+          <main className='filesMain'
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+          >
             {mediaPlayerResource ? <MediaPlayerComponent /> : null}
             {showRename ? <RenameModal data={showRename} setShowRename={setShowRename} directories={directories} directoryTree={directoryTree}></RenameModal> : null}
             <nav>
@@ -220,7 +227,8 @@ function App() {
                   if (dragOverFiles.current.style.display == '' && !draggingElement.current) dragOverFiles.current.style.display = 'flex'
                 }}
               onClick={handleClick}
-              onDrop={handleOnDrop}>
+              onDrop={handleOnDrop}
+            >
               <div className='dragOverFiles' ref={dragOverFiles}>
                 <div className="dragZone"
                   onDragLeave={() => {
@@ -228,6 +236,7 @@ function App() {
                   }}></div>
                 <h2>Drag file here</h2>
               </div>
+              <div className="filesSelector" ref={filesSelector}></div>
               <div className='filesDisplayer' id='filesDisplayer'
                 onClick={handleClick} >
                 {currentDirectoryData.map((element, index) => {
@@ -253,6 +262,60 @@ function App() {
     )
     function handleClick(e) {
       if (e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer') setClickedFile(false)
+    }
+    /**
+     * Checks if user clicked below <hr> tag
+     * @param {*} e 
+     * @returns 
+     */
+    function filesDisplayerClicked(e) {
+      const hrElement = document.querySelector('.filesMain hr')
+      const filesDisplayer = document.querySelector('.filesDisplayer')
+      const condition1 = e.target.classList.contains('filesMain') || e.target.classList.contains('filesDisplayer')
+      const condition2 = hrElement.getBoundingClientRect().top < e.clientY
+      const condition3 = e.clientX < filesDisplayer.getBoundingClientRect().right
+      if (condition1 && condition2 && condition3) return true
+      return false
+    }
+    function handleMouseDown(e) {
+      const hrElement = document.querySelector('.filesMain hr')
+      if (filesDisplayerClicked(e)) {
+        filesSelectorPosition.current = [e.clientY, e.clientX]
+        const calcY = e.clientY - hrElement.getBoundingClientRect().top * 1.1
+        const calcX = e.clientX - hrElement.getBoundingClientRect().left
+        filesSelector.current.style.top = calcY + 'px'
+        filesSelector.current.style.left = calcX + 'px'
+      }
+    }
+    function handleMouseMove(e) {
+      if (filesSelectorPosition.current) {
+        const initialPos = filesSelectorPosition.current;
+        const width = e.clientX - initialPos[1];
+        const height = e.clientY - initialPos[0];
+        const scaleX = width < 0 ? -1 : 1;
+        const scaleY = height < 0 ? -1 : 1;
+        filesSelector.current.style.transform = `scale(${scaleX}, ${scaleY})`;
+        filesSelector.current.style.width = Math.abs(width) + "px";
+        filesSelector.current.style.height = Math.abs(height) + "px";
+      }
+    }
+    function handleMouseUp(e) {
+      const selectedResources = functions.detectSelection(filesSelector.current)
+      if (selectedResources) {
+        const filesDisplayer = document.getElementById('filesDisplayer');
+        Array.from(filesDisplayer.children).forEach((res) => {
+          const filter = selectedResources.filter((elem) => elem.id == res.id)
+          if (filter.length > 0) res.classList.add('selectedFile')
+          else res.classList.remove('selectedFile')
+        })
+        selectedResources.forEach((res) => {
+          /*const filter=currentDirectoryData.filter((elem)=>elem.name==res.id)
+          console.log('filter: ', filter);
+          res.classList.add('selectedFile')*/
+        })
+      }
+      filesSelectorPosition.current = false
+      filesSelector.current.style = ''
     }
 
     function handleSearchBar(text) {
@@ -292,7 +355,7 @@ function App() {
       const resourcePath = functions.preparePath(mediaPlayerResource, checkPersonal, true)
       const resource = functions.getFileSrc(resourcePath)
       const mimeType = mime.getType(resource)
-      if(!mimeType)return
+      if (!mimeType) return
       if (mimeType && !mimeType.includes('image') && !mimeType.includes('video') && !mimeType.includes('audio')) return
       let media = ''
       if (mimeType.includes('image')) media = <img src={resource} />

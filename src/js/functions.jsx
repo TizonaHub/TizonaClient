@@ -12,6 +12,49 @@ export function checkPersonal(path, data) {
   }
   return false
 }
+export function detectSelection(selectedArea, mode = 'intersect', margin = 0 ) {
+  const areaRect = {
+    left: selectedArea.getBoundingClientRect().left - margin,
+    right: selectedArea.getBoundingClientRect().right + margin,
+    top: selectedArea.getBoundingClientRect().top - margin,
+    bottom: selectedArea.getBoundingClientRect().bottom + margin,
+  };
+
+  const filesDisplayer = document.getElementById('filesDisplayer');
+
+  const selected = [];
+if(areaRect.left==areaRect.right && areaRect.top==areaRect.bottom) return selected; //user clicked above <hr> tag
+  Array.from(filesDisplayer.children).forEach((element) => {
+
+    const elementRect = {
+      left: element.getBoundingClientRect().left,
+      right: element.getBoundingClientRect().right,
+      top: element.getBoundingClientRect().top,
+      bottom: element.getBoundingClientRect().bottom,
+    };
+    let inside = false;
+
+    if (mode === 'contain') {
+      inside =
+        elementRect.left >= areaRect.left &&
+        elementRect.right <= areaRect.right &&
+        elementRect.top >= areaRect.top &&
+        elementRect.bottom <= areaRect.bottom;
+    } else if (mode === 'intersect') {
+      inside = !(
+        elementRect.left > areaRect.right ||
+        elementRect.right < areaRect.left ||
+        elementRect.top > areaRect.bottom ||
+        elementRect.bottom < areaRect.top
+      );
+    }
+
+    if (inside) selected.push(element);
+  });
+console.log(selected);
+  return selected;
+}
+
 export async function changeResourceLocation(source, newLocation, targetData, directories) {
   source = preparePath(source, checkPersonal(source, directories))
   newLocation = preparePath(newLocation, checkPersonal(newLocation, directories))
@@ -178,16 +221,16 @@ function formatBinary(num) {
 }
 
 function formatDecimal(num) {
-  if(isNaN(num)) return ''
+  if (isNaN(num)) return ''
   let calc = Math.floor(num / (1000 ** 3))
   if (calc > 0) return calc.toLocaleString() + ' GB'
   calc = Math.floor(num / (1000 ** 2))
-  if(calc>0)return calc.toLocaleString() + ' MB'
+  if (calc > 0) return calc.toLocaleString() + ' MB'
   calc = Math.floor(num / (1000))
   return calc.toLocaleString() + ' KB'
 }
-export function formatNumber(num,decimal=true) {
-  return decimal?formatDecimal(num):formatBinary(num)
+export function formatNumber(num, decimal = true) {
+  return decimal ? formatDecimal(num) : formatBinary(num)
 
 }
 export function prepareFetch(endpoint) {

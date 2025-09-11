@@ -3,18 +3,21 @@
         "mainColor":"red",
         "secondColor":"rgba(255, 64, 64, 0.514)",
         "thirdColor":"#2d0000",
-        "gradientColors":["rgb(177, 0, 0)","rgb(97, 1, 1)"]
+        "gradientColors":["rgb(177, 0, 0)","rgb(97, 1, 1)"],
+        "filesSelector":"rgba(255, 0, 0, 0.63)"
     },
     "gold":{
         "mainColor":"orange",
         "secondColor":"#ffb94083",
         "thirdColor":"#2d1d00",
-        "gradientColors":["#ffa200","#955d00"]
+        "gradientColors":["#ffa200","#955d00"],
+        "filesSelector":"rgb(252, 160, 0,0.63)"
     },
     "blue":{
         "mainColor":"blue",
         "secondColor":"#000fff78",
         "thirdColor":"#000043",
-        "gradientColors":["blue","#000063"]
+        "gradientColors":["blue","#000063"],
+        "filesSelector":"rgba(0, 47, 255, 0.63)"
     }
 }

@@ -8,6 +8,7 @@
   --gradientOne: rgb(177, 0, 0);
   --gradientTwo: rgb(97, 1, 1);
   --radialChartOne: rgb(51, 192, 51);
+  --filesSelector: rgba(255, 0, 0, 0.63)
   /*background*/
   --radialChartTwo: rgb(153, 0, 255);
   /*used space*/
@@ -993,6 +994,14 @@ button:hover {
   animation: rotateLoader2 1s infinite linear;
 }
 
+div.filesSelector{
+  position: absolute;
+  width:  0;
+  height: 0;
+  background-color: var(--filesSelector);
+  z-index: 100;
+  transform-origin: left top; 
+}
 @font-face {
   font-family: 'Roboto';
   src: url(./css/fonts/Roboto/static/Roboto-Light.ttf);
