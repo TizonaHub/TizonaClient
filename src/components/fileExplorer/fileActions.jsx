@@ -12,7 +12,7 @@ import searchIcon from '@assets/icons/magnifyingGlass.svg'
 import crossIcon from '@assets/icons/crossIcon.svg'
 import { AppContext, FilesContext } from '../../js/contexts.js';
 function FileActions({ directoryTree, clickedFile, frProps,
-    setClickedFile, setShowCreateFolder, setWallpaperAsset, handleSearchBar }) {
+    setClickedFile, setShowCreateFolder, setWallpaperAsset, handleSearchBar, selectedFiles, setSelectedFiles }) {
     let uploadRef = useRef(null)
     const appContextData = useContext(AppContext)
     const userData = appContextData.user.userData
@@ -100,18 +100,35 @@ function FileActions({ directoryTree, clickedFile, frProps,
         uploadRef.current.value = "";
     }
     function deleteResource() {
-        if (directoryTree && clickedFile) {
-            let resourceUrl = directoryTree + clickedFile.name
-            resourceUrl = functions.preparePath(resourceUrl, functions.checkPersonal(resourceUrl, directories))
-            let formData = new FormData()
+        const resourcesURLs = []
+        const formData = new FormData()
+        if (selectedFiles.length >= 1) {
+            let string='['
+            selectedFiles.forEach((element,index) => {
+                const name = element.id
+                let resourceUrl = getURL( directoryTree + name)
+                string=string+'"'+resourceUrl+'"'
+                if(index!=selectedFiles.length-1) string=string+','
+                resourcesURLs.push(resourceUrl)
+
+            });
+            string=string+']'
+            console.log('string: ', string);
+            formData.append('resourceUrl',string )
+        }
+        else if (directoryTree && clickedFile) {
+            let resourceUrl = getURL(directoryTree + clickedFile.name)
             formData.append('resourceUrl', resourceUrl)
-            fetch(functions.prepareFetch('/api/resources'), {
-                credentials: 'include',
-                method: 'DELETE',
-                body: formData
-            }).then((res) => {
-                if (res.status == 200) frProps.setForceRender(frProps.forceRender + 1)
-            })
+        }
+        fetch(functions.prepareFetch('/api/resources'), {
+            credentials: 'include',
+            method: 'DELETE',
+            body: formData
+        }).then((res) => {
+            if (res.status == 200) frProps.setForceRender(frProps.forceRender + 1)
+        })
+        function getURL(path) {
+            return functions.preparePath(path, functions.checkPersonal(path, directories))
         }
 
     }

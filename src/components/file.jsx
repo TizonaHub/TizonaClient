@@ -20,7 +20,7 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
     const buttonElement = useRef(null)
     let lang = useContext(LangContext)
     const userData = appContextData.user.userData
-    let isPrivateDir=userData && userData.id == data.name
+    let isPrivateDir = userData && userData.id == data.name
     const name = data && data.name.trim().length > 0 ? data.name : userData && userData.name ? userData.name : null
     let element = {
         imgSrc: null,
@@ -40,14 +40,14 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
                 onDragStart={handleDragStart}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                title={!isPrivateDir?data.name+' / '+formatNumber(data.size):''}
+                title={!isPrivateDir ? data.name + ' / ' + formatNumber(data.size) : ''}
             >
                 {getIcon()}
                 <span contentEditable={renameFileModal ? true : false}
                     ref={spanElement}
                     suppressContentEditableWarning={true}
                     onKeyDown={handleRename} onBlur={handleBlur}>
-                    {shortenValue( isPrivateDir? 'Private folder' : data.name)}
+                    {shortenValue(isPrivateDir ? 'Private folder' : data.name)}
                 </span>
                 <input type="hidden" name="originalName" value={data.name} />
             </button>
@@ -153,7 +153,7 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
             case 'video':
                 return <img src={videoIcon} alt="" />
             case 'audio':
-                return <img src={audioIcon} alt=""/>
+                return <img src={audioIcon} alt="" />
             default:
                 return <div className={`fileColorDiv ${personal
                     ? 'userFolder' : data.type == 'file'
@@ -161,7 +161,7 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
                           `} >
                 </div>
         }
-        
+
     }
 }
 export default File

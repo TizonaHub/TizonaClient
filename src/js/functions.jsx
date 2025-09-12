@@ -51,7 +51,6 @@ if(areaRect.left==areaRect.right && areaRect.top==areaRect.bottom) return select
 
     if (inside) selected.push(element);
   });
-console.log(selected);
   return selected;
 }
 
@@ -67,7 +66,7 @@ export async function changeResourceLocation(source, newLocation, targetData, di
     console.log('source: ', source);
     formData.append('newLocation', newLocation)
     console.log('newLocation: ', newLocation);
-    const result = await fetch(prepareFetch('/api/resources/move'), {
+    /*const result = await fetch(prepareFetch('/api/resources/move'), {
       credentials: 'include',
       method: 'PATCH',
       body: formData
@@ -77,7 +76,7 @@ export async function changeResourceLocation(source, newLocation, targetData, di
       console.error(err.message);
       return false
     })
-    return result
+    return result*/
   }
 }
 export function getDirectoryData(json, path) {

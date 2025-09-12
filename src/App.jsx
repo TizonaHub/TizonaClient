@@ -131,6 +131,7 @@ function App() {
     const [currentDirectoryData, setCurrentDirectoryData] = useState([])
     const [currentDirectoryDataCopy, setCurrentDirectoryDataCopy] = useState([]) //keeps current directory data. It never changes
     const [clickedFile, setClickedFile] = useState(null)
+    const [selectedFiles, setSelectedFiles] = useState(null) //stores clicked files from selection
     const [directoryTree, setDirectoryTree] = useState('root/')
     const [showRename, setShowRename] = useState(null)
     const [showCreateFolder, setShowCreateFolder] = useState(null)
@@ -180,7 +181,6 @@ function App() {
           <main className='filesMain'
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
           >
             {mediaPlayerResource ? <MediaPlayerComponent /> : null}
             {showRename ? <RenameModal data={showRename} setShowRename={setShowRename} directories={directories} directoryTree={directoryTree}></RenameModal> : null}
@@ -210,11 +210,14 @@ function App() {
                 setShowRename={setShowRename}
                 setShowCreateFolder={setShowCreateFolder}
                 handleSearchBar={handleSearchBar}
+                selectedFiles={selectedFiles}
+                setSelectedFiles={setSelectedFiles}
               />
             </nav>
             <hr />
             <div className="displayerContainer"
               id="displayerContainer"
+              onMouseUp={handleMouseUp}
               onDragStart={(e) => {
                 draggingElement.current = true
                 e.dataTransfer.effectAllowed = "move";
@@ -308,11 +311,8 @@ function App() {
           if (filter.length > 0) res.classList.add('selectedFile')
           else res.classList.remove('selectedFile')
         })
-        selectedResources.forEach((res) => {
-          /*const filter=currentDirectoryData.filter((elem)=>elem.name==res.id)
-          console.log('filter: ', filter);
-          res.classList.add('selectedFile')*/
-        })
+        console.log('llega');
+        setSelectedFiles(selectedResources)
       }
       filesSelectorPosition.current = false
       filesSelector.current.style = ''
