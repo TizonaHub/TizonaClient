@@ -4,14 +4,14 @@ import audioIcon from '@assets/icons/audioIcon.svg'
 import {
     shortenValue, getFileSrc, preparePath, checkPersonal
     , changeResourceLocation, prepareFetch,
-    formatNumber
+    formatNumber,prepareMoveResourcesJSON
 } from '../js/functions.jsx';
 import { LangContext, AppContext, FilesContext } from '../js/contexts';
 import { useRef, useContext } from 'react';
 import themes from '../js/themes.json'
 function File({ data, clickedFile, setClickedFile, setDirectoryTree,
     directoryTree, renameFileModal, frProps, draggingElement, draggingData,
-    personal, draggable }) {
+    personal, draggable,selectedFiles }) {
     //VARS
     const appContextData = useContext(AppContext)
     const filesContextData = useContext(FilesContext)
@@ -93,11 +93,10 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
         e.currentTarget.style.borderColor = ''
         //vars
         const draggedElementData = draggingData.current
-        //const name = e.dataTransfer.getData('text/plain'); //dragged element
         const name = draggedElementData.id
-        let source = directoryTree + `${name}`
-        let newLocation = directoryTree + data.name.trim() + '/' + name
-        const result = await changeResourceLocation(source, newLocation, data, directories)
+        if(!selectedFiles || selectedFiles.length<1) selectedFiles=[{id:name}]
+        const selectionJSON=prepareMoveResourcesJSON(selectedFiles,directoryTree,directories,directoryTree + data.name.trim() + '/')
+        const result = await changeResourceLocation(selectionJSON)
         result ? frProps.setForceRender(frProps.forceRender + 1) : null
         draggingData.current = null
         draggingElement.current = false

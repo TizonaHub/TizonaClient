@@ -12,7 +12,7 @@ import searchIcon from '@assets/icons/magnifyingGlass.svg'
 import crossIcon from '@assets/icons/crossIcon.svg'
 import { AppContext, FilesContext } from '../../js/contexts.js';
 function FileActions({ directoryTree, clickedFile, frProps,
-    setClickedFile, setShowCreateFolder, setWallpaperAsset, handleSearchBar, selectedFiles, setSelectedFiles }) {
+    setClickedFile, setShowCreateFolder, setWallpaperAsset, handleSearchBar, selectedFiles }) {
     let uploadRef = useRef(null)
     const appContextData = useContext(AppContext)
     const userData = appContextData.user.userData
@@ -101,11 +101,11 @@ function FileActions({ directoryTree, clickedFile, frProps,
     }
     function deleteResource() {
         const formData = new FormData()
-        if (selectedFiles.length >= 1) {
-            formData.append('resourceUrl',functions.arrayToString(selectedFiles,directoryTree,directories) )
+        if (selectedFiles && selectedFiles.length >= 1) {
+            formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
         else if (directoryTree && clickedFile) {
-            let resourceUrl = functions.getURL(directoryTree + clickedFile.name,directories)
+            let resourceUrl = functions.getURL(directoryTree + clickedFile.name, directories)
             formData.append('resourceUrl', resourceUrl)
         }
         fetch(functions.prepareFetch('/api/resources'), {
@@ -115,9 +115,6 @@ function FileActions({ directoryTree, clickedFile, frProps,
         }).then((res) => {
             if (res.status == 200) frProps.setForceRender(frProps.forceRender + 1)
         })
-        function getURL(path) {
-            return functions.preparePath(path, functions.checkPersonal(path, directories))
-        }
 
     }
     function handleRename() {

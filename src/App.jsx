@@ -150,6 +150,7 @@ function App() {
       setCurrentDirectoryDataCopy(functions.getDirectoryData(directories, directoryTree))
     }, [directoryTree])
     useEffect(() => {
+      setSelectedFiles(null)
       const query = `?directory=/directories/publicDirectories&recursive=true&privateDir=true`
       fetch(functions.prepareFetch('/api/resources/directories' + query), { //getDirectories
         credentials: 'include',
@@ -181,6 +182,7 @@ function App() {
           <main className='filesMain'
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
           >
             {mediaPlayerResource ? <MediaPlayerComponent /> : null}
             {showRename ? <RenameModal data={showRename} setShowRename={setShowRename} directories={directories} directoryTree={directoryTree}></RenameModal> : null}
@@ -195,13 +197,14 @@ function App() {
                 <DirectoryTreeToNav directoryTree={directoryTree}
                   setDirectoryTree={setDirectoryTree}
                   frProps={{ forceRender, setForceRender }}
-
+                  selectedFiles={selectedFiles}
                 />
               </div>
               <DirectoryTreeToNav directoryTree={directoryTree}
                 setDirectoryTree={setDirectoryTree}
                 draggingData={draggingData}
-                frProps={{ forceRender, setForceRender }} />
+                frProps={{ forceRender, setForceRender }}
+                selectedFiles={selectedFiles} />
               <FileActions directoryTree={directoryTree}
                 clickedFile={clickedFile} setClickedFile={setClickedFile}
                 frProps={{ forceRender: forceRender, setForceRender: setForceRender }}
@@ -211,13 +214,11 @@ function App() {
                 setShowCreateFolder={setShowCreateFolder}
                 handleSearchBar={handleSearchBar}
                 selectedFiles={selectedFiles}
-                setSelectedFiles={setSelectedFiles}
               />
             </nav>
             <hr />
             <div className="displayerContainer"
               id="displayerContainer"
-              onMouseUp={handleMouseUp}
               onDragStart={(e) => {
                 draggingElement.current = true
                 e.dataTransfer.effectAllowed = "move";
@@ -254,6 +255,7 @@ function App() {
                       draggable={true}
                       draggingData={draggingData}
                       inPersonalDirectory={personalDirectory}
+                      selectedFiles={selectedFiles}
                     />
                   )
                 })}
@@ -311,7 +313,6 @@ function App() {
           if (filter.length > 0) res.classList.add('selectedFile')
           else res.classList.remove('selectedFile')
         })
-        console.log('llega');
         setSelectedFiles(selectedResources)
       }
       filesSelectorPosition.current = false

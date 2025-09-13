@@ -54,29 +54,21 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   return selected;
 }
 
-export async function changeResourceLocation(source, newLocation, targetData, directories, selectedFiles) {
-  console.log('selectedFiles: ', selectedFiles);
-  source = preparePath(source, checkPersonal(source, directories))
-  newLocation = preparePath(newLocation, checkPersonal(newLocation, directories))
-  //Checks
-  let check1 = newLocation != source
-  let check2 = targetData ? targetData.type == 'directory' : true
-  if (check1 && check2) {
-    let formData = new FormData()
-    formData.append('source', source)
-    formData.append('newLocation', newLocation)
-    /*const result = await fetch(prepareFetch('/api/resources/move'), {
-      credentials: 'include',
-      method: 'PATCH',
-      body: formData
-    }).then((res) => {
-      return res.ok
-    }).catch((err) => {
-      console.error(err.message);
-      return false
-    })
-    return result*/
-  }
+export async function changeResourceLocation(json) {
+  if (json.length < 1) return
+  let formData = new FormData()
+  formData.append('instructions', JSON.stringify(json))
+  const result = await fetch(prepareFetch('/api/resources/move'), {
+    credentials: 'include',
+    method: 'PATCH',
+    body: formData
+  }).then((res) => {
+    return res.ok
+  }).catch((err) => {
+    console.error(err.message);
+    return false
+  })
+  return result
 }
 export function getDirectoryData(json, path) {
   if (path) {
@@ -121,7 +113,7 @@ export function reduceOpacity(value) {
   if (!value) document.documentElement.style.setProperty('--darkColor', 'rgba(24, 24, 24,1)')
   else document.documentElement.style.setProperty('--darkColor', 'rgba(24, 24, 24,0.95)')
 }
-export function arrayToString(selectedFiles,directoryTree,directories) {
+export function arrayToString(selectedFiles, directoryTree, directories) {
 
   let string = '['
   selectedFiles.forEach((element, index) => {
@@ -132,6 +124,19 @@ export function arrayToString(selectedFiles,directoryTree,directories) {
 
   });
   return string + ']'
+}
+export function prepareMoveResourcesJSON(selectedFiles, directoryTree, directories, destiny) {
+  const array = []
+  selectedFiles.forEach((element) => {
+    const name = element.id
+    const source = getURL(directoryTree + name, directories)
+    if (source + '/' == getURL(destiny, directories)) return //same resource
+    if (getURL(directoryTree, directories) == getURL(destiny, directories)) return // same current dir
+    const destinyURL = getURL(destiny + name, directories)
+    const json = { from: source, to: destinyURL }
+    array.push(json)
+  });
+  return array
 }
 
 export function getURL(path, directories) {
