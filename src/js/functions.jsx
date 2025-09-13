@@ -53,6 +53,7 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   return selected;
 }
 export function setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile) {
+  if(!selectedResources)return
   const filesDisplayer = document.getElementById('filesDisplayer');
   Array.from(filesDisplayer.children).forEach((res) => {
     const filter = selectedResources.filter((elem) => elem.id == res.id)

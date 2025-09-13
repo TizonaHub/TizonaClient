@@ -313,7 +313,7 @@ function App() {
         const scaleY = height < 0 ? -1 : 1;
         filesSelector.current.style.transform = `scale(${scaleX}, ${scaleY})`;
         filesSelector.current.style.width = Math.abs(width) + "px";
-        filesSelector.current.style.height = Math.abs(height) + "px";
+        filesSelector.current.style.height = Math.abs(height)+ "px";
       }
     }
     function handleMouseUp(e) {
