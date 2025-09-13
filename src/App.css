@@ -8,7 +8,7 @@
   --gradientOne: rgb(177, 0, 0);
   --gradientTwo: rgb(97, 1, 1);
   --radialChartOne: rgb(51, 192, 51);
-  --filesSelector: rgba(255, 0, 0, 0.63)
+  --filesSelector: rgba(255, 0, 0, 0.63);
   /*background*/
   --radialChartTwo: rgb(153, 0, 255);
   /*used space*/
@@ -735,6 +735,7 @@ button:hover {
 }
 
 .settingsMain {
+  padding: 60px 70px;
   padding-top: 45px;
   display: flex;
   flex-direction: column;
