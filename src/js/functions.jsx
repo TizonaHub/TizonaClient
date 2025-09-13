@@ -19,7 +19,6 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
     top: selectedArea.getBoundingClientRect().top - margin,
     bottom: selectedArea.getBoundingClientRect().bottom + margin,
   };
-
   const filesDisplayer = document.getElementById('filesDisplayer');
 
   const selected = [];
@@ -53,7 +52,19 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   });
   return selected;
 }
+export function setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile) {
+  const filesDisplayer = document.getElementById('filesDisplayer');
+  Array.from(filesDisplayer.children).forEach((res) => {
+    const filter = selectedResources.filter((elem) => elem.id == res.id)
+    if (filter.length > 0) {
+      if(setClickedFile)setClickedFile(false)
+      res.classList.add('selectedFile')
+    }
+    else res.classList.remove('selectedFile')
+  })
+  if (setSelectedFiles) setSelectedFiles(selectedResources)
 
+}
 export async function changeResourceLocation(json) {
   if (json.length < 1) return
   let formData = new FormData()
