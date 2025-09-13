@@ -179,10 +179,16 @@ function App() {
         <div className='mainDiv'>
           {showCreateFolder ? <CreateFolderModal setShowCreateFolder={setShowCreateFolder}
             directoryTree={directoryTree} personalDirectory={personalDirectory} /> : null}
-          <main className='filesMain'
+          <main className='filesMain' id='filesMain'
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={() => {
+              filesSelectorPosition.current = false
+              filesSelector.current.style = ''
+
+            }}
+            onClick={handleClick}
           >
             {mediaPlayerResource ? <MediaPlayerComponent /> : null}
             {showRename ? <RenameModal data={showRename} setShowRename={setShowRename} directories={directories} directoryTree={directoryTree}></RenameModal> : null}
@@ -230,8 +236,8 @@ function App() {
                   e.stopPropagation();
                   if (dragOverFiles.current.style.display == '' && !draggingElement.current) dragOverFiles.current.style.display = 'flex'
                 }}
-              onClick={handleClick}
               onDrop={handleOnDrop}
+              onMouseUp={handleMouseUp}
             >
               <div className='dragOverFiles' ref={dragOverFiles}>
                 <div className="dragZone"
@@ -242,7 +248,7 @@ function App() {
               </div>
               <div className="filesSelector" ref={filesSelector}></div>
               <div className='filesDisplayer' id='filesDisplayer'
-                onClick={handleClick} >
+                >
                 {currentDirectoryData.map((element, index) => {
                   return (
                     <File data={element} key={element.name + index}
@@ -266,7 +272,11 @@ function App() {
       </FilesContext.Provider>
     )
     function handleClick(e) {
-      if (e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer') setClickedFile(false)
+      const condition1 = e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer'|| e.target.id == 'filesMain'
+      if (condition1) {
+        setClickedFile(false)
+      }
+      functions.setSelectionStyles(selectedFiles)
     }
     /**
      * Checks if user clicked below <hr> tag
@@ -275,11 +285,9 @@ function App() {
      */
     function filesDisplayerClicked(e) {
       const hrElement = document.querySelector('.filesMain hr')
-      const filesDisplayer = document.querySelector('.filesDisplayer')
-      const condition1 = e.target.classList.contains('filesMain') || e.target.classList.contains('filesDisplayer')
+      const condition1 = e.target.classList.contains('filesMain') || e.target.classList.contains('filesDisplayer') || e.target.classList.contains('displayerContainer')
       const condition2 = hrElement.getBoundingClientRect().top < e.clientY
-      const condition3 = e.clientX < filesDisplayer.getBoundingClientRect().right
-      if (condition1 && condition2 && condition3) return true
+      if (condition1 && condition2) return true
       return false
     }
     function handleMouseDown(e) {
@@ -291,6 +299,10 @@ function App() {
         filesSelector.current.style.top = calcY + 'px'
         filesSelector.current.style.left = calcX + 'px'
       }
+    }
+    function handleMouseLeave(e) {
+      filesSelectorPosition.current = false
+      filesSelector.current.style = ''
     }
     function handleMouseMove(e) {
       if (filesSelectorPosition.current) {
@@ -306,15 +318,7 @@ function App() {
     }
     function handleMouseUp(e) {
       const selectedResources = functions.detectSelection(filesSelector.current)
-      if (selectedResources) {
-        const filesDisplayer = document.getElementById('filesDisplayer');
-        Array.from(filesDisplayer.children).forEach((res) => {
-          const filter = selectedResources.filter((elem) => elem.id == res.id)
-          if (filter.length > 0) res.classList.add('selectedFile')
-          else res.classList.remove('selectedFile')
-        })
-        setSelectedFiles(selectedResources)
-      }
+      if (selectedResources) functions.setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile)
       filesSelectorPosition.current = false
       filesSelector.current.style = ''
     }
