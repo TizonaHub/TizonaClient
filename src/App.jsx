@@ -142,6 +142,7 @@ function App() {
     const mediaPlayerRef = useRef(false)
     const filesSelector = useRef(null) // squared div used to select several files and directories
     const filesSelectorPosition = useRef(false) // The position of mouse when selecting several files and directories
+    const filesMainRef=useRef(false)
 
     sF.sortByType(directories)
     sF.sortPrivate(directories)
@@ -169,7 +170,9 @@ function App() {
     const providerJson = {
       forceRenderProps: { forceRender: forceRender, setForceRender: setForceRender },
       directories: directories,
-      setMediaPlayerResource: setMediaPlayerResource
+      setMediaPlayerResource: setMediaPlayerResource,
+      selectedFiles:selectedFiles,
+      setSelectedFiles:setSelectedFiles
     }
     //Used in createfoldermodal. Maybe it is not necessary
     const personalDirectory = functions.checkPersonal(directoryTree, directories)
@@ -189,40 +192,43 @@ function App() {
 
             }}
             onClick={handleClick}
+            ref={filesMainRef}
           >
             {mediaPlayerResource ? <MediaPlayerComponent /> : null}
             {showRename ? <RenameModal data={showRename} setShowRename={setShowRename} directories={directories} directoryTree={directoryTree}></RenameModal> : null}
-            <nav>
-              <button onClick={handleBackClick}>
-                <img src={backButton} alt="" />
-              </button>
-              <div className="pathNavMobile">
+            <div className="upperContainer">
+              <nav>
                 <button onClick={handleBackClick}>
                   <img src={backButton} alt="" />
                 </button>
+                <div className="pathNavMobile">
+                  <button onClick={handleBackClick}>
+                    <img src={backButton} alt="" />
+                  </button>
+                  <DirectoryTreeToNav directoryTree={directoryTree}
+                    setDirectoryTree={setDirectoryTree}
+                    frProps={{ forceRender, setForceRender }}
+                    selectedFiles={selectedFiles}
+                  />
+                </div>
                 <DirectoryTreeToNav directoryTree={directoryTree}
                   setDirectoryTree={setDirectoryTree}
+                  draggingData={draggingData}
                   frProps={{ forceRender, setForceRender }}
+                  selectedFiles={selectedFiles} />
+                <FileActions directoryTree={directoryTree}
+                  clickedFile={clickedFile} setClickedFile={setClickedFile}
+                  frProps={{ forceRender: forceRender, setForceRender: setForceRender }}
+                  inPersonalDirectory={personalDirectory}
+                  setWallpaperAsset={setWallpaperAsset}
+                  setShowRename={setShowRename}
+                  setShowCreateFolder={setShowCreateFolder}
+                  handleSearchBar={handleSearchBar}
                   selectedFiles={selectedFiles}
                 />
-              </div>
-              <DirectoryTreeToNav directoryTree={directoryTree}
-                setDirectoryTree={setDirectoryTree}
-                draggingData={draggingData}
-                frProps={{ forceRender, setForceRender }}
-                selectedFiles={selectedFiles} />
-              <FileActions directoryTree={directoryTree}
-                clickedFile={clickedFile} setClickedFile={setClickedFile}
-                frProps={{ forceRender: forceRender, setForceRender: setForceRender }}
-                inPersonalDirectory={personalDirectory}
-                setWallpaperAsset={setWallpaperAsset}
-                setShowRename={setShowRename}
-                setShowCreateFolder={setShowCreateFolder}
-                handleSearchBar={handleSearchBar}
-                selectedFiles={selectedFiles}
-              />
-            </nav>
-            <hr />
+              </nav>
+              <hr />
+            </div>
             <div className="displayerContainer"
               id="displayerContainer"
               onDragStart={(e) => {
@@ -248,7 +254,7 @@ function App() {
               </div>
               <div className="filesSelector" ref={filesSelector}></div>
               <div className='filesDisplayer' id='filesDisplayer'
-                >
+              >
                 {currentDirectoryData.map((element, index) => {
                   return (
                     <File data={element} key={element.name + index}
@@ -272,7 +278,7 @@ function App() {
       </FilesContext.Provider>
     )
     function handleClick(e) {
-      const condition1 = e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer'|| e.target.id == 'filesMain'
+      const condition1 = e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer' || e.target.id == 'filesMain'
       if (condition1) {
         setClickedFile(false)
       }
@@ -292,10 +298,11 @@ function App() {
     }
     function handleMouseDown(e) {
       const hrElement = document.querySelector('.filesMain hr')
+      const filesMainElem = filesMainRef.current
       if (filesDisplayerClicked(e)) {
         filesSelectorPosition.current = [e.clientY, e.clientX]
-        const calcY = e.clientY - hrElement.getBoundingClientRect().top * 1.1
-        const calcX = e.clientX - hrElement.getBoundingClientRect().left
+        const calcY = e.clientY - hrElement.getBoundingClientRect().top 
+        const calcX = e.clientX - filesMainElem.getBoundingClientRect().left
         filesSelector.current.style.top = calcY + 'px'
         filesSelector.current.style.left = calcX + 'px'
       }
@@ -313,7 +320,7 @@ function App() {
         const scaleY = height < 0 ? -1 : 1;
         filesSelector.current.style.transform = `scale(${scaleX}, ${scaleY})`;
         filesSelector.current.style.width = Math.abs(width) + "px";
-        filesSelector.current.style.height = Math.abs(height)+ "px";
+        filesSelector.current.style.height = Math.abs(height) + "px";
       }
     }
     function handleMouseUp(e) {

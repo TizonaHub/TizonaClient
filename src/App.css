@@ -179,7 +179,6 @@ aside button span {
 main {
   width: 87%;
   height: 87%;
-  padding: 60px 70px;
   box-sizing: border-box;
   background-color: var(--darkColor);
   border-radius: 20px;
@@ -197,6 +196,15 @@ main.filesMain {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+}
+
+main.filesMain .upperContainer{
+  box-sizing: border-box;
+  padding: 60px 70px 0;
+
+}
+main.filesMain .filesDisplayer{
+  padding: 0 70px 60px;
 }
 
 main.filesMain * {
@@ -321,7 +329,7 @@ main.filesMain nav .fileActions input[type='file'] {
 
 main.filesMain hr {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 main.filesMain .displayerContainer {
@@ -335,6 +343,7 @@ main.filesMain .displayerContainer {
 main.filesMain .filesDisplayer {
   will-change: auto;
   transform: translateZ(0);
+  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
@@ -343,6 +352,7 @@ main.filesMain .filesDisplayer {
   align-content: flex-start;
   height: 100%;
   overflow: auto;
+  padding-top: 20px;
 }
 
 main.filesMain .userFolder {
