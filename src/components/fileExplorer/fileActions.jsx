@@ -100,24 +100,12 @@ function FileActions({ directoryTree, clickedFile, frProps,
         uploadRef.current.value = "";
     }
     function deleteResource() {
-        const resourcesURLs = []
         const formData = new FormData()
         if (selectedFiles.length >= 1) {
-            let string='['
-            selectedFiles.forEach((element,index) => {
-                const name = element.id
-                let resourceUrl = getURL( directoryTree + name)
-                string=string+'"'+resourceUrl+'"'
-                if(index!=selectedFiles.length-1) string=string+','
-                resourcesURLs.push(resourceUrl)
-
-            });
-            string=string+']'
-            console.log('string: ', string);
-            formData.append('resourceUrl',string )
+            formData.append('resourceUrl',functions.arrayToString(selectedFiles,directoryTree,directories) )
         }
         else if (directoryTree && clickedFile) {
-            let resourceUrl = getURL(directoryTree + clickedFile.name)
+            let resourceUrl = functions.getURL(directoryTree + clickedFile.name,directories)
             formData.append('resourceUrl', resourceUrl)
         }
         fetch(functions.prepareFetch('/api/resources'), {

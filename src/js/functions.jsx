@@ -12,7 +12,7 @@ export function checkPersonal(path, data) {
   }
   return false
 }
-export function detectSelection(selectedArea, mode = 'intersect', margin = 0 ) {
+export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   const areaRect = {
     left: selectedArea.getBoundingClientRect().left - margin,
     right: selectedArea.getBoundingClientRect().right + margin,
@@ -23,7 +23,7 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0 ) {
   const filesDisplayer = document.getElementById('filesDisplayer');
 
   const selected = [];
-if(areaRect.left==areaRect.right && areaRect.top==areaRect.bottom) return selected; //user clicked above <hr> tag
+  if (areaRect.left == areaRect.right && areaRect.top == areaRect.bottom) return selected; //user clicked above <hr> tag
   Array.from(filesDisplayer.children).forEach((element) => {
 
     const elementRect = {
@@ -54,7 +54,8 @@ if(areaRect.left==areaRect.right && areaRect.top==areaRect.bottom) return select
   return selected;
 }
 
-export async function changeResourceLocation(source, newLocation, targetData, directories) {
+export async function changeResourceLocation(source, newLocation, targetData, directories, selectedFiles) {
+  console.log('selectedFiles: ', selectedFiles);
   source = preparePath(source, checkPersonal(source, directories))
   newLocation = preparePath(newLocation, checkPersonal(newLocation, directories))
   //Checks
@@ -63,9 +64,7 @@ export async function changeResourceLocation(source, newLocation, targetData, di
   if (check1 && check2) {
     let formData = new FormData()
     formData.append('source', source)
-    console.log('source: ', source);
     formData.append('newLocation', newLocation)
-    console.log('newLocation: ', newLocation);
     /*const result = await fetch(prepareFetch('/api/resources/move'), {
       credentials: 'include',
       method: 'PATCH',
@@ -121,6 +120,35 @@ export function shortenValue(data) {
 export function reduceOpacity(value) {
   if (!value) document.documentElement.style.setProperty('--darkColor', 'rgba(24, 24, 24,1)')
   else document.documentElement.style.setProperty('--darkColor', 'rgba(24, 24, 24,0.95)')
+}
+export function arrayToString(selectedFiles,directoryTree,directories) {
+
+  let string = '['
+  selectedFiles.forEach((element, index) => {
+    const name = element.id
+    let resourceUrl = getURL(directoryTree + name, directories)
+    string = string + '"' + resourceUrl + '"'
+    if (index != selectedFiles.length - 1) string = string + ','
+
+  });
+  return string + ']'
+}
+
+export function getURL(path, directories) {
+  return preparePath(path, checkPersonal(path, directories))
+}
+export function selectionToArray(selection) {
+  let string = '['
+  selection.forEach((element, index) => {
+    const name = element.id
+    let resourceUrl = getURL(selection + name)
+    string = string + '"' + resourceUrl + '"'
+    if (index != selection.length - 1) string = string + ','
+
+  });
+  string = string + ']'
+  console.log('string: ', string);
+  return string
 }
 /**
  *  Gets file URL in server. This allows to download the file, get image and whatever you want
