@@ -142,7 +142,7 @@ function App() {
     const mediaPlayerRef = useRef(false)
     const filesSelector = useRef(null) // squared div used to select several files and directories
     const filesSelectorPosition = useRef(false) // The position of mouse when selecting several files and directories
-    const filesMainRef=useRef(false)
+    const filesMainRef = useRef(false)
 
     sF.sortByType(directories)
     sF.sortPrivate(directories)
@@ -171,8 +171,8 @@ function App() {
       forceRenderProps: { forceRender: forceRender, setForceRender: setForceRender },
       directories: directories,
       setMediaPlayerResource: setMediaPlayerResource,
-      selectedFiles:selectedFiles,
-      setSelectedFiles:setSelectedFiles
+      selectedFiles: selectedFiles,
+      setSelectedFiles: setSelectedFiles
     }
     //Used in createfoldermodal. Maybe it is not necessary
     const personalDirectory = functions.checkPersonal(directoryTree, directories)
@@ -187,8 +187,8 @@ function App() {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onMouseUp={() => {
-              filesSelectorPosition.current = false
-              filesSelector.current.style = ''
+              /*filesSelectorPosition.current = false
+              filesSelector.current.style = ''*/
 
             }}
             onClick={handleClick}
@@ -258,8 +258,6 @@ function App() {
                 {currentDirectoryData.map((element, index) => {
                   return (
                     <File data={element} key={element.name + index}
-                      clickedFile={clickedFile}
-                      setClickedFile={setClickedFile}
                       personal={element.personal}
                       directoryTree={directoryTree} setDirectoryTree={setDirectoryTree}
                       frProps={{ forceRender: forceRender, setForceRender: setForceRender }}
@@ -280,7 +278,7 @@ function App() {
     function handleClick(e) {
       const condition1 = e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer' || e.target.id == 'filesMain'
       if (condition1) {
-        setClickedFile(false)
+        setSelectedFiles([])
       }
       functions.setSelectionStyles(selectedFiles)
     }
@@ -301,18 +299,18 @@ function App() {
       const filesMainElem = filesMainRef.current
       if (filesDisplayerClicked(e)) {
         filesSelectorPosition.current = [e.clientY, e.clientX]
-        const calcY = e.clientY - hrElement.getBoundingClientRect().top 
+        const calcY = e.clientY - hrElement.getBoundingClientRect().top
         const calcX = e.clientX - filesMainElem.getBoundingClientRect().left
         filesSelector.current.style.top = calcY + 'px'
         filesSelector.current.style.left = calcX + 'px'
       }
     }
     function handleMouseLeave(e) {
-      filesSelectorPosition.current = false
-      filesSelector.current.style = ''
+      /*filesSelectorPosition.current = false
+      filesSelector.current.style = ''*/
     }
     function handleMouseMove(e) {
-      if (filesSelectorPosition.current) {
+      /*if (filesSelectorPosition.current) {
         const initialPos = filesSelectorPosition.current;
         const width = e.clientX - initialPos[1];
         const height = e.clientY - initialPos[0];
@@ -321,13 +319,15 @@ function App() {
         filesSelector.current.style.transform = `scale(${scaleX}, ${scaleY})`;
         filesSelector.current.style.width = Math.abs(width) + "px";
         filesSelector.current.style.height = Math.abs(height) + "px";
-      }
+      }*/
     }
     function handleMouseUp(e) {
-      const selectedResources = functions.detectSelection(filesSelector.current)
-      if (selectedResources) functions.setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile)
+     /* const selectedResources = functions.detectSelection(filesSelector.current)
+      if (selectedResources && selectedResources.length > 0) {
+        functions.setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile)
+      }
       filesSelectorPosition.current = false
-      filesSelector.current.style = ''
+      filesSelector.current.style = ''*/
     }
 
     function handleSearchBar(text) {
@@ -337,7 +337,6 @@ function App() {
         filterData(resource, 'root/')
         setCurrentDirectoryData(filteredDatas)
       });
-      console.log(filteredDatas);
       function filterData(resource, dir) {
         const name = resource.name
         const filteredResource = name.toLowerCase().includes(text.toLowerCase())

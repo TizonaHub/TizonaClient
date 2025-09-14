@@ -1,4 +1,3 @@
-import PropTypes, { func } from 'prop-types';
 import * as functions from '../../js/functions.jsx'
 import * as fileFunctions from '../../js/fileFunctions.js'
 import { useRef, useContext } from 'react'
@@ -11,8 +10,8 @@ import wallpaperIcon from '@assets/icons/wallpaper.svg'
 import searchIcon from '@assets/icons/magnifyingGlass.svg'
 import crossIcon from '@assets/icons/crossIcon.svg'
 import { AppContext, FilesContext } from '../../js/contexts.js';
-function FileActions({ directoryTree, clickedFile, frProps,
-    setClickedFile, setShowCreateFolder, setWallpaperAsset, handleSearchBar, selectedFiles }) {
+function FileActions({ directoryTree,  frProps,
+     setShowCreateFolder, setWallpaperAsset, handleSearchBar,  }) {
     let uploadRef = useRef(null)
     const appContextData = useContext(AppContext)
     const userData = appContextData.user.userData
@@ -21,6 +20,9 @@ function FileActions({ directoryTree, clickedFile, frProps,
     const downloadLinkRef = useRef(false)
     const searchInputRef = useRef(false)
     const searchIconRef = useRef(false)
+    const setSelectedFiles=filesContextData.setSelectedFiles
+    const selectedFiles=filesContextData.selectedFiles
+    const clickedFile=selectedFiles&& selectedFiles[0]?selectedFiles[0]:false
 
     return (
         <div className="navWrapper">
@@ -101,6 +103,7 @@ function FileActions({ directoryTree, clickedFile, frProps,
     }
     function deleteResource() {
         const formData = new FormData()
+        console.log(functions.arrayToString(selectedFiles, directoryTree, directories));
         if (selectedFiles && selectedFiles.length >= 1) {
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
@@ -108,6 +111,7 @@ function FileActions({ directoryTree, clickedFile, frProps,
             let resourceUrl = functions.getURL(directoryTree + clickedFile.name, directories)
             formData.append('resourceUrl', resourceUrl)
         }
+        
         fetch(functions.prepareFetch('/api/resources'), {
             credentials: 'include',
             method: 'DELETE',
@@ -123,7 +127,7 @@ function FileActions({ directoryTree, clickedFile, frProps,
             console.log('clickedElement: ', clickedElement);
             let span = clickedElement.querySelector('span')
             let originalName = clickedElement.querySelector('input[type="hidden"')
-            if (userData && originalName.value == userData.id) return setClickedFile(false)
+            if (userData && originalName.value == userData.id) return setSelectedFiles([])
             clickedElement.setAttribute('disabled', true)
             span.setAttribute('contentEditable', true);
             span.textContent = originalName.value
@@ -139,7 +143,7 @@ function FileActions({ directoryTree, clickedFile, frProps,
             selection.removeAllRanges();
             selection.addRange(range);
 
-            setClickedFile(false)
+            setSelectedFiles([])
         }
 
     }

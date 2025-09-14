@@ -9,15 +9,18 @@ import {
 import { LangContext, AppContext, FilesContext } from '../js/contexts';
 import { useRef, useContext } from 'react';
 import themes from '../js/themes.json'
-function File({ data, clickedFile, setClickedFile, setDirectoryTree,
+function File({ data, setDirectoryTree,
     directoryTree, renameFileModal, frProps, draggingElement, draggingData,
-    personal, draggable,selectedFiles }) {
+    personal, draggable }) {
     //VARS
     const appContextData = useContext(AppContext)
     const filesContextData = useContext(FilesContext)
     const directories = filesContextData ? filesContextData.directories : []
     const spanElement = useRef(null)
     const buttonElement = useRef(null)
+    const setSelectedFiles=filesContextData.setSelectedFiles
+    const selectedFiles=filesContextData.selectedFiles
+    const clickedFile=selectedFiles && selectedFiles[0]?selectedFiles[0]:false
     let lang = useContext(LangContext)
     const userData = appContextData.user.userData
     let isPrivateDir = userData && userData.id == data.name
@@ -94,8 +97,10 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
         //vars
         const draggedElementData = draggingData.current
         const name = draggedElementData.id
-        if(!selectedFiles || selectedFiles.length<1) selectedFiles=[{id:name}]
-        const selectionJSON=prepareMoveResourcesJSON(selectedFiles,directoryTree,directories,directoryTree + data.name.trim() + '/')
+        console.log('name: ', name);
+        console.log('selectedfiles ',selectedFiles);
+        const selectedFilesParam=(!selectedFiles || selectedFiles.length<1) ?[{id:name}]:selectedFiles
+        const selectionJSON=prepareMoveResourcesJSON(selectedFilesParam,directoryTree,directories,directoryTree + data.name.trim() + '/')
         const result = await changeResourceLocation(selectionJSON)
         result ? frProps.setForceRender(frProps.forceRender + 1) : null
         draggingData.current = null
@@ -112,16 +117,18 @@ function File({ data, clickedFile, setClickedFile, setDirectoryTree,
         if (!renameFileModal) {
             let isNotEditable = e.target.contentEditable !== 'true';
             const isDirectory = data.type == 'directory'
+            console.log('isDirectory: ', isDirectory);
             const isFile = data.type == 'file'
             const isClicked = e.currentTarget.id == clickedFile.name
+            console.log('clickedFile.name: ', clickedFile);
             if (isClicked && isDirectory && isNotEditable) {
-                setClickedFile(false)
+                setSelectedFiles([])
                 setDirectoryTree(localDirectoryTree + data.name + '/')
             }//directory double click
             else if (isClicked && isFile && isNotEditable) { // file double click
                 filesContextData.setMediaPlayerResource(localDirectoryTree + data.name)
             }
-            else if (isNotEditable) setClickedFile({ ...data }); //first click
+            else if (isNotEditable) setSelectedFiles([{ ...data }]); //first click
         }
     }
     /**
