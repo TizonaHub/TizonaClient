@@ -97,8 +97,6 @@ function File({ data, setDirectoryTree,
         //vars
         const draggedElementData = draggingData.current
         const name = draggedElementData.id
-        console.log('name: ', name);
-        console.log('selectedfiles ',selectedFiles);
         const selectedFilesParam=(!selectedFiles || selectedFiles.length<1) ?[{id:name}]:selectedFiles
         const selectionJSON=prepareMoveResourcesJSON(selectedFilesParam,directoryTree,directories,directoryTree + data.name.trim() + '/')
         const result = await changeResourceLocation(selectionJSON)
@@ -117,15 +115,14 @@ function File({ data, setDirectoryTree,
         if (!renameFileModal) {
             let isNotEditable = e.target.contentEditable !== 'true';
             const isDirectory = data.type == 'directory'
-            console.log('isDirectory: ', isDirectory);
             const isFile = data.type == 'file'
             const isClicked = e.currentTarget.id == clickedFile.name
-            console.log('clickedFile.name: ', clickedFile);
             if (isClicked && isDirectory && isNotEditable) {
                 setSelectedFiles([])
                 setDirectoryTree(localDirectoryTree + data.name + '/')
             }//directory double click
             else if (isClicked && isFile && isNotEditable) { // file double click
+                setSelectedFiles([])
                 filesContextData.setMediaPlayerResource(localDirectoryTree + data.name)
             }
             else if (isNotEditable) setSelectedFiles([{ ...data }]); //first click

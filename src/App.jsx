@@ -130,8 +130,7 @@ function App() {
     const [directories, setDirectories] = useState([])
     const [currentDirectoryData, setCurrentDirectoryData] = useState([])
     const [currentDirectoryDataCopy, setCurrentDirectoryDataCopy] = useState([]) //keeps current directory data. It never changes
-    const [clickedFile, setClickedFile] = useState(null)
-    const [selectedFiles, setSelectedFiles] = useState(null) //stores clicked files from selection
+    const [selectedFiles, setSelectedFiles] = useState([]) //stores resources form selection
     const [directoryTree, setDirectoryTree] = useState('root/')
     const [showRename, setShowRename] = useState(null)
     const [showCreateFolder, setShowCreateFolder] = useState(null)
@@ -143,7 +142,6 @@ function App() {
     const filesSelector = useRef(null) // squared div used to select several files and directories
     const filesSelectorPosition = useRef(false) // The position of mouse when selecting several files and directories
     const filesMainRef = useRef(false)
-
     sF.sortByType(directories)
     sF.sortPrivate(directories)
     useEffect(() => {
@@ -160,7 +158,6 @@ function App() {
         .then(async (response) => {
           let json = await response.json()
           setDirectories(json)
-          setClickedFile(false)
           setCurrentDirectoryData(functions.getDirectoryData(json, directoryTree))
           setCurrentDirectoryDataCopy(functions.getDirectoryData(json, directoryTree))
 
@@ -217,7 +214,6 @@ function App() {
                   frProps={{ forceRender, setForceRender }}
                   selectedFiles={selectedFiles} />
                 <FileActions directoryTree={directoryTree}
-                  clickedFile={clickedFile} setClickedFile={setClickedFile}
                   frProps={{ forceRender: forceRender, setForceRender: setForceRender }}
                   inPersonalDirectory={personalDirectory}
                   setWallpaperAsset={setWallpaperAsset}
@@ -277,10 +273,10 @@ function App() {
     )
     function handleClick(e) {
       const condition1 = e.target.id == 'displayerContainer' || e.target.id == 'filesDisplayer' || e.target.id == 'filesMain'
-      if (condition1) {
+      if (condition1 && functions.isClick()) {
         setSelectedFiles([])
       }
-      functions.setSelectionStyles(selectedFiles)
+      //functions.setSelectionStyles(selectedFiles)
     }
     /**
      * Checks if user clicked below <hr> tag
@@ -310,7 +306,7 @@ function App() {
       filesSelector.current.style = ''*/
     }
     function handleMouseMove(e) {
-      /*if (filesSelectorPosition.current) {
+      if (filesSelectorPosition.current) {
         const initialPos = filesSelectorPosition.current;
         const width = e.clientX - initialPos[1];
         const height = e.clientY - initialPos[0];
@@ -319,15 +315,24 @@ function App() {
         filesSelector.current.style.transform = `scale(${scaleX}, ${scaleY})`;
         filesSelector.current.style.width = Math.abs(width) + "px";
         filesSelector.current.style.height = Math.abs(height) + "px";
-      }*/
+      }
     }
     function handleMouseUp(e) {
-     /* const selectedResources = functions.detectSelection(filesSelector.current)
-      if (selectedResources && selectedResources.length > 0) {
-        functions.setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile)
-      }
+      const width = filesSelector.current.style.width
+      const height = filesSelector.current.style.height
+      const selectedResources = functions.detectSelection(filesSelector.current)
+      const filesDisplayer = document.getElementById('filesDisplayer');
+      Array.from(filesDisplayer.children).forEach((res) => {
+        const filter = selectedResources.filter((elem) => elem.id == res.id)
+        if (filter.length > 0) {
+          res.classList.add('selectedFile')
+        }
+        else res.classList.remove('selectedFile')
+      })
+      if (!functions.isClick(width, height)) setSelectedFiles(selectedResources);
+
       filesSelectorPosition.current = false
-      filesSelector.current.style = ''*/
+      filesSelector.current.style = ''
     }
 
     function handleSearchBar(text) {

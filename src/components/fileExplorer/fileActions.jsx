@@ -22,7 +22,7 @@ function FileActions({ directoryTree,  frProps,
     const searchIconRef = useRef(false)
     const setSelectedFiles=filesContextData.setSelectedFiles
     const selectedFiles=filesContextData.selectedFiles
-    const clickedFile=selectedFiles&& selectedFiles[0]?selectedFiles[0]:false
+    const clickedFile=selectedFiles && selectedFiles[0]?selectedFiles[0]:false
 
     return (
         <div className="navWrapper">
@@ -103,7 +103,7 @@ function FileActions({ directoryTree,  frProps,
     }
     function deleteResource() {
         const formData = new FormData()
-        console.log(functions.arrayToString(selectedFiles, directoryTree, directories));
+        console.log('selectedFilesdelete',selectedFiles);
         if (selectedFiles && selectedFiles.length >= 1) {
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }

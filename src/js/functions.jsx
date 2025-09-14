@@ -52,18 +52,28 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   return selected;
 }
 export function setSelectionStyles(selectedResources, setSelectedFiles, setClickedFile) {
-  if(!selectedResources)return
+  if (!selectedResources) return
   const filesDisplayer = document.getElementById('filesDisplayer');
   Array.from(filesDisplayer.children).forEach((res) => {
     const filter = selectedResources.filter((elem) => elem.id == res.id)
     if (filter.length > 0) {
-      if(setClickedFile)setClickedFile()
+      if (setClickedFile) setClickedFile()
       res.classList.add('selectedFile')
     }
     else res.classList.remove('selectedFile')
   })
   if (setSelectedFiles) setSelectedFiles(selectedResources)
 
+}
+/**
+ *  Detects if the user is using area selector or only clicking
+ * @param {*} width 
+ * @param {*} height 
+ * @returns 
+ */
+export function isClick(width, height) {
+  if (width < '10px' && height < '10px') return true
+  return false
 }
 export async function changeResourceLocation(json) {
   if (json.length < 1) return
@@ -128,7 +138,7 @@ export function arrayToString(selectedFiles, directoryTree, directories) {
 
   let string = '['
   selectedFiles.forEach((element, index) => {
-    const name = element.id?element.id:element.name?element.name:null
+    const name = element.id ? element.id : element.name ? element.name : null
     let resourceUrl = getURL(directoryTree + name, directories)
     string = string + '"' + resourceUrl + '"'
     if (index != selectedFiles.length - 1) string = string + ','
@@ -137,7 +147,6 @@ export function arrayToString(selectedFiles, directoryTree, directories) {
   return string + ']'
 }
 export function prepareMoveResourcesJSON(selectedFiles, directoryTree, directories, destiny) {
-  console.log('destiny: ', destiny);
   const array = []
   selectedFiles.forEach((element) => {
     const name = element.id || element.name

@@ -54,7 +54,6 @@ function DirectoryTreeToNav({ directoryTree, setDirectoryTree, frProps, dragging
       if(!selectedFiles || selectedFiles.length<1) selectedFiles=[{id:name}]
   
       const json=prepareMoveResourcesJSON(selectedFiles,directoryTree,directories,tree)
-      console.log('json: ', json);
       tree = preparePath(source, checkPersonal(source, directories))
       await changeResourceLocation(json)
       frProps.setForceRender(frProps.forceRender + 1)
