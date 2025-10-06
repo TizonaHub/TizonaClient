@@ -14,10 +14,10 @@
         "filesSelector":"rgb(252, 160, 0,0.63)"
     },
     "blue":{
-        "mainColor":"blue",
-        "secondColor":"#000fff78",
+        "mainColor":"#009aff",
+        "secondColor":"#00406a",
         "thirdColor":"#000043",
-        "gradientColors":["blue","#000063"],
+        "gradientColors":["#00B7FF","#005EBD"],
         "filesSelector":"rgba(0, 47, 255, 0.63)"
     }
 }
