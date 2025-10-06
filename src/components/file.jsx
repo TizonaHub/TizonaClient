@@ -37,6 +37,7 @@ function File({ data, setDirectoryTree,
         <>
             <button className={`fileButton ${clickedFile && element.name != null && clickedFile.name == element.name ? 'selectedFile' : null}`}
                 onClick={handleFileClick} id={element.name}
+                onContextMenu={handleFileClick}
                 draggable={draggable}
                 ref={buttonElement}
                 onDrop={handleOnDrop}
@@ -68,7 +69,6 @@ function File({ data, setDirectoryTree,
         let newName = e.currentTarget.textContent.trim()
         e.currentTarget.setAttribute('contentEditable', false)
         if (data.name.trim() != newName) {
-            if (!confirm(lang.alertMessages[0])) return resetSpanValue()
             let source = directoryTree + data.name
             source = preparePath(source, checkPersonal(source, directories))
             formData.append('source', source)
@@ -78,7 +78,6 @@ function File({ data, setDirectoryTree,
                 body: formData
             }).then((res) => {
                 if (!res.ok) {
-                    alert(lang.alertMessages[1])
                     resetSpanValue()
                 }
                 frProps.setForceRender(frProps.forceRender + 1)
@@ -112,16 +111,17 @@ function File({ data, setDirectoryTree,
      */
     function handleFileClick(e) {
         let localDirectoryTree = data.dir ? data.dir : directoryTree
+        const rightClick=e.button==2
         if (!renameFileModal) {
             let isNotEditable = e.target.contentEditable !== 'true';
             const isDirectory = data.type == 'directory'
             const isFile = data.type == 'file'
             const isClicked = e.currentTarget.id == clickedFile.name
-            if (isClicked && isDirectory && isNotEditable) {
+            if (isClicked && isDirectory && isNotEditable && !rightClick) {
                 setSelectedFiles([])
                 setDirectoryTree(localDirectoryTree + data.name + '/')
             }//directory double click
-            else if (isClicked && isFile && isNotEditable) { // file double click
+            else if (isClicked && isFile && isNotEditable && !rightClick) { // file double click
                 setSelectedFiles([])
                 filesContextData.setMediaPlayerResource(localDirectoryTree + data.name)
             }

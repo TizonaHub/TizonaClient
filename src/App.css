@@ -198,12 +198,13 @@ main.filesMain {
   overflow: hidden;
 }
 
-main.filesMain .upperContainer{
+main.filesMain .upperContainer {
   box-sizing: border-box;
   padding: 60px 70px 0;
 
 }
-main.filesMain .filesDisplayer{
+
+main.filesMain .filesDisplayer {
   padding: 0 70px 60px;
 }
 
@@ -229,7 +230,7 @@ main.filesMain nav button:not(.directoryNav button) {
   box-sizing: border-box;
 }
 
-main.filesMain nav > button:nth-child(1) {
+main.filesMain nav>button:nth-child(1) {
   min-width: 40px;
 }
 
@@ -274,7 +275,7 @@ main.filesMain nav .navWrapper .inputWrapper img {
   right: 10px;
 }
 
-main.filesMain nav .fileActions {
+.fileActions {
   height: 100%;
   display: flex;
   align-items: center;
@@ -282,49 +283,88 @@ main.filesMain nav .fileActions {
   gap: 15px;
 }
 
-main.filesMain nav .fileActions button {
+.fileActions button {
   display: flex;
   padding: 0;
   width: fit-content;
   height: 35px;
 }
 
-main.filesMain nav .fileActions button:focus,
-main.filesMain nav .fileActions button:hover {
+.fileActions button:focus,
+.fileActions button:hover {
   border-width: 0;
   background-color: transparent;
 }
 
-main.filesMain nav .fileActions button img {
+.fileActions button img {
   min-height: 25px;
 }
 
-main.filesMain nav .fileActions .uploadResource img {
+.fileActions .uploadResource img {
   min-height: 43px;
 }
 
-main.filesMain nav .fileActions .renameResource img {
+.fileActions .renameResource img {
   min-height: 37px;
 }
 
-main.filesMain nav .fileActions .createFolder img {
+.fileActions .createFolder img {
   min-height: 35px;
 }
 
-main.filesMain nav .fileActions .download img {
+.fileActions .download img {
   min-height: 40px;
 }
 
-main.filesMain nav .fileActions .wallpaper img {
+.fileActions .wallpaper img {
   min-height: 35px;
 }
 
-main.filesMain nav .fileActions .bin img {
+.fileActions .bin img {
   min-height: 28px;
 }
 
-main.filesMain nav .fileActions input[type='file'] {
+.fileActions input[type='file'] {
   display: none;
+}
+
+.contextMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100px;
+  background-color: rgb(12, 12, 12);
+  padding: 5px;
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+.contextMenu .fileActions {
+  width:100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  place-items: center;
+  gap: 15px;
+}
+.contextMenu .fileActions button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contextMenu .fileActions {
+  height: 100%;
+}
+
+.contextMenu .fileActions * {
+  border: none
 }
 
 main.filesMain hr {
@@ -956,7 +996,7 @@ button:hover {
   height: 100%;
 }
 
-.settingsMain .settingsContent .themeContainer:nth-child(2) > div {
+.settingsMain .settingsContent .themeContainer:nth-child(2)>div {
   column-gap: 20px;
   margin-bottom: 30px;
   display: flex;
@@ -1005,15 +1045,16 @@ button:hover {
   animation: rotateLoader2 1s infinite linear;
 }
 
-div.filesSelector{
+div.filesSelector {
   position: absolute;
-  width:  0;
+  width: 0;
   height: 0;
   background-color: var(--filesSelector);
   z-index: 100;
   transform-origin: left top;
-  pointer-events: none;   
+  pointer-events: none;
 }
+
 @font-face {
   font-family: 'Roboto';
   src: url(./css/fonts/Roboto/static/Roboto-Light.ttf);

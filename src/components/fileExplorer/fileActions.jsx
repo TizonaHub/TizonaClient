@@ -11,7 +11,7 @@ import searchIcon from '@assets/icons/magnifyingGlass.svg'
 import crossIcon from '@assets/icons/crossIcon.svg'
 import { AppContext, FilesContext } from '../../js/contexts.js';
 function FileActions({ directoryTree,  frProps,
-     setShowCreateFolder, setWallpaperAsset, handleSearchBar,  }) {
+     setShowCreateFolder, setWallpaperAsset, handleSearchBar,contextMenu  }) {
     let uploadRef = useRef(null)
     const appContextData = useContext(AppContext)
     const userData = appContextData.user.userData
@@ -23,9 +23,12 @@ function FileActions({ directoryTree,  frProps,
     const setSelectedFiles=filesContextData.setSelectedFiles
     const selectedFiles=filesContextData.selectedFiles
     const clickedFile=selectedFiles && selectedFiles[0]?selectedFiles[0]:false
+    const navWrapperRef=useRef(false)
 
     return (
-        <div className="navWrapper">
+        <div className="navWrapper" ref={navWrapperRef}>
+            {handleSearchBar?
+            
             <div className="inputWrapper">
                 <input type="text" onChange={(e) => {
                     const text = e.target.value
@@ -45,7 +48,13 @@ function FileActions({ directoryTree,  frProps,
                     else searchInputRef.current.focus()
                 }} />
             </div>
-            <span className="fileActions">
+            :''}
+            <span className="fileActions" onClick={(e)=>{
+                if(!contextMenu) return
+                if(e.target == navWrapperRef.current)return
+                else contextMenu.style.visibility='hidden'
+                console.log(e.target);
+            }}>
                 <button className='uploadResource' onClick={() => { uploadRef.current.click() }} ><img src={upload} /></button>
                 <button className='createFolder' onClick={() => { setShowCreateFolder(true) }} ><img src={createFolder} alt="" /></button>
                 <button className='renameResource' onClick={handleRename}><img src={renameRegular} alt="" /></button>
@@ -105,6 +114,7 @@ function FileActions({ directoryTree,  frProps,
         const formData = new FormData()
         console.log('selectedFilesdelete',selectedFiles);
         if (selectedFiles && selectedFiles.length >= 1) {
+            console.log(functions.arrayToString(selectedFiles, directoryTree, directories));
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
         else if (directoryTree && clickedFile) {
