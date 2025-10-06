@@ -54,6 +54,8 @@ function File({ data, setDirectoryTree,
                     {shortenValue(isPrivateDir ? 'Private folder' : data.name)}
                 </span>
                 <input type="hidden" name="originalName" value={data.name} />
+                <input type="hidden" name="uri" value={data.uri} />
+                <input type="hidden" name="type" value={data.type} />
             </button>
         </>
     )
