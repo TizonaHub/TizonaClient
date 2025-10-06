@@ -26,7 +26,6 @@ export default function CreateFolderModal({ setShowCreateFolder,directoryTree,pe
                 setShowCreateFolder(false)
                 FRProps.setForceRender(FRProps.forceRender+1)
             }
-            else alert (lang.alertMessages[2])
         })
     }
     return <div className='createFolderModal'>
