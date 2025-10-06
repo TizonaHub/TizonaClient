@@ -364,7 +364,8 @@ main.filesMain nav .navWrapper .inputWrapper img {
 }
 
 .contextMenu .fileActions * {
-  border: none
+  border: none;
+  user-select: none;
 }
 
 main.filesMain hr {
@@ -415,6 +416,7 @@ main.filesMain .dragOverFiles {
   align-items: center;
   border-radius: 20px;
   color: rgb(173, 173, 173);
+  box-sizing: border-box;
   border: dashed black 8px;
   display: none;
 }
@@ -429,7 +431,10 @@ main.filesMain .dragOverFiles .dragZone {
 }
 
 main.filesMain .dragOverFiles h2 {
-  font-size: 50px;
+  font-size: 5vw;
+  text-shadow: 0 0 15px black;
+  color: black;
+  font-weight: bold;
 }
 
 main.filesMain .renameFileModal {

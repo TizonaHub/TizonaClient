@@ -4,7 +4,7 @@ import audioIcon from '@assets/icons/audioIcon.svg'
 import {
     shortenValue, getFileSrc, preparePath, checkPersonal
     , changeResourceLocation, prepareFetch,
-    formatNumber,prepareMoveResourcesJSON
+    formatNumber, prepareMoveResourcesJSON
 } from '../js/functions.jsx';
 import { LangContext, AppContext, FilesContext } from '../js/contexts';
 import { useRef, useContext } from 'react';
@@ -18,9 +18,9 @@ function File({ data, setDirectoryTree,
     const directories = filesContextData ? filesContextData.directories : []
     const spanElement = useRef(null)
     const buttonElement = useRef(null)
-    const setSelectedFiles=filesContextData.setSelectedFiles
-    const selectedFiles=filesContextData.selectedFiles
-    const clickedFile=selectedFiles && selectedFiles[0]?selectedFiles[0]:false
+    const setSelectedFiles = filesContextData.setSelectedFiles
+    const selectedFiles = filesContextData.selectedFiles
+    const clickedFile = selectedFiles && selectedFiles[0] ? selectedFiles[0] : false
     let lang = useContext(LangContext)
     const userData = appContextData.user.userData
     let isPrivateDir = userData && userData.id == data.name
@@ -35,7 +35,7 @@ function File({ data, setDirectoryTree,
     if (data.children) element.children = JSON.stringify(data.children)
     return (
         <>
-            <button className={`fileButton ${clickedFile && element.name != null && clickedFile.name == element.name ? 'selectedFile' : null}`}
+            <button className={`fileButton`}
                 onClick={handleFileClick} id={element.name}
                 onContextMenu={handleFileClick}
                 draggable={draggable}
@@ -96,8 +96,8 @@ function File({ data, setDirectoryTree,
         //vars
         const draggedElementData = draggingData.current
         const name = draggedElementData.id
-        const selectedFilesParam=(!selectedFiles || selectedFiles.length<1) ?[{id:name}]:selectedFiles
-        const selectionJSON=prepareMoveResourcesJSON(selectedFilesParam,directoryTree,directories,directoryTree + data.name.trim() + '/')
+        const selectedFilesParam = (!selectedFiles || selectedFiles.length < 1) ? [{ id: name }] : selectedFiles
+        const selectionJSON = prepareMoveResourcesJSON(selectedFilesParam, directoryTree, directories, directoryTree + data.name.trim() + '/')
         const result = await changeResourceLocation(selectionJSON)
         result ? frProps.setForceRender(frProps.forceRender + 1) : null
         draggingData.current = null
@@ -111,12 +111,12 @@ function File({ data, setDirectoryTree,
      */
     function handleFileClick(e) {
         let localDirectoryTree = data.dir ? data.dir : directoryTree
-        const rightClick=e.button==2
+        const rightClick = e.button == 2
         if (!renameFileModal) {
             let isNotEditable = e.target.contentEditable !== 'true';
             const isDirectory = data.type == 'directory'
             const isFile = data.type == 'file'
-            const isClicked = e.currentTarget.id == clickedFile.name
+            const isClicked = e.currentTarget == clickedFile
             if (isClicked && isDirectory && isNotEditable && !rightClick) {
                 setSelectedFiles([])
                 setDirectoryTree(localDirectoryTree + data.name + '/')
@@ -125,7 +125,12 @@ function File({ data, setDirectoryTree,
                 setSelectedFiles([])
                 filesContextData.setMediaPlayerResource(localDirectoryTree + data.name)
             }
-            else if (isNotEditable) setSelectedFiles([{ ...data }]); //first click
+            else if (isNotEditable) {
+                const elem=document.getElementById(data.name)
+                if(rightClick && !selectedFiles || (selectedFiles && selectedFiles.length<=1) )setSelectedFiles([elem])
+                if(!rightClick)setSelectedFiles([elem])
+                    //setSelectedFiles([{ ...data }]);
+            } //first click
         }
     }
     /**

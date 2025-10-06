@@ -164,6 +164,15 @@ function App() {
 
         })
     }, [forceRender])
+
+    useEffect(() => {
+      const filesDisplayer = document.getElementById('filesDisplayer');
+      Array.from(filesDisplayer.children).forEach((res) => res.classList.remove('selectedFile')) //clears styles
+      if (!selectedFiles) return
+      selectedFiles.forEach((res) => res.classList.add('selectedFile'))
+
+    }, [selectedFiles])
+
     const providerJson = {
       forceRenderProps: { forceRender: forceRender, setForceRender: setForceRender },
       directories: directories,
@@ -286,23 +295,24 @@ function App() {
         </div>
       </FilesContext.Provider>
     )
+
     function handleContextMenu(e) {
       e.preventDefault()
-        const contextMenu = contextMenuRef.current
-      if(e.target==e.currentTarget) return contextMenu.style.visibility = 'hidden'
+      const contextMenu = contextMenuRef.current
+      if (e.target == e.currentTarget) return contextMenu.style.visibility = 'hidden'
       const mainDiv = document.querySelector('.mainDiv')
       if (filesDisplayerClicked(e, true)) {
         const mainDivRect = mainDiv.getBoundingClientRect()
         const rectContextMenu = contextMenu.getBoundingClientRect()
         const calcY = e.clientY - mainDiv.getBoundingClientRect().top
         let calcX = e.clientX - mainDiv.getBoundingClientRect().left
-        let leftStyle=calcX
+        let leftStyle = calcX
         if (calcX > mainDivRect.right * 0.6) {
           calcX = calcX - rectContextMenu.width
-          leftStyle=calcX -20
+          leftStyle = calcX - 20
         }
-        else{
-          leftStyle=calcX +20
+        else {
+          leftStyle = calcX + 20
         }
         contextMenu.style.visibility = 'visible'
         contextMenu.style.left = leftStyle + 'px'
@@ -353,21 +363,22 @@ function App() {
     function handleMouseUp(e, origin = false) {
       const width = filesSelector.current.style.width
       const height = filesSelector.current.style.height
+      const selectedResources = functions.detectSelection(filesSelector.current)
+      const condition1 = e.target.id == 'displayerContainer'
+        || e.target.id == 'filesDisplayer'
+        || e.target.id == 'filesMain'
       if (functions.isClick(width, height) && origin == 'uppercontainer') {
         filesSelectorPosition.current = false
         filesSelector.current.style = ''
         return
       }
-      const selectedResources = functions.detectSelection(filesSelector.current)
-      const filesDisplayer = document.getElementById('filesDisplayer');
-      Array.from(filesDisplayer.children).forEach((res) => {
-        const filter = selectedResources.filter((elem) => elem.id == res.id)
-        if (filter.length > 0) {
-          res.classList.add('selectedFile')
-        }
-        else res.classList.remove('selectedFile')
-      })
-      if (!functions.isClick(width, height)) setSelectedFiles(selectedResources);
+
+      if (!functions.isClick(width, height)) {
+        setSelectedFiles(selectedResources);
+      }
+      else if (condition1 && functions.isClick(width, height)) {
+        setSelectedFiles([])
+      }
 
       filesSelectorPosition.current = false
       filesSelector.current.style = ''

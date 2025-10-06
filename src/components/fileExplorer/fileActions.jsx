@@ -39,7 +39,7 @@ function FileActions({ directoryTree,  frProps,
                     if (e.key.toLowerCase() == 'escape') e.currentTarget.blur()
                 }}
                     ref={searchInputRef} />
-                <img src={searchIcon} alt="searchIcon" ref={searchIconRef} onClick={() => {
+                <img draggable={false} src={searchIcon} alt="searchIcon" ref={searchIconRef} onClick={() => {
                     if (searchIconRef.current.src == crossIcon) {
                         searchInputRef.current.value = ''
                         handleSearchBar('')
@@ -55,12 +55,12 @@ function FileActions({ directoryTree,  frProps,
                 else contextMenu.style.visibility='hidden'
                 console.log(e.target);
             }}>
-                <button className='uploadResource' onClick={() => { uploadRef.current.click() }} ><img src={upload} /></button>
-                <button className='createFolder' onClick={() => { setShowCreateFolder(true) }} ><img src={createFolder} alt="" /></button>
-                <button className='renameResource' onClick={handleRename}><img src={renameRegular} alt="" /></button>
-                <button className='bin' onClick={deleteResource}><img src={trashIcon} alt="" /></button>
-                <button className='wallpaper' onClick={handleSetWallpaper}><img src={wallpaperIcon} alt="" /></button>
-                <button className='download' onClick={handleDownload}><img src={downloadIcon} alt="" /></button>
+                <button className='uploadResource' onClick={() => { uploadRef.current.click() }} ><img draggable={false} src={upload} /></button>
+                <button className='createFolder' onClick={() => { setShowCreateFolder(true) }} ><img draggable={false} src={createFolder} alt="" /></button>
+                <button className='renameResource' onClick={handleRename}><img draggable={false} src={renameRegular} alt="" /></button>
+                <button className='bin' onClick={deleteResource}><img draggable={false} src={trashIcon} alt="" /></button>
+                <button className='wallpaper' onClick={handleSetWallpaper}><img draggable={false} src={wallpaperIcon} alt="" /></button>
+                <button className='download' onClick={handleDownload}><img draggable={false} src={downloadIcon} alt="" /></button>
                 <input type="file" name="" id="" ref={uploadRef} onChange={uploadFile} multiple />
                 <a href={null}
                     ref={downloadLinkRef}
@@ -71,7 +71,7 @@ function FileActions({ directoryTree,  frProps,
     async function handleDownload() {
         if (!clickedFile) return
         const directoryData = functions.getDirectoryData(directories, directoryTree)
-        let source = directoryTree + clickedFile.name
+        let source = directoryTree + clickedFile.id
         source = functions.prepareFetch(functions.preparePath(source, functions.checkPersonal(source, directories)))
         const resource = directoryData.filter(item => new URL(item.uri, functions.getServerUri()).href == source);
         if (resource && resource[0].type != 'file') return functions.showToast('You can not download folders. This feature will be available in the future', 'error')
@@ -79,12 +79,12 @@ function FileActions({ directoryTree,  frProps,
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         downloadLinkRef.current.href = url;
-        downloadLinkRef.current.download = clickedFile.name;
+        downloadLinkRef.current.download = clickedFile.id;
         downloadLinkRef.current.click()
     }
     function handleSetWallpaper() {
         if (!clickedFile) return false
-        const source = directoryTree + clickedFile.name
+        const source = directoryTree + clickedFile.id
         const preparedPath = functions.preparePath(source, functions.checkPersonal(source, directories))
         console.log('preparedPath: ', preparedPath);
         fetch(functions.prepareFetch('/api/resources/info?resourcePath=' + preparedPath), {
@@ -112,15 +112,15 @@ function FileActions({ directoryTree,  frProps,
     }
     function deleteResource() {
         const formData = new FormData()
-        console.log('selectedFilesdelete',selectedFiles);
         if (selectedFiles && selectedFiles.length >= 1) {
             console.log(functions.arrayToString(selectedFiles, directoryTree, directories));
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
-        else if (directoryTree && clickedFile) {
+        /*else if (directoryTree && clickedFile) {
+            console.log('entra');
             let resourceUrl = functions.getURL(directoryTree + clickedFile.name, directories)
             formData.append('resourceUrl', resourceUrl)
-        }
+        }*/
         
         fetch(functions.prepareFetch('/api/resources'), {
             credentials: 'include',
@@ -133,12 +133,10 @@ function FileActions({ directoryTree,  frProps,
     }
     function handleRename() {
         if (clickedFile) {
-            const clickedElement = document.getElementById(`${clickedFile.name}`)
-            console.log('clickedElement: ', clickedElement);
-            let span = clickedElement.querySelector('span')
-            let originalName = clickedElement.querySelector('input[type="hidden"')
+            let span = clickedFile.querySelector('span')
+            let originalName = clickedFile.querySelector('input[type="hidden"')
             if (userData && originalName.value == userData.id) return setSelectedFiles([])
-            clickedElement.setAttribute('disabled', true)
+            clickedFile.setAttribute('disabled', true)
             span.setAttribute('contentEditable', true);
             span.textContent = originalName.value
             let content = span.textContent

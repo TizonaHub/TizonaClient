@@ -21,7 +21,13 @@ export function detectSelection(selectedArea, mode = 'intersect', margin = 0) {
   const filesDisplayer = document.getElementById('filesDisplayer');
 
   const selected = [];
-  if (areaRect.left == areaRect.right && areaRect.top == areaRect.bottom) return selected; //user clicked above <hr> tag
+  //user clicked file
+  /*if (areaRect.left == areaRect.right && areaRect.top == areaRect.bottom){
+    areaRect.left=areaRect.left-20
+    areaRect.right=areaRect.right+20
+    areaRect.top=areaRect.top-20
+    areaRect.bottom=areaRect.bottom+20
+  }*/
   Array.from(filesDisplayer.children).forEach((element) => {
 
     const elementRect = {
