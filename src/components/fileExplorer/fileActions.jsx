@@ -1,5 +1,5 @@
 import * as functions from '../../js/functions.jsx'
-import * as fileFunctions from '../../js/fileFunctions.js'
+import * as fileFNs from '../../js/fileFunctions.js'
 import { useRef, useContext } from 'react'
 import createFolder from '@assets/icons/createFolder.svg'
 import upload from '@assets/icons/upload.svg'
@@ -10,8 +10,8 @@ import wallpaperIcon from '@assets/icons/wallpaper.svg'
 import searchIcon from '@assets/icons/magnifyingGlass.svg'
 import crossIcon from '@assets/icons/crossIcon.svg'
 import { AppContext, FilesContext } from '../../js/contexts.js';
-function FileActions({ directoryTree,  frProps,
-     setShowCreateFolder, setWallpaperAsset, handleSearchBar,contextMenu  }) {
+function FileActions({ directoryTree, frProps,
+    setShowCreateFolder, setWallpaperAsset, handleSearchBar, contextMenu }) {
     let uploadRef = useRef(null)
     const appContextData = useContext(AppContext)
     const userData = appContextData.user.userData
@@ -20,39 +20,39 @@ function FileActions({ directoryTree,  frProps,
     const downloadLinkRef = useRef(false)
     const searchInputRef = useRef(false)
     const searchIconRef = useRef(false)
-    const setSelectedFiles=filesContextData.setSelectedFiles
-    const selectedFiles=filesContextData.selectedFiles
-    const clickedFile=selectedFiles && selectedFiles[0]?selectedFiles[0]:false
-    const navWrapperRef=useRef(false)
+    const setSelectedFiles = filesContextData.setSelectedFiles
+    const selectedFiles = filesContextData.selectedFiles
+    const clickedFile = selectedFiles && selectedFiles[0] ? selectedFiles[0] : false
+    const navWrapperRef = useRef(false)
 
     return (
         <div className="navWrapper" ref={navWrapperRef}>
-            {handleSearchBar?
-            
-            <div className="inputWrapper">
-                <input type="text" onChange={(e) => {
-                    const text = e.target.value
-                    if (text.trim() != '') searchIconRef.current.src = crossIcon
-                    else searchIconRef.current.src = searchIcon
-                    handleSearchBar(text)
-                }} onKeyDown={(e) => {
-                    if (e.key.toLowerCase() == 'escape') e.currentTarget.blur()
-                }}
-                    ref={searchInputRef} />
-                <img draggable={false} src={searchIcon} alt="searchIcon" ref={searchIconRef} onClick={() => {
-                    if (searchIconRef.current.src == crossIcon) {
-                        searchInputRef.current.value = ''
-                        handleSearchBar('')
-                        searchIconRef.current.src = searchIcon
-                    }
-                    else searchInputRef.current.focus()
-                }} />
-            </div>
-            :''}
-            <span className="fileActions" onClick={(e)=>{
-                if(!contextMenu) return
-                if(e.target == navWrapperRef.current)return
-                else contextMenu.style.visibility='hidden'
+            {handleSearchBar ?
+
+                <div className="inputWrapper">
+                    <input type="text" onChange={(e) => {
+                        const text = e.target.value
+                        if (text.trim() != '') searchIconRef.current.src = crossIcon
+                        else searchIconRef.current.src = searchIcon
+                        handleSearchBar(text)
+                    }} onKeyDown={(e) => {
+                        if (e.key.toLowerCase() == 'escape') e.currentTarget.blur()
+                    }}
+                        ref={searchInputRef} />
+                    <img draggable={false} src={searchIcon} alt="searchIcon" ref={searchIconRef} onClick={() => {
+                        if (searchIconRef.current.src == crossIcon) {
+                            searchInputRef.current.value = ''
+                            handleSearchBar('')
+                            searchIconRef.current.src = searchIcon
+                        }
+                        else searchInputRef.current.focus()
+                    }} />
+                </div>
+                : ''}
+            <span className="fileActions" onClick={(e) => {
+                if (!contextMenu) return
+                if (e.target == navWrapperRef.current) return
+                else contextMenu.style.visibility = 'hidden'
                 console.log(e.target);
             }}>
                 <button className='uploadResource' onClick={() => { uploadRef.current.click() }} ><img draggable={false} src={upload} /></button>
@@ -69,24 +69,27 @@ function FileActions({ directoryTree,  frProps,
         </div>
     )
     async function handleDownload() {
+        let blob = undefined
+        const needsZip = selectedFiles && selectedFiles.length > 1
         if (!clickedFile) return
-        const directoryData = functions.getDirectoryData(directories, directoryTree)
-        let source = directoryTree + clickedFile.id
-        source = functions.prepareFetch(functions.preparePath(source, functions.checkPersonal(source, directories)))
-        const resource = directoryData.filter(item => new URL(item.uri, functions.getServerUri()).href == source);
-        if (resource && resource[0].type != 'file') return functions.showToast('You can not download folders. This feature will be available in the future', 'error')
-        const response = await fetch(source);
-        const blob = await response.blob();
+        blob = await fileFNs.prepareDownload(selectedFiles)
+        downloadLinkRef.current.download = needsZip ?`TizonaHubDownload_${getDate()}.zip`:clickedFile.id;
         const url = window.URL.createObjectURL(blob);
         downloadLinkRef.current.href = url;
-        downloadLinkRef.current.download = clickedFile.id;
         downloadLinkRef.current.click()
+
+        function getDate() {
+            let currentDate = new Date()
+            const year = currentDate.getFullYear()
+            const month = currentDate.getMonth()
+            const day = currentDate.getDay()
+            return year + '-' + month + '-' + day
+        }
     }
     function handleSetWallpaper() {
         if (!clickedFile) return false
         const source = directoryTree + clickedFile.id
         const preparedPath = functions.preparePath(source, functions.checkPersonal(source, directories))
-        console.log('preparedPath: ', preparedPath);
         fetch(functions.prepareFetch('/api/resources/info?resourcePath=' + preparedPath), {
             method: 'GET',
             credentials: 'include'
@@ -107,13 +110,12 @@ function FileActions({ directoryTree,  frProps,
     function uploadFile(e) {
         let files = e.currentTarget.files;
         const personalDirectory = functions.checkPersonal(directoryTree, filesContextData.directories)
-        if (files) fileFunctions.uploadFiles(directoryTree, files, frProps, personalDirectory)
+        if (files) fileFNs.uploadFiles(directoryTree, files, frProps, personalDirectory)
         uploadRef.current.value = "";
     }
     function deleteResource() {
         const formData = new FormData()
         if (selectedFiles && selectedFiles.length >= 1) {
-            console.log(functions.arrayToString(selectedFiles, directoryTree, directories));
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
         /*else if (directoryTree && clickedFile) {
@@ -121,7 +123,7 @@ function FileActions({ directoryTree,  frProps,
             let resourceUrl = functions.getURL(directoryTree + clickedFile.name, directories)
             formData.append('resourceUrl', resourceUrl)
         }*/
-        
+
         fetch(functions.prepareFetch('/api/resources'), {
             credentials: 'include',
             method: 'DELETE',
@@ -134,7 +136,7 @@ function FileActions({ directoryTree,  frProps,
     function handleRename() {
         if (clickedFile) {
             let span = clickedFile.querySelector('span')
-            let originalName = clickedFile.querySelector('input[type="hidden"')
+            let originalName = clickedFile.querySelector('input[type="hidden"]')
             if (userData && originalName.value == userData.id) return setSelectedFiles([])
             clickedFile.setAttribute('disabled', true)
             span.setAttribute('contentEditable', true);

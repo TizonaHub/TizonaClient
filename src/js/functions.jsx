@@ -152,6 +152,18 @@ export function arrayToString(selectedFiles, directoryTree, directories) {
   });
   return string + ']'
 }
+/**
+ * all arrayToString must be updated
+ */
+export function arrayToString2(array) {
+
+  let string = '['
+  array.forEach((element, index) => {
+    string = string + '"' + element + '"'
+    if (index != array.length - 1) string = string + ','
+  });
+  return string + ']'
+}
 export function prepareMoveResourcesJSON(selectedFiles, directoryTree, directories, destiny) {
   const array = []
   selectedFiles.forEach((element) => {
