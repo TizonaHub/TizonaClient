@@ -15,11 +15,15 @@ export default function ServerInfo({ settingsContentRef }) {
     let lang = useContext(LangContext)
     useEffect(() => {
         if (showLicenses) return
-        getInfo()
         fetch(prepareFetch('/api/system/charts')).then(async (response) => {
             if (response.ok) {
                 let json = await response.json()
+                const json2 = {
+                    clientInfo: { version: json ? json['clientVersion'] : null },
+                    serverInfo: { version: json ? json['serverVersion'] : null }
+                }
                 setStorageCharts(json)
+                setVersions([json2.clientInfo.version, json2.serverInfo.version])
             }
         })
     }, [showLicenses])
@@ -49,14 +53,6 @@ export default function ServerInfo({ settingsContentRef }) {
                 <button className="aboutButton" onClick={() => { setShowLicenses(true) }}>About</button>
             </div>
         </>)
-    async function getInfo() {
-        const serverjson = await fetch(prepareFetch('/api/system/info')).then(async (response) => {
-            if (response.ok) return await response.json()
-
-        })
-        const json = { clientInfo: { version: packageJson.version }, serverInfo: serverjson }
-        setVersions([json.clientInfo.version, json.serverInfo.version])
-    }
     function LicensesComponent({ elem }) {
         return <button className="licenseComponent" onClick={() => {
             setLicenseData({
@@ -77,7 +73,7 @@ export default function ServerInfo({ settingsContentRef }) {
             <h2 className="title">Title: {licenseData.title}</h2>
             <h3 className="author">Publisher: {licenseData.publisher}</h3>
             <h3 className="license">License: {licenseData.license}</h3>
-            <h3 className="license">URL: {licenseData.url && licenseData.url!='None' ? <a href={licenseData.url} target="_blank" rel="noopener noreferrer">{licenseData.url}</a> : 'Not found'}</h3>
+            <h3 className="license">URL: {licenseData.url && licenseData.url != 'None' ? <a href={licenseData.url} target="_blank" rel="noopener noreferrer">{licenseData.url}</a> : 'Not found'}</h3>
             <h3>**No changes were made.**</h3>
             <h3 className="repository">Repository: <a href={licenseData.repo} target="_blank" rel="noopener noreferrer">{licenseData.repo}</a></h3>
 
