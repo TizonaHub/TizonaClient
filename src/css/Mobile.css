@@ -1,5 +1,5 @@
 @media screen and (max-width:1200px) {
-  .settingsMain .settingsContent .themeContainer:nth-child(2) > div {
+  .settingsMain .settingsContent .themeContainer:nth-child(2)>div {
     width: 100%;
   }
 }
@@ -91,11 +91,11 @@
     flex: 0.8;
   }
 
-  main.filesMain nav > button:first-of-type {
+  main.filesMain nav>button:first-of-type {
     display: none !important;
   }
 
-  main.filesMain nav > .directoryNav {
+  main.filesMain nav>.directoryNav {
     display: none;
   }
 
@@ -107,8 +107,12 @@
     padding: 0;
   }
 
+  .mainDiv .filesMain .upperContainer {
+    padding: unset;
+  }
+
   main.filesMain {
-    padding: 30px;
+    padding: 50px;
   }
 
   main.filesMain .filesDisplayer {
@@ -120,6 +124,7 @@
 
 @media screen and (max-width:800px),
 screen and (max-height:600px) {
+
   aside,
   main,
   div.controlPanel {
@@ -144,6 +149,10 @@ screen and (max-height:600px) {
 
   main.filesMain nav .navWrapper .inputWrapper {
     flex: 1;
+  }
+
+  main.filesMain {
+    padding: 30px;
   }
 
   .mainDiv {
@@ -357,7 +366,7 @@ screen and (max-height:600px) {
     font-size: 15px;
   }
 
-  .homeMain .editPanel > input:last-of-type {
+  .homeMain .editPanel>input:last-of-type {
     font-size: 20px;
   }
 
