@@ -66,7 +66,7 @@ export async function prepareDownload(resources) {
 
 
   const blob = await response.blob();
-  return blob; // 👈 aquí devuelves el blob
+  return blob; 
 }
 
 export function getAttribute(elem,attr){
