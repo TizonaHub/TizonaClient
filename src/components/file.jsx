@@ -161,9 +161,9 @@ function File({ data, setDirectoryTree,
             case 'image':
                 return <img src={getFileSrc(data.uri)} alt="" draggable='false' />
             case 'video':
-                return <img src={videoIcon} alt="" />
+                return <img src={videoIcon} alt="" draggable={false}/>
             case 'audio':
-                return <img src={audioIcon} alt="" />
+                return <img src={audioIcon} alt="" draggable={false}/>
             default:
                 return <div className={`fileColorDiv ${personal
                     ? 'userFolder' : data.type == 'file'
