@@ -9,6 +9,7 @@ import { checkPassword, checkName, showToast, prepareFetch } from "../../js/func
 import toast from 'react-hot-toast';
 import ManageUsers from "./manageUsers";
 import UpdateUserForm from "../updateUserForm";
+import Plugins from "./plugins";
 export default function MainPanelHome() {
     const savedUserData = useRef(null)
     savedUserData.current = JSON.parse(localStorage.getItem('userData'))
@@ -98,8 +99,9 @@ export default function MainPanelHome() {
         const langCpanel = lang.home.cpanel
         const tabs = [
             { title: langCpanel.tabs.users.title, component: <ManageUsers /> },
-            { title: langCpanel.tabs.history.title, component: null },
-            { title: langCpanel.tabs.settings.title, component: null }
+            /*{ title: langCpanel.tabs.history.title, component: null },
+            { title: langCpanel.tabs.settings.title, component: null },*/
+            { title: 'Plugins', component: <Plugins/> }
         ]
         return (
             <div className="controlPanel" ref={panelRef} >

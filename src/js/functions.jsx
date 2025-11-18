@@ -266,18 +266,9 @@ export async function getLangData(lang) {
   }
 }
 export function getServerUri() {
-  const uri = window.location.href
-  let split = uri.split('/')
-  split = split.slice(0, 3)
-  if (split[2].includes(':')) {
-    let elem = split[2]
-    elem = elem.split(':')
-    elem[1] = ''
-    elem = elem.join(' ')
-    split[2] = elem
-  }
-  split[1] = '//'
-  return split = split.join('')
+  const url=new URL(window.location.href)
+  const origin=url.origin
+  return origin.replace(':'+url.port,'');
 }
 
 function formatBinary(num) {

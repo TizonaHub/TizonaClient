@@ -41,6 +41,9 @@ function App() {
   const [userData, setUserData] = useState(null)
   const [wallpaperAsset, setWallpaperAsset] = useState('')
   const [langData, setLangData] = useState(null)
+  const [plugins, setPlugins] = useState([{}])
+  const [frame, setFrame] = useState(null)
+  const frameRef=useRef(null)
   let asideRef = useRef(null)
   functions.getServerUri()
   let tabs = [
@@ -61,7 +64,6 @@ function App() {
       credentials: 'include',
     }).then(async (response) => {
       if (!response.ok) {
-        localStorage.removeItem('userData') //not necessary
         document.cookie = "userToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         return console.error(response.status, ': Invalid or missing token');
       }
@@ -89,12 +91,25 @@ function App() {
       setLangData(data)
     }
   }, [FRApp, clientConfig, currentLanguage])
+  useEffect(() => {
+    fetch(functions.prepareFetch('/api/system/plugins'), {
+      method: 'GET'
+    }).then(async (res) => {
+      if (res.ok) {
+        const json = await res.json()
+        setPlugins(json.pluginsArray)
+      }
+    })
+  }, [])
   if (!langData) return
   return (
     <LangContext.Provider value={langData}>
       <AppContext.Provider value={{
         FRApp: { FRApp, setFRApp },
-        user: { userData, setUserData }
+        user: { userData, setUserData },
+        setFrame: setFrame,
+        frame: frame,
+        plugins:plugins
       }}>
         <WallpaperComponent wallpaperData={wallpaperAsset} />
         <aside ref={asideRef}>
@@ -105,9 +120,23 @@ function App() {
           {tabs.map((btn, index) => {
             return <AsideButton key={btn.name} data={btn} currentTabProps={{ currentTab, setCurrentTab }} index={index} />
           })}
+          {Object.values(plugins).map((btn, index) => {
+            return <AsideButton key={btn.name + index} data={btn}
+              currentTabProps={{ currentTab, setCurrentTab }}
+              index={index}
+              plugin={true}
+            />
+          })}
         </aside>
         <Toaster />
-        {tabs[currentTab].component}
+        {!frame ?
+          tabs[currentTab].component :
+          <div className="mainDiv">
+            <main>
+              <iframe src={frame}></iframe>
+            </main>
+          </div>
+        }
       </AppContext.Provider>
     </LangContext.Provider>
 
@@ -408,10 +437,12 @@ function App() {
       e.stopPropagation();
       draggingElement.current = false
       const droppedFiles = e.dataTransfer.files;
+      console.log('e.dataTransfer: ', e.dataTransfer);
+      console.log('droppedFiles: ', droppedFiles);
       dragOverFiles.current.style = ''
       const personalDirectory = functions.checkPersonal(directoryTree, directories)
-      fileFunctions.uploadFiles(directoryTree, droppedFiles,
-        { setForceRender, forceRender }, personalDirectory)
+      //fileFunctions.uploadFiles(directoryTree, droppedFiles,
+      //  { setForceRender, forceRender }, personalDirectory)
 
     }
     function MediaPlayerComponent() {
