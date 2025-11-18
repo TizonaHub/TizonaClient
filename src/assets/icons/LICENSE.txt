@@ -185,6 +185,13 @@ License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
 
 ***
 
+• github.svg  
+Source: Templarian's MaterialDesign   
+Icon file: https://github.com/Templarian/MaterialDesign/blob/master/svg/github.svg
+License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
+
+***
+
 • upload.svg (modified: color adjusted)  
 Source: Templarian's MaterialDesign  
 Icon file: https://github.com/Templarian/MaterialDesign/blob/master/svg/tray-arrow-up.svg  
