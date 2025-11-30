@@ -459,9 +459,25 @@ These icons are licensed under the MIT License:
 
 ***
 
+• plusIcon.svg 
+Author: Gerrit Halfmann (2021)
+Source: Majesticons  
+Icon file: https://github.com/halfmage/majesticons/blob/main/solid/plus.svg
+License: https://github.com/halfmage/majesticons/blob/main/LICENSE
+
+***
+
+• warning.svg (modified: color adjusted)  
+Author: Family (2022)
+Source: Iconoir  
+Icon file: https://github.com/familyjs/famicons/blob/main/src/svg/warning-outline.svg
+License: https://github.com/familyjs/famicons/blob/main/LICENSE
+
+***
+
 • cpanel.svg (modified: color adjusted)  
 Author: Luca Burgio (2021)  
-Source: Iconoir  
+Source: familyjs  
 Icon file: https://github.com/iconoir-icons/iconoir/blob/main/icons/regular/candlestick-chart.svg  
 License: https://github.com/iconoir-icons/iconoir/blob/main/LICENSE
 

@@ -607,6 +607,7 @@
   margin-top: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
 }
 
 .controlPanel .controlPanelDisplayer .plugins .plugin {
@@ -682,6 +683,26 @@
   position: relative;
   gap: 25px;
   top: 10px;
+}
+.controlPanel .plugins .pluginActions {
+  margin-bottom: -30px;
+  display: flex;
+}
+.controlPanel .plugins .pluginActions button{
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+  border-radius: 50px;
+  padding: 5px 25px;
+}
+.controlPanel .plugins .pluginActions .image{
+  mask-image: url(../src/assets/icons/plusIcon.svg);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  background-color: var(--mainColor);
+  width:  30px;
+  height: 30px;
 }
 
 .controlPanel .controlPanelDisplayer .plugins .top .data .links a {

@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import * as fileFunctions from './js/fileFunctions.js'
 import mime from 'mime'
 //Contexts
-import { LangContext, AppContext, FilesContext } from './js/contexts.js'
+import { LangContext, AppContext, FilesContext, PluginsContext } from './js/contexts.js'
 //Assets
 import hideAside from '@assets/icons/hideAside.svg'
 import folderSolid from '@assets/icons/folder-solid.svg'
@@ -43,7 +43,7 @@ function App() {
   const [langData, setLangData] = useState(null)
   const [plugins, setPlugins] = useState([{}])
   const [frame, setFrame] = useState(null)
-  const frameRef=useRef(null)
+  const frameRef = useRef(null)
   let asideRef = useRef(null)
   functions.getServerUri()
   let tabs = [
@@ -51,6 +51,49 @@ function App() {
     { name: 'files', icon: folderSolid, component: <FilesTab /> },
     { name: 'settings', icon: gear, component: <Settings /> },
   ]
+useEffect(() => {
+  console.log("actualiza FRApp");
+}, [FRApp]);
+
+useEffect(() => {
+  console.log("actualiza currentTab");
+}, [currentTab]);
+
+useEffect(() => {
+  console.log("actualiza currentLanguage");
+}, [currentLanguage]);
+
+useEffect(() => {
+  console.log("actualiza clientConfig");
+}, [clientConfig]);
+
+useEffect(() => {
+  console.log("actualiza currentSettingTab");
+}, [currentSettingTab]);
+
+useEffect(() => {
+  console.log("actualiza userData");
+}, [userData]);
+
+useEffect(() => {
+  console.log("actualiza wallpaperAsset");
+}, [wallpaperAsset]);
+
+useEffect(() => {
+  console.log("actualiza langData");
+}, [langData]);
+
+useEffect(() => {
+  console.log("actualiza plugins");
+}, [plugins]);
+
+useEffect(() => {
+  console.log("actualiza frame");
+}, [frame]);
+useEffect(() => {
+  console.log("actualiza tabs");
+}, [tabs]);
+
   useEffect(() => { //LOADS CONFIG
     if (clientConfig) {
       let config = clientConfig
@@ -70,11 +113,12 @@ function App() {
       if (await response.clone().json()) {
         let data = await response.json()
         localStorage.setItem('userData', JSON.stringify(data))
-        setUserData(data)
+        if (JSON.stringify(data) != JSON.stringify(userData)) setUserData(data)
       }
     })
     applyLang();
     applyTheme();
+    getPlugins()
     async function applyTheme() {
       let theme = localStorage.getItem('theme')
       if (theme) {
@@ -91,16 +135,6 @@ function App() {
       setLangData(data)
     }
   }, [FRApp, clientConfig, currentLanguage])
-  useEffect(() => {
-    fetch(functions.prepareFetch('/api/system/plugins'), {
-      method: 'GET'
-    }).then(async (res) => {
-      if (res.ok) {
-        const json = await res.json()
-        setPlugins(json.pluginsArray)
-      }
-    })
-  }, [])
   if (!langData) return
   return (
     <LangContext.Provider value={langData}>
@@ -108,39 +142,51 @@ function App() {
         FRApp: { FRApp, setFRApp },
         user: { userData, setUserData },
         setFrame: setFrame,
-        frame: frame,
-        plugins:plugins
+        frame: frame
       }}>
-        <WallpaperComponent wallpaperData={wallpaperAsset} />
-        <aside ref={asideRef}>
-          <img src={hideAside} onClick={toggleAside} className='containIcon'
-            style={{
-              height: '30px', width: '30px', cursor: 'pointer'
-            }} />
-          {tabs.map((btn, index) => {
-            return <AsideButton key={btn.name} data={btn} currentTabProps={{ currentTab, setCurrentTab }} index={index} />
-          })}
-          {Object.values(plugins).map((btn, index) => {
-            return <AsideButton key={btn.name + index} data={btn}
-              currentTabProps={{ currentTab, setCurrentTab }}
-              index={index}
-              plugin={true}
-            />
-          })}
-        </aside>
-        <Toaster />
-        {!frame ?
-          tabs[currentTab].component :
-          <div className="mainDiv">
-            <main>
-              <iframe src={frame}></iframe>
-            </main>
-          </div>
-        }
+        <PluginsContext.Provider value={{getPlugins:getPlugins,plugins:plugins}}>
+          <WallpaperComponent wallpaperData={wallpaperAsset} />
+          <aside ref={asideRef}>
+            <img src={hideAside} onClick={toggleAside} className='containIcon'
+              style={{
+                height: '30px', width: '30px', cursor: 'pointer'
+              }} />
+            {tabs.map((btn, index) => {
+              return <AsideButton key={btn.name} data={btn} currentTabProps={{ currentTab, setCurrentTab }} index={index} />
+            })}
+            {Object.values(plugins).map((btn, index) => {
+              return <AsideButton key={btn.name + index} data={btn}
+                currentTabProps={{ currentTab, setCurrentTab }}
+                index={index}
+                plugin={true}
+              />
+            })}
+          </aside>
+          <Toaster />
+          {!frame ?
+            tabs[currentTab].component :
+            <div className="mainDiv">
+              <main>
+                <iframe src={frame}></iframe>
+              </main>
+            </div>
+          }
+        </PluginsContext.Provider>
       </AppContext.Provider>
     </LangContext.Provider>
 
   )
+  
+    async function getPlugins() {
+      fetch(functions.prepareFetch('/api/system/plugins'), {
+        method: 'GET'
+      }).then(async (res) => {
+        if (res.ok) {
+          const json = await res.json()
+          setPlugins(json.pluginsArray)
+        }
+      })
+    }
   function toggleAside(e) {
     let style = getComputedStyle(asideRef.current)
     if (parseInt(style.width.slice(0, style.width.length - 2)) > 100) {
@@ -523,6 +569,7 @@ function App() {
     }
   }
   function Home() {
+    console.log(userData);
     return (<div className='mainDiv'>
       <main className='homeMain'>
         {!userData ? <LoginForm /> : <MainPanelHome />}

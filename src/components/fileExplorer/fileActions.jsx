@@ -118,11 +118,6 @@ function FileActions({ directoryTree, frProps,
         if (selectedFiles && selectedFiles.length >= 1) {
             formData.append('resourceUrl', functions.arrayToString(selectedFiles, directoryTree, directories))
         }
-        /*else if (directoryTree && clickedFile) {
-            console.log('entra');
-            let resourceUrl = functions.getURL(directoryTree + clickedFile.name, directories)
-            formData.append('resourceUrl', resourceUrl)
-        }*/
 
         fetch(functions.prepareFetch('/api/resources'), {
             credentials: 'include',

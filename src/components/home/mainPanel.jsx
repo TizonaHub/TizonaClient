@@ -3,14 +3,15 @@ import cpanelIcon from "@assets/icons/cpanel.svg"
 import logoutIcon from "@assets/icons/logout.svg"
 import editIcon from "@assets/icons/editWhite.svg"
 import GoBackButton from "../goBackButton";
-import { useContext, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import { AppContext, LangContext, HomeContext } from "../../js/contexts";
 import { checkPassword, checkName, showToast, prepareFetch } from "../../js/functions";
 import toast from 'react-hot-toast';
 import ManageUsers from "./manageUsers";
 import UpdateUserForm from "../updateUserForm";
 import Plugins from "./plugins";
-export default function MainPanelHome() {
+
+const MainPanelHome=memo(function MainPanelHome() {
     const savedUserData = useRef(null)
     savedUserData.current = JSON.parse(localStorage.getItem('userData'))
     const [userData, setUserData] = useState(null)
@@ -130,4 +131,6 @@ export default function MainPanelHome() {
         }, fadeDuration + 50);
         navigateTo(0)
     }
-}
+})
+
+export default MainPanelHome
