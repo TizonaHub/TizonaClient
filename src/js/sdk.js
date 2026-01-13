@@ -9,8 +9,10 @@ window.addEventListener("message", (event) => {
             return showToast(data[1], data[0])
         case 'getLang':
             const lang = localStorage.getItem('lang')
-
             return frame.contentWindow.postMessage({ fn: 'getLang', data: lang }, '*')
+        case 'getTheme':
+            const theme = localStorage.getItem('theme')
+            return frame.contentWindow.postMessage({ fn: 'getTheme', data: theme }, '*')
         case 'getUserData':
             const userData = localStorage.getItem('userData')
             return frame.contentWindow.postMessage({ fn: 'getUserData', data: userData }, '*')
