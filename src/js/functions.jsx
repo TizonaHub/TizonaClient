@@ -268,9 +268,8 @@ export async function getLangData(lang) {
   }
 }
 export function getServerUri() {
-  const url = new URL(window.location.href)
-  const origin = url.origin
-  return origin.replace(':' + url.port, '');
+  const u = new URL(window.location.href);
+  return `${u.protocol}//${u.hostname}`;
 }
 
 function formatBinary(num) {
@@ -298,8 +297,11 @@ export function formatNumber(num, decimal = true) {
 
 }
 export function prepareFetch(endpoint) {
+  console.log('endpoint: ', endpoint);
   const baseUrl = getServerUri()
+  console.log('baseUrl: ', baseUrl);
   const url = new URL(endpoint, baseUrl).href
+  console.log('url: ', url);
   return url
 }
 
