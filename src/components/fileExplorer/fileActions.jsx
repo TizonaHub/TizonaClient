@@ -69,22 +69,19 @@ function FileActions({ directoryTree, frProps,
         </div>
     )
     async function handleDownload() {
-        let blob = undefined
-        const needsZip = selectedFiles && selectedFiles.length > 1
+        const needsZip = Array.isArray(await fileFNs.prepareDownload(selectedFiles))
         if (!clickedFile) return
-        blob = await fileFNs.prepareDownload(selectedFiles)
-        downloadLinkRef.current.download = needsZip ?`TizonaHubDownload_${getDate()}.zip`:clickedFile.id;
-        const url = window.URL.createObjectURL(blob);
-        downloadLinkRef.current.href = url;
-        downloadLinkRef.current.click()
-
-        function getDate() {
-            let currentDate = new Date()
-            const year = currentDate.getFullYear()
-            const month = currentDate.getMonth()
-            const day = currentDate.getDay()
-            return year + '-' + month + '-' + day
+        if (!needsZip) {
+            const uri = await fileFNs.prepareDownload(selectedFiles)
+            window.open(functions.prepareFetch('/api/resources/download?path=' + uri), '_self')
         }
+        else {
+            const resourcesArray = functions.arrayToString2(await fileFNs.prepareDownload(selectedFiles))
+            const uri = functions.prepareFetch("/api/resources/zip?resources=" + resourcesArray)
+            window.open(uri, '_self')
+
+        }
+
     }
     function handleSetWallpaper() {
         if (!clickedFile) return false

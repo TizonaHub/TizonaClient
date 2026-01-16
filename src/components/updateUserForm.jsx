@@ -10,14 +10,13 @@ import toast from "react-hot-toast"
  * @param updateSelf , if true, the user updates its own data  
  * @returns 
  */
-export default function UpdateUserForm({ userData, updateSelf, frMethods }) {
-    const [FR, setFR] = useState(0)
+export default function UpdateUserForm({userData,getUsersFN}) {
     const [newData, setNewData] = useState(JSON.parse(JSON.stringify(userData)))
     const hiddenInput = useRef(null)
-    const [updatedData, setUpdatedData] = useState(userData) //set method triggered when user is updated (not self user)
     const selectRef = useRef(null)
     let lang = useContext(LangContext)
-    let appContextData = useContext(AppContext)
+    const appContextData = useContext(AppContext)
+
     const langUpdate = lang.updateForm
     lang = lang.login
     useEffect(() => {
@@ -80,7 +79,6 @@ export default function UpdateUserForm({ userData, updateSelf, frMethods }) {
         const json = { ...newData }
         json.avatar.profileImage = src
         setNewData(json)
-        setFR(FR + 1)
     }
     function handleSubmit(e) {
         e.preventDefault()
@@ -121,9 +119,7 @@ export default function UpdateUserForm({ userData, updateSelf, frMethods }) {
             formData.append('updateUser', true)
             formData.append('file', appendFiles);
             const id = userData.id
-            if (!updateSelf) {
-                formData.append('userId', id)
-            }
+            formData.append('userId', id)
             fetch(prepareFetch('/api/users'), { //updateUser
                 credentials: 'include',
                 body: formData,
@@ -145,23 +141,18 @@ export default function UpdateUserForm({ userData, updateSelf, frMethods }) {
                             let data = await response.json()
                             showToast(lang.toast[10], 'success')
                             const currentUser = appContextData.user.userData
-                            if (updateSelf || id == currentUser.id) {
+                            console.log('id',id);
+                            console.log('currentUser.id: ', currentUser.id);
+                            if (id == currentUser.id) {
                                 localStorage.setItem('userData', JSON.stringify(data))
-                                user.setUserData(data)
+                                user.setUserData({...data})
+                                if (getUsersFN)getUsersFN()
                             }
-                            else {
-                                setUpdatedData(data)
-                                if (frMethods) {
-                                    const forceRender = frMethods.forceRender
-                                    const setFR = frMethods.setForceRender
-                                    setFR(forceRender + 1)
-                                }
-
-                            }
+                            else if(getUsersFN)getUsersFN()
                         }
                     })
                 }
-                else if(response.status==500) showToast(lang['serverResponses'],'error')
+                else if (response.status == 500) showToast(lang['serverResponses'], 'error')
                 else showToast(lang.toast[13], 'error')
             })
         }

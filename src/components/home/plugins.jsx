@@ -1,16 +1,16 @@
 import { useState, useContext, useRef } from "react";
-import { AppContext, PluginsContext } from "../../js/contexts";
-import { prepareFetch } from "../../js/functions";
+import { PluginsContext } from "../../js/contexts";
+import { deletePlugin, prepareFetch, showToast } from "../../js/functions";
 import infoIcon from "@src/assets/icons/infoWhite.svg"
 import trashIcon from "@src/assets/icons/trashIconRed.svg"
 import GoBackButton from "../goBackButton";
 import WarningIcon from "@src/assets/icons/warning.svg"
+import ReloadIcon from "@src/assets/icons/reload.svg"
+import toast from "react-hot-toast"
 
 export default function Plugins() {
     const [showDetails, setShowDetails] = useState(false)
-    const appContextData = useContext(AppContext)
-    const pluginContextData=useContext(PluginsContext)
-    console.log('appContextData: ', appContextData);
+    const pluginContextData = useContext(PluginsContext)
     const inputRef = useRef(false)
 
     return (
@@ -21,22 +21,25 @@ export default function Plugins() {
                 }}>
                     <input type="file" style={{ display: 'none' }} ref={inputRef} onChange={(e) => {
                         const file = e.currentTarget.files[0]
-                        if(!file) return
+                        if (!file) return
                         const formData = new FormData()
-                        formData.append('plugin',file)
-                        fetch(prepareFetch('/api/system/plugins'),{
-                            method:'POST',
-                            credentials:'include',
-                            body:formData
-                        }).then((res)=>{
-                            console.log('res: ', res.status);
-                            if(res.ok)pluginContextData.getPlugins()
+                        formData.append('plugin', file)
+                        fetch(prepareFetch('/api/system/plugins'), {
+                            method: 'POST',
+                            credentials: 'include',
+                            body: formData
+                        }).then((res) => {
+                            if (res.ok) pluginContextData.getPlugins()
 
                         })
-                       e.currentTarget.value=''
+                        e.currentTarget.value = ''
                     }} />
                     <span className="image" />
                     <span>Install</span>
+                </button>
+                <button onClick={() => { updatePlugin() }}>
+                    <img src={ReloadIcon} alt="" />
+                    <span>Update Everything</span>
                 </button>
             </div>
             {!showDetails ?
@@ -58,7 +61,16 @@ export default function Plugins() {
                                             setShowDetails(plugin)
                                     }} />
                                 </button>
-                                <button>
+                                <button onClick={() => { updatePlugin(plugin) }}>
+                                    <img src={ReloadIcon} alt="" />
+                                </button>
+                                <button onClick={async () => {
+                                    if (!plugin.id) return
+                                    await deletePlugin(plugin.id)
+                                    pluginContextData.getPlugins()
+                                }
+                                }
+                                >
                                     <img src={trashIcon} alt="" />
                                 </button>
                             </div>
@@ -99,6 +111,42 @@ export default function Plugins() {
             </div>
             <p className="description">{description}</p>
         </>
+    }
+    function updatePlugin(pluginParam = undefined) {
+
+        const updateToast = showToast('Updating plugins...', 'loading')
+        const missingScripts = []
+        if (!pluginParam) {
+            Object.values(pluginContextData.plugins).map((plugin) => {
+                fetchUpdate(plugin)
+            })
+        }
+        else fetchUpdate(pluginParam)
+
+        setTimeout(() => {
+            toast.dismiss(updateToast)
+            if (missingScripts.length > 0) {
+                let list = missingScripts.join('\n')
+                showToast('Missing update script for:\n' + list, 'error',
+                    {
+                        backgroundColor: 'black', color: 'white', fontSize: '20px',
+                        borderRadius: '5px', gap: '10px'
+                    }
+                )
+            }
+            else showToast('Plugin updated', 'success')
+        }, 500);
+        return
+        function fetchUpdate(plugin) {
+            const id = plugin.id
+            fetch(prepareFetch('/api/system/plugins?pluginID=' + id), {
+                method: 'PATCH',
+                credentials: 'include'
+            }).then((res) => {
+                if (res.status == 404) missingScripts.push(plugin.name)
+                if (!res.ok) ''
+            })
+        }
     }
 
 }

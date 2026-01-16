@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import '@src/css/animations.css'
 import '@src/css/homeStyles.css'
 import * as functions from './js/functions.jsx'
@@ -34,10 +34,9 @@ import WallpaperComponent from './components/wallpaperComponent.jsx'
 functions.getLangData('en')
 function App() {
   const [FRApp, setFRApp] = useState(0) //force render for app component
-  const [currentTab, setCurrentTab] = useState(1)
+  const [currentTab, setCurrentTab] = useState(0)
   const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem('lang'))
   const [clientConfig, setClientConfig] = useState(JSON.parse(localStorage.getItem('config')))
-  const [currentSettingTab, setCSTab] = useState(0)
   const [userData, setUserData] = useState(null)
   const [wallpaperAsset, setWallpaperAsset] = useState('')
   const [langData, setLangData] = useState(null)
@@ -46,53 +45,11 @@ function App() {
   const frameRef = useRef(null)
   let asideRef = useRef(null)
   functions.getServerUri()
-  let tabs = [
+  let tabs = useRef([
     { name: 'home', icon: home, component: <Home /> },
     { name: 'files', icon: folderSolid, component: <FilesTab /> },
     { name: 'settings', icon: gear, component: <Settings /> },
-  ]
-useEffect(() => {
-  console.log("actualiza FRApp");
-}, [FRApp]);
-
-useEffect(() => {
-  console.log("actualiza currentTab");
-}, [currentTab]);
-
-useEffect(() => {
-  console.log("actualiza currentLanguage");
-}, [currentLanguage]);
-
-useEffect(() => {
-  console.log("actualiza clientConfig");
-}, [clientConfig]);
-
-useEffect(() => {
-  console.log("actualiza currentSettingTab");
-}, [currentSettingTab]);
-
-useEffect(() => {
-  console.log("actualiza userData");
-}, [userData]);
-
-useEffect(() => {
-  console.log("actualiza wallpaperAsset");
-}, [wallpaperAsset]);
-
-useEffect(() => {
-  console.log("actualiza langData");
-}, [langData]);
-
-useEffect(() => {
-  console.log("actualiza plugins");
-}, [plugins]);
-
-useEffect(() => {
-  console.log("actualiza frame");
-}, [frame]);
-useEffect(() => {
-  console.log("actualiza tabs");
-}, [tabs]);
+  ])
 
   useEffect(() => { //LOADS CONFIG
     if (clientConfig) {
@@ -108,6 +65,7 @@ useEffect(() => {
     }).then(async (response) => {
       if (!response.ok) {
         document.cookie = "userToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        setUserData(false)
         return console.error(response.status, ': Invalid or missing token');
       }
       if (await response.clone().json()) {
@@ -142,16 +100,16 @@ useEffect(() => {
         FRApp: { FRApp, setFRApp },
         user: { userData, setUserData },
         setFrame: setFrame,
-        frame: frame
+        frame: frame,
       }}>
-        <PluginsContext.Provider value={{getPlugins:getPlugins,plugins:plugins}}>
+        <PluginsContext.Provider value={{ getPlugins: getPlugins, plugins: plugins }}>
           <WallpaperComponent wallpaperData={wallpaperAsset} />
           <aside ref={asideRef}>
             <img src={hideAside} onClick={toggleAside} className='containIcon'
               style={{
                 height: '30px', width: '30px', cursor: 'pointer'
               }} />
-            {tabs.map((btn, index) => {
+            {tabs.current.map((btn, index) => {
               return <AsideButton key={btn.name} data={btn} currentTabProps={{ currentTab, setCurrentTab }} index={index} />
             })}
             {Object.values(plugins).map((btn, index) => {
@@ -164,7 +122,7 @@ useEffect(() => {
           </aside>
           <Toaster />
           {!frame ?
-            tabs[currentTab].component :
+            tabs.current[currentTab].component :
             <div className="mainDiv">
               <main>
                 <iframe src={frame}></iframe>
@@ -176,17 +134,17 @@ useEffect(() => {
     </LangContext.Provider>
 
   )
-  
-    async function getPlugins() {
-      fetch(functions.prepareFetch('/api/system/plugins'), {
-        method: 'GET'
-      }).then(async (res) => {
-        if (res.ok) {
-          const json = await res.json()
-          setPlugins(json.pluginsArray)
-        }
-      })
-    }
+
+  async function getPlugins() {
+    fetch(functions.prepareFetch('/api/system/plugins'), {
+      method: 'GET'
+    }).then(async (res) => {
+      if (res.ok) {
+        const json = await res.json()
+        setPlugins(json.pluginsArray)
+      }
+    })
+  }
   function toggleAside(e) {
     let style = getComputedStyle(asideRef.current)
     if (parseInt(style.width.slice(0, style.width.length - 2)) > 100) {
@@ -218,6 +176,7 @@ useEffect(() => {
     const filesSelectorPosition = useRef(false) // The position of mouse when selecting several files and directories
     const filesMainRef = useRef(false)
     const contextMenuRef = useRef(false)
+    const langData=useContext(LangContext)
     sF.sortByType(directories)
     sF.sortPrivate(directories)
     useEffect(() => {
@@ -483,12 +442,10 @@ useEffect(() => {
       e.stopPropagation();
       draggingElement.current = false
       const droppedFiles = e.dataTransfer.files;
-      console.log('e.dataTransfer: ', e.dataTransfer);
-      console.log('droppedFiles: ', droppedFiles);
       dragOverFiles.current.style = ''
       const personalDirectory = functions.checkPersonal(directoryTree, directories)
-      //fileFunctions.uploadFiles(directoryTree, droppedFiles,
-      //  { setForceRender, forceRender }, personalDirectory)
+      fileFunctions.uploadFiles(directoryTree, droppedFiles,
+        { setForceRender, forceRender }, personalDirectory)
 
     }
     function MediaPlayerComponent() {
@@ -526,7 +483,11 @@ useEffect(() => {
     }
   }
   function Settings() {
+    const langData = useContext(LangContext)
+    const appContextData = useContext(AppContext)
+    const FRAPPFNS = appContextData.FRApp
     const settingsContentRef = useRef(null)
+    const [currentSettingTab, setCSTab] = useState(0)
     return (<div className='mainDiv'>
       <main className='settingsMain'>
         <h2>{langData.settings.title}</h2>
@@ -567,18 +528,20 @@ useEffect(() => {
           break;
       }
     }
+    function setTheme(e) {
+      localStorage.setItem('theme', e.currentTarget.value)
+      FRAPPFNS.setFRApp(FRAPPFNS.FRApp + 1)
+    }
   }
   function Home() {
-    console.log(userData);
+    const appContextData = useContext(AppContext)
+    const userData = appContextData.user.userData
+
     return (<div className='mainDiv'>
       <main className='homeMain'>
-        {!userData ? <LoginForm /> : <MainPanelHome />}
+        {userData == false ? <LoginForm /> : <MainPanelHome />}
       </main>
     </div>)
-  }
-  function setTheme(e) {
-    localStorage.setItem('theme', e.currentTarget.value)
-    setFRApp(FRApp + 1)
   }
 
   function LoaderContainer() {

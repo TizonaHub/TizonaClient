@@ -162,7 +162,7 @@
   /*will-change: auto;*/
   padding: 15px;
   justify-content: unset;
-  overflow: hidden;
+  overflow: auto;
   scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
@@ -641,10 +641,12 @@
 .controlPanel .controlPanelDisplayer .plugins .plugin .actions {
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 
 .controlPanel .controlPanelDisplayer .plugins .plugin .actions button {
-  width: 70px;
+  width: 40px;
+  height: 40px;
   padding: 0;
 }
 
@@ -654,6 +656,7 @@
 
 .controlPanel .controlPanelDisplayer .plugins .plugin .actions img {
   height: 40px;
+  width: 40px;
 }
 
 .controlPanel .controlPanelDisplayer .top {
@@ -694,6 +697,7 @@
   column-gap: 15px;
   border-radius: 50px;
   padding: 5px 25px;
+  justify-content: center;
 }
 .controlPanel .plugins .pluginActions .image{
   mask-image: url(../src/assets/icons/plusIcon.svg);

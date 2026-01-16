@@ -5,22 +5,16 @@ import editIcon from "@assets/icons/editWhite.svg"
 import GoBackButton from "../goBackButton";
 import { memo, useContext, useEffect, useRef, useState } from "react";
 import { AppContext, LangContext, HomeContext } from "../../js/contexts";
-import { checkPassword, checkName, showToast, prepareFetch } from "../../js/functions";
-import toast from 'react-hot-toast';
+import {prepareFetch } from "../../js/functions";
 import ManageUsers from "./manageUsers";
 import UpdateUserForm from "../updateUserForm";
 import Plugins from "./plugins";
 
-const MainPanelHome=memo(function MainPanelHome() {
+const MainPanelHome = memo(function MainPanelHome() {
     const savedUserData = useRef(null)
     savedUserData.current = JSON.parse(localStorage.getItem('userData'))
     const [userData, setUserData] = useState(null)
     const [currentTab, setCurrentTab] = useState(0)
-    const tabs = [
-        <MainNavigation key={0} />,
-        <EditTab key={1} />,
-        <ControlPanel key={2} />
-    ]
     const appContextData = useContext(AppContext)
     const fadeDuration = 300
     const delay = 50
@@ -28,17 +22,26 @@ const MainPanelHome=memo(function MainPanelHome() {
     const panelRef = useRef(null)
     let lang = useContext(LangContext)
     let langHome = lang.home
+    const tabs = useRef([
+        <MainNavigation key={0} />,
+        <EditTab key={1} />,
+        <ControlPanel key={2} />
+    ])
 
     useEffect(() => {
         setUserData(JSON.parse(localStorage.getItem('userData')))
-    }, [])
+        console.log('cambia');
+    }, [appContextData.user.userData])
+    useEffect(() => {
+        //console.log('userdata value ',userData);
+    }, [userData])
     if (!userData) return
     return (<>
         <HomeContext.Provider value={{
-            currentTab: currentTab, setCurrentTab: setCurrentTab,
-            navigateTo: navigateTo
+            currentTab, setCurrentTab,
+            navigateTo, userData, setUserData
         }}>
-            {tabs[currentTab]}
+            {tabs.current[currentTab]}
         </HomeContext.Provider>
     </>
     )
@@ -59,10 +62,13 @@ const MainPanelHome=memo(function MainPanelHome() {
         }).then((response => {
             if (!response.ok) return
             document.cookie = "userToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            UserDataFunctions.setUserData(null)
+            UserDataFunctions.setUserData(false)
         }))
     }
     function MainNavigation() {
+        const contextData = useContext(HomeContext)
+        const userData = contextData.userData
+        console.log('userData: ', userData);
         if (!userData) return null
         return (
             <div className="mainPanelHome tabSelector" ref={panelRef}>
@@ -70,7 +76,7 @@ const MainPanelHome=memo(function MainPanelHome() {
                     <UserAvatar user={userData} />
                 </div>
                 <div className="buttons">
-                    {userData.role == 100 || userData.role==50 ?
+                    {userData.role == 100 || userData.role == 50 ?
                         <button onClick={() => { navigateTo(2) }}>
                             <img src={cpanelIcon} alt="" />
                             {langHome.tabs[0]}</button> : null}
@@ -86,11 +92,12 @@ const MainPanelHome=memo(function MainPanelHome() {
         )
     }
     function EditTab() {
-        const [newData, setNewData] = useState(userData)
+        const contextData = useContext(HomeContext)
+        const userData = contextData.userData
         return (
             <div className="mainPanelHome" ref={panelRef}>
-                <GoBackButton onClick={()=>{navigateTo(0)}}/>
-                <UpdateUserForm userData={newData} />
+                <GoBackButton onClick={() => { navigateTo(0) }} />
+                <UpdateUserForm userData={userData} />
             </div>
         )
     }
@@ -100,10 +107,10 @@ const MainPanelHome=memo(function MainPanelHome() {
         const langCpanel = lang.home.cpanel
         const tabs = [
             { title: langCpanel.tabs.users.title, component: <ManageUsers /> },
-            /*{ title: langCpanel.tabs.history.title, component: null },
-            { title: langCpanel.tabs.settings.title, component: null },*/
-            { title: 'Plugins', component: <Plugins/> }
+            { title: 'Plugins', component: <Plugins /> }
         ]
+        useEffect(() => {
+        })
         return (
             <div className="controlPanel" ref={panelRef} >
                 <GoBackButton content={lang.misc[0]} onClick={returnToHome} />

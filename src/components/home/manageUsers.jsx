@@ -8,14 +8,25 @@ import { getRoleProps, prepareFetch, showToast } from '../../js/functions'
 import { LangContext } from '../../js/contexts'
 export default function ManageUsers() {
     const [users, setUsers] = useState(null)
-    const [forceRender, setForceRender] = useState(0)
     const [selectedUser, setSelectedUser] = useState(null)
     const [scrollTop, setScrollTop] = useState(0)
     const usersDisplayerRef = useRef(null)
     const detailsViewRef = useRef(null)
-    const vw = document.documentElement.clientWidth
-    const lang=useContext(LangContext)
-    const langUsers=lang.home.cpanel.tabs.users
+    const vw = useViewportWidth()
+    const lang = useContext(LangContext)
+    const langUsers = lang.home.cpanel.tabs.users
+
+    function useViewportWidth() {
+        const [vw, setVw] = useState(window.innerWidth);
+
+        useEffect(() => {
+            const handleResize = () => setVw(window.innerWidth);
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
+        }, []);
+
+        return vw;
+    }
     useEffect(() => {
         if (usersDisplayerRef.current) {
             usersDisplayerRef.current.scrollTop = scrollTop;
@@ -27,10 +38,10 @@ export default function ManageUsers() {
     }, [scrollTop, selectedUser]);
     useEffect(() => {
         getUsers()
-    }, [forceRender])
+    }, [])
     return (
         <div className='cpanelTabContainer '>
-            <div className='usersMain ' style={vw < 800 && selectedUser ? { display: 'none' }:null}>
+            <div className='usersMain ' style={vw < 800 && selectedUser ? { display: 'none' } : null}>
                 <div className="usersDisplayer" ref={usersDisplayerRef}>
                     {users ? Object.entries(users).map((user) => {
                         return <UserWrapper user={user[1]} key={user[1].id} />
@@ -56,8 +67,7 @@ export default function ManageUsers() {
                 {showEditForm ?
                     <>
                         <GoBackButton content={lang.misc[0]} onClick={() => { setShowEditForm(false) }} />
-                        <UpdateUserForm userData={selectedUser}
-                            frMethods={{ forceRender: forceRender, setForceRender: setForceRender }} />
+                        <UpdateUserForm userData={selectedUser} getUsersFN={getUsers} />
                     </>
                     : <>
                         <GoBackButton content={lang.misc[0]} onClick={() => { setSelectedUser(null) }} />
@@ -67,28 +77,28 @@ export default function ManageUsers() {
                                 <img src={editIcon} alt="" />
                             </button>
                             <button onClick={deleteUser}>
-                                <img src={trashIconRed}/>
+                                <img src={trashIconRed} />
                             </button>
                         </div></>
                 }
             </div>
         )
     }
-    function deleteUser(){
-        const id=selectedUser.id
-        fetch(prepareFetch('/api/users/'+id),
+    function deleteUser() {
+        const id = selectedUser.id
+        fetch(prepareFetch('/api/users/' + id),
             {
-                method:'DELETE',
-                credentials:'include'
+                method: 'DELETE',
+                credentials: 'include'
             }
-        ).then((response)=>{
+        ).then((response) => {
             getUsers()
-            if(response.ok)return showToast(langUsers.toasts[0],'success')
-            else if(response.status==500) showToast(lang['serverResponses'],'error')
-            showToast(langUsers.toasts[1],'error')
+            if (response.ok) return showToast(langUsers.toasts[0], 'success')
+            else if (response.status == 500) showToast(lang['serverResponses'], 'error')
+            showToast(langUsers.toasts[1], 'error')
         })
     }
-    function UserWrapper({ user, index, onClick }) {
+    function UserWrapper({ user }) {
         const roleProps = getRoleProps(user.role)
 
         return (<div className='userAvatarWrapper' onClick={handleClick} >
@@ -107,13 +117,13 @@ export default function ManageUsers() {
 
         }
     }
-    async function getUsers(){
+    async function getUsers() {
         fetch(prepareFetch('/api/users')).then(async (response) => {
             if (response.ok) {
                 const json = await response.json()
                 setUsers(json)
             }
-            else if (response.status==500) showToast(lang['serverResponses'],'error')
+            else if (response.status == 500) showToast(lang['serverResponses'], 'error')
         })
         setSelectedUser(null)
         if (detailsViewRef.current) detailsViewRef.current.classList.remove('open')

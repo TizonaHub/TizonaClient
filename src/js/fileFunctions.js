@@ -19,6 +19,7 @@ export function uploadFiles(directoryTree, droppedFiles,
     body: formData
   }).then((res) => {
     clearTimeout(timeout)
+    console.log(res.ok);
     if (res.ok) {
       if (promiseToast) toast.dismiss(promiseToast)
       frProps.setForceRender(frProps.forceRender + 1)
@@ -40,33 +41,13 @@ export async function prepareDownload(resources) {
   const stringifiedArray = arrayToString2(uris);
   const formData = new FormData();
   formData.append("resources", stringifiedArray);
-  let response = false
   if (uris.length == 0) return false
   if (uris.length > 1 || fileType=='directory') {
-    response = await fetch(prepareFetch("/api/resources/zip"), {
-      credentials: "include",
-      method: "POST",
-      body: formData,
-    });
-    if (!response.ok) {
-      throw new Error("Unable to generate zip");
-    }
+    return uris
   }
   else {
-    const uri = uris[0]; 
-    response = await fetch(prepareFetch(uri), {
-      credentials: "include",
-      method: "GET"
-    });
-    if (!response.ok) {
-      throw new Error("Unable to get resource");
-    }
+    return uris[0]
   }
-
-
-
-  const blob = await response.blob();
-  return blob; 
 }
 
 export function getAttribute(elem,attr){
