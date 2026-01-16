@@ -122,7 +122,7 @@ License: https://github.com/Richard9394/MingCute/blob/main/LICENSE
 
 ***
 
-• createFolder.svg (modified: color adjusted)  
+• createFolder.svg 
 Source: Templarian's MaterialDesign  
 Icon file: https://github.com/Templarian/MaterialDesign/blob/master/svg/folder-plus-outline.svg  
 License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
@@ -143,14 +143,14 @@ License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
 
 ***
 
-• downloadIcon.svg (modified: color adjusted)  
+• downloadIcon.svg
 Source: Google Material Design Icons  
 Project: https://github.com/google/material-design-icons  
 License: https://github.com/google/material-design-icons/blob/master/LICENSE
 
 ***
 
-• wallpaper.svg (modified: color adjusted)  
+• wallpaper.svg 
 Source: Google Material Design Icons  
 Project: https://github.com/google/material-design-icons  
 License: https://github.com/google/material-design-icons/blob/master/LICENSE
@@ -164,21 +164,21 @@ License: https://github.com/Sysvale/cuida-icons/blob/main/LICENSE
 
 ***
 
-• folder-solid.svg (modified: color adjusted)  
+• folder-solid.svg 
 Source: Google Material Design Icons  
 Project: https://github.com/google/material-design-icons  
 License: https://github.com/google/material-design-icons/blob/master/LICENSE
 
 ***
 
-• gear.svg (modified: color adjusted)  
+• gear.svg 
 Source: Templarian's MaterialDesign  
 Icon file: https://github.com/Templarian/MaterialDesign/blob/master/svg/cog.svg  
 License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
 
 ***
 
-• audioIcon.svg (modified: color and size adjusted)  
+• audioIcon.svg (modified: size adjusted)  
 Source: Google Material Design Icons    
 Project: https://github.com/google/material-design-icons  
 License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
@@ -192,10 +192,17 @@ License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
 
 ***
 
-• upload.svg (modified: color adjusted)  
+• upload.svg  
 Source: Templarian's MaterialDesign  
 Icon file: https://github.com/Templarian/MaterialDesign/blob/master/svg/tray-arrow-up.svg  
 License: https://github.com/Templarian/MaterialDesign/blob/master/LICENSE
+
+***
+
+• reload.svg
+Source: mage-icons
+Icon file: https://github.com/Mage-Icons/mage-icons/blob/main/svg/stroke/Reload.svg
+License: https://github.com/Mage-Icons/mage-icons/blob/main/License.txt
 
 
 
@@ -508,7 +515,7 @@ License: https://github.com/ant-design/ant-design-icons/blob/master/LICENSE
 
 ***
 
-• info.svg  
+• info.svg , infoWhite.svg
 Author: Akveo (2018)  
 Source: Eva Icons  
 Icon file: https://github.com/akveo/eva-icons/blob/master/package/icons/outline/svg/info-outline.svg  
