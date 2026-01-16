@@ -262,13 +262,15 @@ export async function getLangData(lang) {
     return module[lang]
   } catch (error) {
     console.error("Unable to load language file");
-    return null
+    lang = 'en'
+    const module = await import(`@src/lang/${lang}.json`);
+    return module[lang]
   }
 }
 export function getServerUri() {
-  const url=new URL(window.location.href)
-  const origin=url.origin
-  return origin.replace(':'+url.port,'');
+  const url = new URL(window.location.href)
+  const origin = url.origin
+  return origin.replace(':' + url.port, '');
 }
 
 function formatBinary(num) {
@@ -299,4 +301,15 @@ export function prepareFetch(endpoint) {
   const baseUrl = getServerUri()
   const url = new URL(endpoint, baseUrl).href
   return url
+}
+
+export async function deletePlugin(id) {
+  if (!id) return undefined
+  const url = prepareFetch('/api/system/plugins?pluginID=' + id)
+  const res = await fetch(url, {
+    method: 'DELETE',
+    credentials: 'include'
+  });
+  if (res.ok) return true
+  return false
 }
