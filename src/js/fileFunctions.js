@@ -19,7 +19,6 @@ export function uploadFiles(directoryTree, droppedFiles,
     body: formData
   }).then((res) => {
     clearTimeout(timeout)
-    console.log(res.ok);
     if (res.ok) {
       if (promiseToast) toast.dismiss(promiseToast)
       frProps.setForceRender(frProps.forceRender + 1)

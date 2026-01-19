@@ -15,7 +15,6 @@ export default function LoginForm() {
     let lang = useContext(LangContext)
     let app = useContext(AppContext)
     lang = lang.login
-    console.log('lang: ', lang);
     //if (adminCreated && adminCreated.role >= 100) return <AdminCreatedComponent />
     return login ? <Login /> : <Register />
 

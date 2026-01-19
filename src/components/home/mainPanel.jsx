@@ -30,10 +30,8 @@ const MainPanelHome = memo(function MainPanelHome() {
 
     useEffect(() => {
         setUserData(JSON.parse(localStorage.getItem('userData')))
-        console.log('cambia');
     }, [appContextData.user.userData])
     useEffect(() => {
-        //console.log('userdata value ',userData);
     }, [userData])
     if (!userData) return
     return (<>
@@ -68,7 +66,6 @@ const MainPanelHome = memo(function MainPanelHome() {
     function MainNavigation() {
         const contextData = useContext(HomeContext)
         const userData = contextData.userData
-        console.log('userData: ', userData);
         if (!userData) return null
         return (
             <div className="mainPanelHome tabSelector" ref={panelRef}>

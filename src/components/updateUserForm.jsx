@@ -141,8 +141,6 @@ export default function UpdateUserForm({userData,getUsersFN}) {
                             let data = await response.json()
                             showToast(lang.toast[10], 'success')
                             const currentUser = appContextData.user.userData
-                            console.log('id',id);
-                            console.log('currentUser.id: ', currentUser.id);
                             if (id == currentUser.id) {
                                 localStorage.setItem('userData', JSON.stringify(data))
                                 user.setUserData({...data})

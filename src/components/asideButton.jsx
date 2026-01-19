@@ -23,7 +23,6 @@ function AsideButton({ data, currentTabProps, index, plugin = false }) {
                     onClick={() => {
                         currentTabProps.setCurrentTab(index)
                         const devMode=data.devMode
-                        console.log('devMode: ', devMode);
                         const devUrl=data.devUrl
                         const frontEnd=data.frontEnd
                         let frame=devUrl && devMode ? devUrl : frontEnd

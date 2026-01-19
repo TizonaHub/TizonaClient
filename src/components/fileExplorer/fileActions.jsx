@@ -53,7 +53,6 @@ function FileActions({ directoryTree, frProps,
                 if (!contextMenu) return
                 if (e.target == navWrapperRef.current) return
                 else contextMenu.style.visibility = 'hidden'
-                console.log(e.target);
             }}>
                 <button className='uploadResource' onClick={() => { uploadRef.current.click() }} ><img draggable={false} src={upload} /></button>
                 <button className='createFolder' onClick={() => { setShowCreateFolder(true) }} ><img draggable={false} src={createFolder} alt="" /></button>
@@ -93,7 +92,6 @@ function FileActions({ directoryTree, frProps,
         }).then(async (response) => {
             if (response.ok) {
                 const json = await response.json()
-                console.log('json: ', json);
                 if (json && json.mimeType.startsWith('image') || json.mimeType.startsWith('video')) {
                     const wallpaperString = JSON.stringify({ uri: preparedPath, mimeType: json.mimeType })
                     localStorage.setItem('wallpaper', wallpaperString)

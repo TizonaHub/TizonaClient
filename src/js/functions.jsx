@@ -191,7 +191,6 @@ export function selectionToArray(selection) {
 
   });
   string = string + ']'
-  console.log('string: ', string);
   return string
 }
 /**
@@ -297,11 +296,8 @@ export function formatNumber(num, decimal = true) {
 
 }
 export function prepareFetch(endpoint) {
-  console.log('endpoint: ', endpoint);
   const baseUrl = getServerUri()
-  console.log('baseUrl: ', baseUrl);
   const url = new URL(endpoint, baseUrl).href
-  console.log('url: ', url);
   return url
 }
 
